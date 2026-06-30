@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page B</title>
+</head>
+<body>
+    <h1>Yasmin Shapochkin 213824683</h1>
+    <h3 id="lblB"></h3>
+
+</body>
+<script>
+    const queryString = window.location.search;
+
+    const urlParams= new URLSearchParams(queryString);
+
+    const value = urlParams.get('value');
+
+    document.getElementById('lblB').innerText = value;
+
+</script>
+</html>

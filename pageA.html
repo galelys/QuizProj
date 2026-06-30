@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page A</title>
+</head>
+<body>
+    <h1>Yasmin Shapochkin 213824683</h1>
+    <input type="text" id="txtA" placeholder="Enter Text for Page B">
+    <button onclick="navigateToPageB()">Navigate to Page B</button>
+</body>
+<script>
+    function navigateToPageB(){
+
+        let inputValue= document.getElementById('txtA').value;
+
+        window.location.href= 'pageB.html?value=' + encodeURIComponent(inputValue);
+
+    }
+</script>
+</html>
