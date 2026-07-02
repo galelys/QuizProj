@@ -4,22 +4,32 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     // for "start" button 
     let btn_reg = document.getElementById('registBTN');
-    // moving a page 
-    btn_reg.addEventListener('click',register);
-    
+    // for "login" button
+    let btn_log = document.getElementById('loginBTN');
 
-    function register(){
+
+    // moving a page 
+    btn_reg.addEventListener('click', register);
+    btn_log.addEventListener('click' , login);
+    
+    function login(){
         // see if the user is actually in there
-        let usrn = document.getElementById('userName');
-        let pass = document.getElementById('paswrd');
+        const usrn = document.getElementById('userName')?.value;
+        const pass = document.getElementById('paswrd')?.value;
 
         // check 
-        
+
         // if yes then go to register
+
+
+    }
+
+
+
+});
+    function register(){
+        window.location.href='./register.html';
+        
 
     };
 
-});
-
-
-alert("Login Successfull!")
