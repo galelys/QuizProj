@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/login.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
     <title>Document</title>
 </head>
 <body>
-    
+    <div>
+        <div class="mainCard reg">
+            <b></b>
+            <h4>register</h4>
+            <div >
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1">teacher</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">student</label>
+
+            </div>
+            <div>
+            <h5>user name</h5>
+            <input id="userName" class="inpt" autocomplete="off">
+            </div>
+            <div>
+            <h5>id</h5>
+            <input id="id" class="inpt" autocomplete="off">
+            </div>
+            <div>
+            <h5> password</h5>
+            <input id="paswrd" type="password" class="inpt" autocomplete="off">
+            </div>
+            <button id="loginBTN" class="btn btn-outline-primary btt">register</button>
+            <h6>alreay have an account? <button id="backLogBTN" class="mvbtn">login</button></h6>
+        </div>
+    </div>
+    <script type="module" src="register.js"></script>
 </body>
 </html>

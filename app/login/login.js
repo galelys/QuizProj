@@ -3,13 +3,14 @@
 document.addEventListener('DOMContentLoaded' , function(){
 
     // for "start" button 
-    let btn_reg = document.getElementById('registBTN');
+    let btn_reg = document.getElementById('moveBTN');
     // for "login" button
     let btn_log = document.getElementById('loginBTN');
 
 
+
     // moving a page 
-    btn_reg.addEventListener('click', register);
+    btn_reg.addEventListener('click', goToRegister);
     btn_log.addEventListener('click' , login);
     
     function login(){
@@ -27,9 +28,8 @@ document.addEventListener('DOMContentLoaded' , function(){
 
 
 });
-    function register(){
-        window.location.href='./register.html';
-        
+function goToRegister() {
+    window.location.href = "./register.html";
+}
 
-    };
 
