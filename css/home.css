@@ -1,0 +1,32 @@
+/* main container */
+#mainC{
+    
+    justify-items: center;
+    padding: 5%;
+    
+}
+/* main title*/
+.mainT{
+    text-wrap-style: auto;
+    -webkit-text-fill-color: #796465;
+}
+
+#BD{
+    background-color: #c5af881c;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    height: 100vh;
+
+}
+.center{
+
+}
+#t{
+    padding: 40px;
+    box-shadow:blue;
+    background-color:#e8d2ae;
+    border-radius: 20px;
+    box-shadow: 0px 0px 21px -9px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 21px -9px rgba(0, 0, 0, 0.3);
+}
