@@ -1,3 +1,7 @@
+body {
+  background-color: #f5f5f5;
+}
+
 /* main container */
 #mainC{
     
@@ -46,6 +50,7 @@
     box-shadow: 0px 0px 21px -9px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0px 0px 21px -9px rgba(0, 0, 0, 0.5);
 }
+
 .cards{
     display: flex;
     flex-direction: column;

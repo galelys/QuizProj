@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded' , function(){
-    let btn_strt = document.getElementById('strtBTN');
 
+    // for "start" button 
+    let btn_strt = document.getElementById('strtBTN');
+    // moving a page 
     btn_strt.addEventListener('click',function(){
         window.location.href='login/login.html';
 
