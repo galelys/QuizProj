@@ -1,8 +1,8 @@
 import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
 
-
 document.addEventListener('DOMContentLoaded' , function(){
+    const userService = new UserService();
     // back to log in button 
     let btn_back = document.getElementById('backLogBTN');
     // button for submitting a new user 
@@ -17,13 +17,15 @@ function goToLogin() {
     window.location.href = "login.html";
 }
 
-function registser(){
-    // 1 see that every thing is submitted +
-    // 2 send to be added to the localstorege 
-    // will return false if already exists return true if added 
-    // continue to next page or stay and do err
+/*the function works like this :
+    see if any input is empty 
+    creates a user 
+    adds the new user to the local storage 
+    redirects to the relevent page 
+*/
 
-    // get all inputs 
+function registser(){
+
     let inputs = document.querySelectorAll('.inpt');
     let isValid = true;
 
@@ -32,9 +34,7 @@ function registser(){
         let val = e.value.trim();
         if(val === ""){
             e.style.border = "1px solid red";
-            return;
             isValid = false;
-
         }
         else{
             e.style.border = ""; 
@@ -44,34 +44,40 @@ function registser(){
     if (!isValid) {
         return; 
     }
-
-    let userType =  document.getElementById("btnradio1").checked ? "teacher" : "student"; 
+    // creation of a new user
+    let userType =  document.getElementById("btnradio1").checked ? "teacher" : "student";
+    let id =document.getElementById("id").value 
     // make a user
     const newUser = new User(
         document.getElementById("userName").value,
         document.getElementById("paswrd").value,
         userType,
-        document.getElementById("id").value
+        id
     );
     
     console.log(newUser);
 
-    // send to be added
-    const userService = new UserService();
+    // send to be added to local storage
     userService.addUser(newUser);
 
     // go to the next page 
-    // teacher
-    if(userType === "teacher"){
-        window.location.href = "../teacher/home.html";
-
-    }
-    else{ // student
-        window.location.href = "../student/home.html";
-    }
-
-
-    
+    goToPage(id);
 
 }
 
+/* function to redirect the user to its intended page */
+function goToPage(id) {
+    const userService = new UserService();
+    const user = userService.findUserById(id);
+
+    if (!user) return;
+
+    if (user.type === "student") {
+        window.location.href =
+            "../student/home.html?value=" + encodeURIComponent(JSON.stringify(user));
+    }
+    else{
+        window.location.href =
+            "../teacher/home.html?value=" + encodeURIComponent(JSON.stringify(user));
+    }
+}

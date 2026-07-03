@@ -1,26 +1,55 @@
-
+import { User } from "../../js/models/User.js";
+import { UserService } from "../../js/services/UserService.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
+    const userService = new UserService();
 
     // for "start" button 
     let btn_reg = document.getElementById('moveBTN');
     // for "login" button
     let btn_log = document.getElementById('loginBTN');
 
+    let inputs = document.querySelectorAll('.inpt');
+
+    // get all inputs 
+    
 
 
     // moving a page 
     btn_reg.addEventListener('click', goToRegister);
     btn_log.addEventListener('click' , login);
+
     
     function login(){
+
+        let isValid = true;
+
+        // see if inputs are empty if yes then return
+        inputs.forEach(e => {
+        let val = e.value.trim();
+        if(val === ""){
+            e.style.border = "1px solid red";
+            isValid = false;
+        }
+        else{
+            e.style.border = ""; 
+        }
+        
+        });
+        if (!isValid) {
+            return; 
+        }
         // see if the user is actually in there
-        const usrn = document.getElementById('userName')?.value;
-        const pass = document.getElementById('paswrd')?.value;
+        const id = document.getElementById('id').value;
+        const password = document.getElementById('paswrd').value;
 
-        // check 
-
-        // if yes then go to register
+        let success = userService.login(id, password);
+        
+        if (success) {
+        goToPage(id);
+        } else {
+        alert("Invalid login");
+        }
 
 
     }
@@ -30,6 +59,18 @@ document.addEventListener('DOMContentLoaded' , function(){
 });
 function goToRegister() {
     window.location.href = "./register.html";
+}
+
+function goToPage(id) {
+    const userService = new UserService();
+    const user = userService.findUserById(id);
+
+    if (!user) return;
+
+    if (user.type === "teacher") {
+        window.location.href =
+            "../student/home.html?value=" + encodeURIComponent(JSON.stringify(user));
+    }
 }
 
 

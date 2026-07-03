@@ -42,20 +42,16 @@ export class UserService {
     }
     const users = JSON.parse(data);
     return users.find( u => u.id === id ) || null;
-
   }
 
   // login check
-  login(name, password) {
-    const realUser = new User(
-      user.name,
-      user.password,
-      user.type,
-      user.id
-    );
-  
-
-    return realUser.checkPassword(password);
+  login(id, password) {
+    let usr = this.findUserById(id);
+    if(usr.password === password ){
+      return usr
+    }
+    return null;
+    
   }
 
 }
