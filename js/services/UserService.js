@@ -6,65 +6,56 @@ export class UserService {
   }
   
 
-  getAllExams() {
-        //get data from localStorage by examkey
-    const data = localStorage.getItem(this.storageKey);
-
-    if (!data) {
-      return []; //if not exist return empty array
-    }
-
-
-    const plainExams = JSON.parse(data);
-        //map function, clone object from examData. avoiding direct manipulation
-      return plainExams.map(examData => {
-           //create new
-        const exam = new Exam(examData.title);
-            //clone the data
-        exam.id = examData.id;
-        exam.createdAt = examData.createdAt;
-
-            //inner clone for questions
-        exam.questions = examData.questions.map(questionData => {
-          const question = new Question(
-            questionData.text,
-            questionData.answers,
-            questionData.correctAnswerIndex
-            );
-
-        question.id = questionData.id;
-
-          return question;
-        });
-
-        return exam;
-      });
-  };
 
   // add new user
-  addUser(User) {
-    const exams = this.getAllExams();
+  addUser(user) {
+    if(this.findUserById(user.id) !== null){
+      return false;
+    }
 
-    localStorage.setItem(this.storageKey, JSON.stringify(exams));
+    const data = localStorage.getItem(this.storageKey);
+    const plainUsers = data ? JSON.parse(data) : [];
+    plainUsers.push(user);
+
+    localStorage.setItem(this.storageKey, JSON.stringify(plainUsers));
+    return true;
  
   }
 
   // find user by name
   findUserByName(name) {
-    return this.users.find(user => user.name === name);
+    const data = localStorage.getItem(this.storageKey);
+
+    if (!data) {
+      return null; //if not exist return null
+    }
+
+    const users = JSON.parse(data);
+
+    return users.find( u => u.name === name ) || null;
+  }
+
+  findUserById(id){
+    const data = localStorage.getItem(this.storageKey);
+    if (!data) {
+      return null; //if not exist return null
+    }
+    const users = JSON.parse(data);
+    return users.find( u => u.id === id ) || null;
+
   }
 
   // login check
   login(name, password) {
-    const user = this.findUserByName(name);
+    const realUser = new User(
+      user.name,
+      user.password,
+      user.type,
+      user.id
+    );
+  
 
-    if (!user) return false;
-
-    return user.checkPassword(password);
+    return realUser.checkPassword(password);
   }
 
-  // get all users
-  getAllUsers() {
-    return this.users;
-  }
 }

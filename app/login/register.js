@@ -22,38 +22,56 @@ function registser(){
     // 2 send to be added to the localstorege 
     // will return false if already exists return true if added 
     // continue to next page or stay and do err
+
     // get all inputs 
     let inputs = document.querySelectorAll('.inpt');
-    // see if inputs are empty
+    let isValid = true;
+
+    // see if inputs are empty if yes then return
     inputs.forEach(e => {
         let val = e.value.trim();
         if(val === ""){
             e.style.border = "1px solid red";
             return;
+            isValid = false;
+
         }
         else{
             e.style.border = ""; 
         }
         
     });
+    if (!isValid) {
+        return; 
+    }
 
+    let userType =  document.getElementById("btnradio1").checked ? "teacher" : "student"; 
     // make a user
     const newUser = new User(
         document.getElementById("userName").value,
         document.getElementById("paswrd").value,
-        document.getElementById("btnradio1").checked ? "teacher" : "student",
+        userType,
         document.getElementById("id").value
     );
-    // send to be added? 
     
-    //localStorage.setItem("user", JSON.stringify(newUser));
+    console.log(newUser);
 
-    console.log('newUser');
+    // send to be added
+    const userService = new UserService();
+    userService.addUser(newUser);
+
+    // go to the next page 
+    // teacher
+    if(userType === "teacher"){
+        window.location.href = "../teacher/home.html";
+
+    }
+    else{ // student
+        window.location.href = "../student/home.html";
+    }
 
 
-
-
-
+    
 
 }
 
