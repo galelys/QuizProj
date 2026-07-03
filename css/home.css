@@ -1,20 +1,36 @@
+:root {
+    
+    
+    --text: #222;
+
+    --card: #ffffff;
+
+    --primary: #CB8589;
+    --border: rgba(0, 0, 0, 0.08);
+}
+/* body */
 body {
-  background: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
+    background: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
+    transition: background 0.3s ease, color 0.3s ease;
+    background-color: #c5af881c;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    height: 100vh;
 }
 
 body.dark-mode {
-    background: #121212;
-    color: #e6e6e6;
+    background: #372C3A;
 }
 
 /* main container */
 #mainC{
-    
     justify-items: center;
     padding: 5%;
     
     
 }
+
 /* main title*/
 .mainT{
 
@@ -24,32 +40,30 @@ body.dark-mode {
     color: #796465;
 }
 
-#BD{
-    
-    background-color: #c5af881c;
-    display: flex;
-    justify-content: center; /* horizontal */
-    align-items: center;     /* vertical */
-    height: 100vh;
-
+body.dark-mode .mainT {
+    color: #91787B;
 }
 
+
 #strtBTN {
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 10px;
+    font-size: 25px;
+    padding: 2px 14px;
+    border-radius: 8px;
+
     background: transparent;
-    color: #CB8589;
-    border: 1px solid #CB8589;
+    color: var(--primary);
+
+    border: 1px solid var(--primary);
+
     cursor: pointer;
-    font-weight: 500;
+
     transition: all 0.2s ease;
 }
 
+
 #strtBTN:hover {
-    background: #CB8589;
-    color: white;
-    border-color: #CB8589;
+    background: var(--primary);
+    color: #ffffff;
 }
 
 
@@ -73,6 +87,46 @@ body.dark-mode {
     border: 1px solid rgba(0, 0, 0, 0.05);
     
 }
+
+.cards, #strtBTN {
+    transition: all 0.2s ease;
+}
+
 body.dark-mode .cards {
+    background: #382E2F;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
+}
+
+body.dark-mode #strtBTN {
+    background: transparent;
+    color: #91787A;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode #strtBTN:hover {
+    background: #91787A;
+    color: #e6e6e6;
+    border: 1px solid rgba(145, 120, 122, 0.15);
+}
+
+#themeToggle {
+    background: #ffffff;
+    color: #222;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+body.dark-mode #themeToggle {
     background: #1b1b1b;
+    color: #e6e6e6;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+#themeToggle:hover {
+    opacity: 0.85;
 }
