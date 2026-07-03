@@ -1,10 +1,9 @@
 export class User {
-    constructor(name , password ) {
-        this.id = crypto.randomUUID();
+    constructor(name , password ,type , ID) {
+        this.id = ID;
         this.name = name;
         this.password = password; 
-
-
+        this.type = type;
   }
 
     checkPassword(inputPassword) {

@@ -1,15 +1,52 @@
-import { User } from "../models/user.js";
+import { User } from "../models/User.js";
 
 export class UserService {
   constructor() {
-    this.users = [];
+    this.storageKey = "users";
   }
+  
 
-  // create new user
-  createUser(name, password) {
-    const user = new User(name, password);
-    this.users.push(user);
-    return user;
+  getAllExams() {
+        //get data from localStorage by examkey
+    const data = localStorage.getItem(this.storageKey);
+
+    if (!data) {
+      return []; //if not exist return empty array
+    }
+
+
+    const plainExams = JSON.parse(data);
+        //map function, clone object from examData. avoiding direct manipulation
+      return plainExams.map(examData => {
+           //create new
+        const exam = new Exam(examData.title);
+            //clone the data
+        exam.id = examData.id;
+        exam.createdAt = examData.createdAt;
+
+            //inner clone for questions
+        exam.questions = examData.questions.map(questionData => {
+          const question = new Question(
+            questionData.text,
+            questionData.answers,
+            questionData.correctAnswerIndex
+            );
+
+        question.id = questionData.id;
+
+          return question;
+        });
+
+        return exam;
+      });
+  };
+
+  // add new user
+  addUser(User) {
+    const exams = this.getAllExams();
+
+    localStorage.setItem(this.storageKey, JSON.stringify(exams));
+ 
   }
 
   // find user by name
