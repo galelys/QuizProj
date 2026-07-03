@@ -71,17 +71,16 @@ function registser(){
 
 /* function to redirect the user to its intended page */
 function goToPage(id) {
+    
     const userService = new UserService();
     const user = userService.findUserById(id);
 
     if (!user) return;
+    
+    const target =
+        user.type === "teacher"
+            ? "../teacher/home.html"
+            : "../student/home.html";
 
-    if (user.type === "student") {
-        window.location.href =
-            "../student/home.html?value=" + encodeURIComponent(JSON.stringify(user));
-    }
-    else{
-        window.location.href =
-            "../teacher/home.html?value=" + encodeURIComponent(JSON.stringify(user));
-    }
+    window.location.href = target + "?id=" + encodeURIComponent(id);
 }

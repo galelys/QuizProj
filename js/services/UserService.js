@@ -29,7 +29,7 @@ export class UserService {
     }
     const users = JSON.parse(data);
 
-    return users.find( u => u.name === name ) || null;
+    return users.find( u => String(u.id) === String(id)) || null;
   }
 
   findUserById(id){
