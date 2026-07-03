@@ -69,19 +69,17 @@ function goToRegister() {
 }
 
 function goToPage(id) {
+    
     const userService = new UserService();
     const user = userService.findUserById(id);
 
     if (!user) return;
+    
+    const target =
+        user.type === "teacher"
+            ? "../teacher/home.html"
+            : "../student/home.html";
 
-    if (user.type === "teacher") {
-        window.location.href =
-            "../teacher/home.html?value=" + encodeURIComponent(JSON.stringify(user));
-    }
-    else{
-            window.location.href =
-            "../student/home.html?value=" + encodeURIComponent(JSON.stringify(user));
-    }
+    window.location.href = target + "?id=" + encodeURIComponent(id);
 }
-
 
