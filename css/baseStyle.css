@@ -1,13 +1,60 @@
-
-
 body{
-  background-color: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
-  transition: background 0.3s ease, color 0.3s ease;
-
+    background-color: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
+    transition: background 0.3s ease, color 0.3s ease;
+    margin: 0;
+    padding: 0;
+  
 }
+.menu{
+    background-color: #E3DDDE;
+    padding: 5px 1%;
+    display: flex;
+    gap: 0% 1%;
+    justify-content: center;
+    align-items: center;
+}
+
+body.dark-mode .menu{
+    background-color: #1c1820;
+}
+
+.menu > button{
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #d4d2d2;
+    color: #8da798;
+    border: 0px solid #8da798;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu > button:hover{
+    background: #c9cfcb;
+    color: #8da798;
+    border: 0px solid #8da798;
+    transition: all 0.2s ease;
+}
+
+.menu > button:active {
+    background: #cc4f4f;
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .menu > button{
+    background-color: #8d3bdf;
+}
+body.dark-mode .menu > button:hover{
+    background-color: #ffffff;
+}
+
 
 body.dark-mode {
     background: #171319;
+}
+
+.body-pad{
+    padding:2% 5%;
+    
 }
 /**/
 .mainCard{
@@ -69,7 +116,7 @@ body.dark-mode .main-text {
 /*dark theme button */
 #themeToggle {
     position: fixed;
-    bottom: 20px;
+    top: 7px;
     right: 20px;
     background: #ffffff;
     color: #222;
