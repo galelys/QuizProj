@@ -1,7 +1,10 @@
 import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
+import { initThemeToggle } from "../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
+    initThemeToggle();
+    
     
     // back to log in button 
     let btn_back = document.getElementById('backLogBTN');

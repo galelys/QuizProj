@@ -5,6 +5,7 @@ import { initThemeToggle } from "../../js/ui/theme.js";
 document.addEventListener('DOMContentLoaded' , function(){
 
     initThemeToggle();
+    
     const userService = new UserService();
 
     // for "start" button 

@@ -13,7 +13,7 @@ body {
     height: 400px;
 }
 .reg{
-     width: 400px;
+    width: 400px;
     height: 600px;
 
 }
@@ -40,5 +40,6 @@ body {
 button:hover{
     color: black;
 }
+
 
 

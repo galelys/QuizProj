@@ -3,6 +3,7 @@
 body{
   background-color: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
   transition: background 0.3s ease, color 0.3s ease;
+
 }
 
 body.dark-mode {
@@ -60,6 +61,10 @@ body.dark-mode .main-text {
     color: #91787B;
 }
 
+.second-text{
+    color: #91787B;
+    
+}
 
 /*dark theme button */
 #themeToggle {
@@ -106,4 +111,42 @@ body.dark-mode .inpt {
 
 body.dark-mode .inpt-err {
     border: 1px solid rgb(116, 3, 3);
+}
+
+.role-btn {
+    padding: 10px 20px;
+    display: inline-block;
+    border: 1px solid #E9D3AF;
+    border-radius: 10px;
+    background: transparent;
+    color: #E9D3AF;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+/* Hover */
+.role-btn:hover {
+    background: #F6EDDF;
+}
+
+/* Selected radio */
+.btn-check:checked + .role-btn {
+    border: 3px solid #E9D3AF;
+}
+
+body.dark-mode .role-btn{
+    border: 1px solid #523810;
+    color: #523810;
+
+}
+
+/* Hover dark mode*/
+.role-btn:hover {
+    background: #c5a87ba4;
+    color: white;
+}
+
+/* Selected radio dark mode */
+body.dark-mode .btn-check:checked + .role-btn {
+    border: 3px solid #523810;
 }
