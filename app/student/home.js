@@ -2,6 +2,7 @@ import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
 
 
+
 document.addEventListener('DOMContentLoaded' , function(){
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");

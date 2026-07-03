@@ -1,7 +1,10 @@
 import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
+import { initThemeToggle } from "../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
+
+    initThemeToggle();
     const userService = new UserService();
 
     // for "start" button 
@@ -34,11 +37,11 @@ document.addEventListener('DOMContentLoaded' , function(){
         inputs.forEach(e => {
         let val = e.value.trim();
         if(val === ""){
-            e.style.border = "1px solid red";
+            e.classList.add("inpt-err");
             isValid = false;
         }
         else{
-            e.style.border = ""; 
+            e.classList.remove("inpt-err");
         }
         
         });

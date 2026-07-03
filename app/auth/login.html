@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/login.css">
+
             <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -14,6 +14,8 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../../css/login.css">
+    <link rel="stylesheet" href="../../css/baseStyle.css">
     
     <title>Login</title>
 </head>
@@ -21,20 +23,23 @@
     <div>
         <div class="mainCard logn">
             <b></b>
-            <h4>sign in </h4>
+            <h4 class="main-text">sign in </h4>
             <div>
-            <h5>id</h5>
+            <h5 class="main-text">id</h5>
             <input id="id" class="inpt" autocomplete="off">
             </div>
             <div>
-            <h5> password</h5>
+            <h5 class="main-text"> password</h5>
             <input id="paswrd" type="password" class="inpt" autocomplete="off">
             </div>
-            <button id="loginBTN" class="btn btn-outline-primary">Login</button>
-            <h6>dont have an account yet? <button id="moveBTN" class="mvbtn">register</button></h6>
+            <button id="loginBTN" class="grn-btn">Login</button>
+            <h6 class="main-text">dont have an account yet? <button id="moveBTN" class="mvbtn">register</button></h6>
         </div>
+        
     </div>
+    <button id="themeToggle">Dark Mode</button>
     <script type="module" src="login.js"></script>
+    
 </body>
 
 </html>

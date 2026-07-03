@@ -1,11 +1,13 @@
 
 body {
-    background-color: #f5f5f5;
+
     display: flex;
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
     height: 100vh;
+    
 }
+
 .logn{
     width: 380px;
     height: 400px;
@@ -26,12 +28,6 @@ body {
     border-radius: 20px;
     box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
     
-}
-
-.inpt{
-    border: 0px;
-    border-radius: 7px;
-    background-color: #A28CA6;
 }
 
 
