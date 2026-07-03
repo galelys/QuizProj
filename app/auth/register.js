@@ -2,7 +2,7 @@ import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
-    const userService = new UserService();
+    
     // back to log in button 
     let btn_back = document.getElementById('backLogBTN');
     // button for submitting a new user 
@@ -25,6 +25,7 @@ function goToLogin() {
 */
 
 function registser(){
+    const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
     let isValid = true;

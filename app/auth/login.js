@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     after that redirects to the intended page
     */
     function login(){
+        console.log("login clicked");
 
         let isValid = true;
 
@@ -75,6 +76,10 @@ function goToPage(id) {
 
     if (user.type === "teacher") {
         window.location.href =
+            "../teacher/home.html?value=" + encodeURIComponent(JSON.stringify(user));
+    }
+    else{
+            window.location.href =
             "../student/home.html?value=" + encodeURIComponent(JSON.stringify(user));
     }
 }

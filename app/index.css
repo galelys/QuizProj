@@ -1,13 +1,4 @@
-:root {
-    
-    
-    --text: #222;
 
-    --card: #ffffff;
-
-    --primary: #CB8589;
-    --border: rgba(0, 0, 0, 0.08);
-}
 /* body */
 body {
     background: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
@@ -20,7 +11,7 @@ body {
 }
 
 body.dark-mode {
-    background: #372C3A;
+    background: #171319;
 }
 
 /* main container */
@@ -70,7 +61,7 @@ body.dark-mode .mainT {
 
 .cards{
 
-    background-color:#e8d2ae;
+    background-color:#fcfcfc;
 
     gap: 30px;
     display: flex;
@@ -93,7 +84,7 @@ body.dark-mode .mainT {
 }
 
 body.dark-mode .cards {
-    background: #382E2F;
+    background: #2c2731;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
 }
 

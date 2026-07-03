@@ -5,8 +5,6 @@ export class UserService {
     this.storageKey = "users";
   }
   
-
-
   // add new user
   addUser(user) {
     if(this.findUserById(user.id) !== null){
@@ -29,7 +27,6 @@ export class UserService {
     if (!data) {
       return null; //if not exist return null
     }
-
     const users = JSON.parse(data);
 
     return users.find( u => u.name === name ) || null;

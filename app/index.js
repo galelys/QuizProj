@@ -1,4 +1,4 @@
-import { initThemeToggle } from "./ui/theme.js";
+import { initThemeToggle } from "../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     let btn_strt = document.getElementById('strtBTN');
     // moving a page 
     btn_strt.addEventListener('click',function(){
-        window.location.href='login/login.html';
+        window.location.href='auth/login.html';
 
     });
     
