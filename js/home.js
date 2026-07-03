@@ -1,4 +1,9 @@
+import { initThemeToggle } from "./ui/theme.js";
+
 document.addEventListener('DOMContentLoaded' , function(){
+    
+    initThemeToggle();
+
 
     // for "start" button 
     let btn_strt = document.getElementById('strtBTN');

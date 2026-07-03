@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded' , function(){
     btn_reg.addEventListener('click', goToRegister);
     btn_log.addEventListener('click' , login);
 
-    
+    /*
+    function for logging in 
+    checks for empty input boxes 
+    if not sends the information to be verified
+    after that redirects to the intended page
+    */
     function login(){
 
         let isValid = true;
@@ -57,6 +62,7 @@ document.addEventListener('DOMContentLoaded' , function(){
 
 
 });
+
 function goToRegister() {
     window.location.href = "./register.html";
 }
