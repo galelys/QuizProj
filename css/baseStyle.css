@@ -199,6 +199,7 @@ body.dark-mode .btn-check:checked + .role-btn {
 }
 
 .secondary-card{
+    margin: 15px;
     background-color:#f7ebea;
     border: 1px solid #e4b7b3;
     border-radius: 8px;
@@ -217,7 +218,6 @@ body.dark-mode .secondary-card{
     cursor: pointer;
     border-radius: 6px;
 }
-
 
 .category-btn.active {
     background: #94bbe7;

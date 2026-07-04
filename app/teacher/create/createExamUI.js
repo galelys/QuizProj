@@ -20,7 +20,8 @@ export class ExamUI {
   clearBuilderMessage() {
     this.builderMessageElement.innerHTML = "";
   }
-
+    /* creates buttons adds the categories and adds the currect color depending on the status of the button 
+    also saves the category in local storage */
   showExamCategories(categoriesCard, categories) {
     categoriesCard.innerHTML = "";
 
@@ -33,15 +34,18 @@ export class ExamUI {
             button.classList.add("active");
         }
 
-        button.addEventListener("click", () => {
-          localStorage.setItem('selected_category' , `${category}`);
-          this.showExamCategories(categoriesCard, categories); 
+        button.addEventListener("click", () => { 
+          this.selectedCategory = category; 
+          categoriesCard.querySelectorAll(".category-btn").forEach(btn => 
+            btn.classList.remove("active")); 
+          button.classList.add("active"); 
+
         });
 
         categoriesCard.appendChild(button);
     });
   }
-/*
+
   renderExamList() {
     const exams = this.examService.getAllExams();
 
@@ -84,7 +88,7 @@ export class ExamUI {
 
       this.examListElement.appendChild(div);
     });
-  }*/
+  }
 
   renderExamRunner(exam) {
     if (!exam) {

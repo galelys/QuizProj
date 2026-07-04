@@ -98,16 +98,23 @@ saveExamBtn.addEventListener("click", () => {
     examUI.showBuilderMessage("Cannot save exam without questions.", "danger");
     return;
   }
-
+  currentExam.category = localStorage.getItem('selected_category');
+  if(currentExam.category === null){
+        examUI.showBuilderMessage("Cannot save exam without a category.", "danger");
+    return;
+  }
+  localStorage.removeItem('selected_category');
+  //console.log("selected category:", examService.selectedCategory);
+  //console.log("exam category:", currentExam.category);
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
-
+  
   currentExam = null;
 
   examTitleInput.value = "";
 
-  examUI.renderExamList();
+  //examUI.renderExamList();
 });
 
 /*
