@@ -21,11 +21,15 @@ const correctAnswerInput = document.getElementById("correctAnswer");
 
 const addQuestionBtn = document.getElementById("addQuestionBtn");
 const saveExamBtn = document.getElementById("saveExamBtn");
+let categorsCard = document.getElementById('categoryCard');
+let categories = examService.getCategories();
 
 
 
 //const examListElement = document.getElementById("examList");
 initThemeToggle();
+examUI.showExamCategories(categorsCard ,categories);
+
 
 
 

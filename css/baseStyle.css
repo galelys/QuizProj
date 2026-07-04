@@ -209,3 +209,33 @@ body.dark-mode .secondary-card{
     border:1px solid #443843;
     
 }
+
+.category-btn {
+    margin: 3px;
+    border: 0px solid #ccc;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+
+.category-btn.active {
+    background: #94bbe7;
+    color: white;
+    border-color: #4a90e2;
+}
+.category-btn:hover {
+    background: rgb(165, 133, 133);
+}
+
+body.dark-mode .category-btn{
+    background: rgb(255, 19, 19);
+}
+
+body.dark-mode .category-btn.active{
+    background: rgb(73, 41, 41);
+}
+
+body.dark-mode .category-btn:hover {
+    background: rgb(165, 133, 133);
+}

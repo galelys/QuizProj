@@ -6,6 +6,7 @@ export class ExamUI {
     this.examListElement = document.getElementById("examList");
     this.examRunnerElement = document.getElementById("examRunner");
     this.builderMessageElement = document.getElementById("builderMessage");
+    
   }
 
   showBuilderMessage(message, type = "success") {
@@ -18,6 +19,27 @@ export class ExamUI {
 
   clearBuilderMessage() {
     this.builderMessageElement.innerHTML = "";
+  }
+
+  showExamCategories(categoriesCard, categories) {
+    categoriesCard.innerHTML = "";
+
+    categories.forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category;
+        button.className = "category-btn";
+
+        if (this.selectedCategory === category) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+          localStorage.setItem('selected_category' , `${category}`);
+          this.showExamCategories(categoriesCard, categories); 
+        });
+
+        categoriesCard.appendChild(button);
+    });
   }
 /*
   renderExamList() {
