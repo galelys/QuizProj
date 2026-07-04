@@ -122,7 +122,7 @@ saveExamBtn.addEventListener("click", () => {
 
   examTitleInput.value = "";
 
-  //examUI.renderExamList();
+
 });
 
 
@@ -139,5 +139,5 @@ function clearQuestionInputs() {
 
 
 
-//examUI.renderExamList();
+
 

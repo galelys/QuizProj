@@ -3,10 +3,15 @@ import { UserService } from "../../js/services/UserService.js";
 import { initThemeToggle } from "../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
+
     // dark mode button initialization 
     initThemeToggle();
-    // create button 
+
+    // create Exam button 
     let create_bth = document.getElementById('createBTN');
+
+    // Exams list button
+    let examsLst_bth = document.getElementById('ExamsListBTN');
 
 
     
@@ -24,11 +29,17 @@ document.addEventListener('DOMContentLoaded' , function(){
     document.getElementById('title').textContent += user.name;
 
     create_bth.addEventListener('click' , GoToCreate);
+    examsLst_bth.addEventListener('click' , GoToList);
 
     function GoToCreate(){
         window.location.href = "./create/createExam.html";
         //document.getElementById("contentFrame").src = "./create/createExam.html";
     }
+
+    function GoToList(){
+        window.location.href = "./ExamsList/ExamsList.html";
+    }
+
 
     
 });
