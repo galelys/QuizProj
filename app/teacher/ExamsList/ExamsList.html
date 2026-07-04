@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./ExamsList.css">
     <link rel="stylesheet" href="../../../css/baseStyle.css">
     <title>Exams List</title>
 </head>
 <body>
-    <div>
-        <input type="text inpt" placeholder="search">
-
+    <div class="container py-4" style="padding: 20px 30px;">
+        <input id="searchBAR" type="text" placeholder="search" class=" inpt">
+        <button id="searchBTN">search</button>
+        <div class="container">
+            <div id="srcResults">
+            </div>
+        </div>
     </div>
 
     
+
+  <button id="themeToggle">Dark Mode</button>
 </body>
   <script type="module" src="./ExamsList.js"></script>
 </html>
