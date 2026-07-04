@@ -47,9 +47,26 @@ export class ExamUI {
     });
   }
 
-  renderExamList() {
+  renderSearchListTeacher(val){
     const exams = this.examService.getAllExams();
+      // find by TITLE
+      let results = exams.filter(exam => exam.title === val);
+        if (exams.length === 0) {
+      this.examListElement.innerHTML = `
+        <p class="text-muted">No exams saved yet.</p>
+      `;
+      return;
+    }
+    this.renderExamListSearch(results);
 
+  }
+  renderExamList(){
+    const exams = this.examService.getAllExams();
+    this.renderExamListSearch(exams);
+  }
+
+  renderExamListSearch(exams) {
+    
     this.examListElement.innerHTML = "";
 
     if (exams.length === 0) {
@@ -64,10 +81,10 @@ export class ExamUI {
       div.className = "exam-card mainCard main-text";
 
       div.innerHTML = `
-        <h5>${exam.title}</h5>
+        <h4>${exam.title} - Category: ${exam.category} </h4>
 
         <p class="small-muted">
-          Questions: ${exam.getQuestionCount()}
+          Questions: ${exam.getQuestionCount()} 
         </p>
 
         <p class="small-muted">

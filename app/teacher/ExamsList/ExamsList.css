@@ -53,7 +53,7 @@ body.dark-mode .delete-btn{
 }
 
 .base-btn:hover{
-    background-color: rgb(255, 0, 0);
+    background-color: rgba(126, 126, 126, 0.425);
 }
 
 body.dark-mode .base-btn:hover{
