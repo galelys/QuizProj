@@ -145,19 +145,40 @@ body.dark-mode #themeToggle {
     
 }
 
-body.dark-mode .inpt {
-    background: transparent;
-    color: #8a7b74;
-    border: 1px solid #9e928c;
-}
-
 /* for ivalid or empty input */
 .inpt-err{
     border: 1px solid red;
 }
 
+.inpt::placeholder{
+    color: #5f7ea1;
+}
+
+/*this oif for hiding the very ugly numbers arrows on the input from the number type**/
+/* Chrome, Safari, Edge */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+body.dark-mode .inpt {
+    background: transparent;
+    color: #8a7b74;
+    border: 1px solid #9e928c;
+} 
+
 body.dark-mode .inpt-err {
     border: 1px solid rgb(116, 3, 3);
+} 
+
+body.dark-mode .inpt::placeholder{
+    color: #475840;
 }
 
 .role-btn {
