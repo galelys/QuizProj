@@ -18,11 +18,13 @@ const answer3Input = document.getElementById("answer3");
 const answer4Input = document.getElementById("answer4");
 
 const correctAnswerInput = document.getElementById("correctAnswer");
+let timeLimitInput = document.getElementById('timeLimit');
 
 const addQuestionBtn = document.getElementById("addQuestionBtn");
 const saveExamBtn = document.getElementById("saveExamBtn");
 let categorsCard = document.getElementById('categoryCard');
 let categories = examService.getCategories();
+
 
 
 
@@ -104,8 +106,16 @@ saveExamBtn.addEventListener("click", () => {
     return;
   }
   localStorage.removeItem('selected_category');
-  //console.log("selected category:", examService.selectedCategory);
-  //console.log("exam category:", currentExam.category);
+  let time = Number(timeLimitInput.value);
+    if(isNaN(time) || time <= -1){
+      examUI.showBuilderMessage("Cannot save exam without questions.", "danger");
+    return;
+    
+  }
+  currentExam.timeLimit = time;
+  
+  
+  
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
@@ -117,29 +127,6 @@ saveExamBtn.addEventListener("click", () => {
   //examUI.renderExamList();
 });
 
-/*
-examListElement.addEventListener("click", event => {
-  const examId = event.target.dataset.id;
-
-  if (event.target.classList.contains("run-btn")) {
-    const exam = examService.getExamById(examId);
-
-    examUI.renderExamRunner(exam);
-  }
-
-  if (event.target.classList.contains("delete-btn")) {
-    const confirmed = confirm("Are you sure you want to delete this exam?");
-
-    if (!confirmed) {
-      return;
-    }
-
-    examService.deleteExam(examId);
-
-    examUI.renderExamList();
-  }
-});
-*/
 
 function clearQuestionInputs() {
   questionTextInput.value = "";

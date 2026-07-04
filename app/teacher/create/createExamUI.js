@@ -35,7 +35,8 @@ export class ExamUI {
         }
 
         button.addEventListener("click", () => { 
-          this.selectedCategory = category; 
+          //this.selectedCategory = category; 
+          localStorage.setItem('selected_category' , category);
           categoriesCard.querySelectorAll(".category-btn").forEach(btn => 
             btn.classList.remove("active")); 
           button.classList.add("active"); 

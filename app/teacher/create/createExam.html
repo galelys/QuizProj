@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
-    <link rel="stylesheet" href="../../../css/baseStyle.css">
 
-    <title>Create Exam</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/baseStyle.css">
+
+  <title>Create Exam</title>
 </head>
+
 <body>
   <div class="container py-4">
     <h1 class="main-text text-center mb-4 ">Create an Exam</h1>
@@ -23,40 +22,62 @@
 
         <div class="card mb-4 mainCard">
           <div class="card-header main-text">
-            <h3>Create Exam</h3>
+            <h3>Exam Information</h3>
           </div>
 
           <div class="card-body">
 
             <div class="mb-3">
               <label class="form-label main-text">Exam Title</label>
-              <input
-                id="examTitle"
-                type="text"
-                class="form-control inpt"
-                placeholder="Example: JavaScript Basics"
-              >
+              <input id="examTitle" type="text" class="form-control inpt" placeholder="Example: JavaScript Basics">
             </div>
 
             <hr>
 
-            <h5 class="main-text">Add Question</h5>
+            <!-- selecting the catagories-->
+            <div class="main-text">
+              <h6 class=" main-text">please choose an exam category</h6>
+              <div id="categoryCard"></div>
+            </div>
+
+            <!--the time limitation option -->
+            <div class="main-text">
+              <h6 class=" main-text">please choose a time limit (choose 0 if there is no time limit)</h6>
+              <p></p>
+              <input id="timeLimit" type="number" class="inpt">
+            </div>
+
+
+            <button id="saveExamBtn" class="btn btn-primary w-100">
+              Save Exam
+            </button>
+
+            <div id="builderMessage" class="mt-3"></div>
+
+          </div>
+        </div>
+
+      </div>
+      <!--RIGHT SIDE -- EXAM PREVIEW -->
+
+
+      <div class="col-md-6">
+        <div class="card mainCard">
+
+          <div class="card-header main-text">
+            <h3>Add Question</h3>
+          </div>
+          <div class="card-body">
+            <h5 class="main-text"></h5>
 
             <div class="mb-3">
               <label class="form-label second-text">Question Text</label>
-              <input
-                id="questionText"
-                type="text"
-                class="form-control inpt"
-                placeholder="Example: What is const?"
-              >
+              <input id="questionText" type="text" class="form-control inpt" placeholder="Example: What is const?">
             </div>
-
             <div class="mb-3">
               <label class="form-label second-text">Answer 1</label>
               <input id="answer1" type="text" class="form-control inpt">
             </div>
-
             <div class="mb-3">
               <label class="form-label second-text">Answer 2</label>
               <input id="answer2" type="text" class="form-control inpt">
@@ -71,65 +92,28 @@
               <label class="form-label second-text">Answer 4</label>
               <input id="answer4" type="text" class="form-control inpt">
             </div>
-
             <div class="mb-3">
               <label class="form-label second-text">Correct Answer Number</label>
-              <input
-                id="correctAnswer"
-                type="number"
-                class="form-control inpt"
-                min="1"
-                max="4"
-                placeholder="1-4"
-              >
+              <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
             </div>
 
             <button id="addQuestionBtn" class="btn btn-success w-100 mb-2 grn-btn">
               Add Question
             </button>
 
-            <button id="saveExamBtn" class="btn btn-primary w-100">
-              Save Exam
-            </button>
-
-            <div id="builderMessage" class="mt-3"></div>
-
           </div>
         </div>
-
       </div>
-      <!--RIGHT SIDE -- EXAM PREVIEW -->
-      <div class="col-md-7">
-        <div class="card mainCard">
-              <div class="card-header main-text">
-              <h3>more options</h3>
-              </div>
-              <div class="card-body" >
-                <!-- selecting the catagories-->
-                <div class="main-text">
-                  <h6 class=" main-text">please choose an exam category</h6>
-                    <div id="categoryCard"></div>
-                </div>
 
-                <!--the time limitation option -->
-                <div class="main-text">
-                  <h6 class=" main-text">please choose a time limit</h6>
-                    <input id="timeLimit" type="number" class="inpt">
-                </div>
-                
-              </div>
-          </div>
-        </div>
-
-      </div>
     </div>
+  </div>
 
   </div>
   <button id="themeToggle">Dark Mode</button>
   <!-- Main JavaScript file -->
   <script type="module" src="./app.js"></script>
   <script type="module" src="./createExamUI.js"></script>
-  
+
 
 </body>
 
