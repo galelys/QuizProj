@@ -15,10 +15,12 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     // added key listener for enter for when using search and then pressing enter
     document.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        console.log("Enter pressed");
-    }
+        if (event.key === "Enter") {
+            console.log("Enter pressed");
+        }
     });
+    
+    examUI.renderExamList();
 
 
 

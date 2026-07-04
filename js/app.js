@@ -133,4 +133,3 @@ function clearQuestionInputs() {
   correctAnswerInput.value = "";
 }
 
-//examUI.renderExamList();

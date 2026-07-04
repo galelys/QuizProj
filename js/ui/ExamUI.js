@@ -61,7 +61,7 @@ export class ExamUI {
     // for each Exam object create div and add it to html
     exams.forEach(exam => {
       const div = document.createElement("div");
-      div.className = "exam-card";
+      div.className = "exam-card mainCard main-text";
 
       div.innerHTML = `
         <h5>${exam.title}</h5>
@@ -75,16 +75,24 @@ export class ExamUI {
         </p>
 
         <button
-          class="btn btn-sm btn-success run-btn"
+          class="btn btn-sm btn-success run-btn base-btn"
           data-id="${exam.id}">
           Run Exam
         </button>
 
         <button
-          class="btn btn-sm btn-danger delete-btn"
+          class="btn btn-sm btn-danger edit-btn base-btn"
+          data-id="${exam.id}">
+          Edit
+        </button>
+
+        <button
+          class="btn btn-sm btn-danger delete-btn base-btn"
           data-id="${exam.id}">
           Delete
         </button>
+
+
       `;
 
       this.examListElement.appendChild(div);
