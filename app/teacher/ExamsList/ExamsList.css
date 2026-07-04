@@ -28,11 +28,6 @@
 
 }
 
-.base-btn{
-    padding: 8px 12px;
-    border-radius: 7px;
-    border: 0px;
-}
 
 
 body.dark-mode .run-btn{
@@ -52,11 +47,7 @@ body.dark-mode .delete-btn{
 
 }
 
-.base-btn:hover{
-    background-color: rgba(126, 126, 126, 0.425);
+input{
+    height: 28px;
 }
 
-body.dark-mode .base-btn:hover{
-    background-color: rgba(255, 255, 255, 0.13);
-    color: whitesmoke;
-}

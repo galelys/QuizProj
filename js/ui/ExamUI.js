@@ -60,6 +60,7 @@ export class ExamUI {
     this.renderExamListSearch(results);
 
   }
+
   renderExamList(){
     const exams = this.examService.getAllExams();
     this.renderExamListSearch(exams);

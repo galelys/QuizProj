@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     const examUI = new ExamUI(examService);
 
     let searchBtn = document.getElementById("searchBTN");
-    
+    let CLRBtn = document.getElementById("clearBTN");
 
     // added key listener for enter for when using search and then pressing enter
     document.addEventListener("keydown", (event) => {
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     });
 
     searchBtn.addEventListener('click' , search);
+    clearBTN.addEventListener('click' , clear);
     // show the list
     examUI.renderExamList();
 
@@ -34,6 +35,12 @@ document.addEventListener('DOMContentLoaded' , function(){
         console.log(searchVal);
         examUI.renderSearchListTeacher(searchVal);
 
+
+    }
+
+    function clear(){
+        examUI.renderExamList();
+        document.getElementById("searchBAR").value = "";
 
     }
 

@@ -261,3 +261,17 @@ body.dark-mode .category-btn:hover {
     background: rgb(165, 133, 133);
 }
 
+.base-btn:hover{
+    background-color: rgba(126, 126, 126, 0.425);
+}
+
+body.dark-mode .base-btn:hover{
+    background-color: rgba(255, 255, 255, 0.13);
+    color: whitesmoke;
+}
+
+.base-btn{
+    padding: 8px 12px;
+    border-radius: 7px;
+    border: 0px;
+}
