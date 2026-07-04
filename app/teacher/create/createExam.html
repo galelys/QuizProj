@@ -14,78 +14,77 @@
 </head>
 <body>
   <div class="container py-4">
-    <h1 class="text-center mb-4">Create an Exam</h1>
-
+    <h1 class="main-text text-center mb-4 ">Create an Exam</h1>
 
     <div class="row">
 
       <!-- LEFT SIDE: CREATE EXAM -->
       <div class="col-md-5">
 
-        <div class="card mb-4">
-          <div class="card-header bg-primary text-white">
-            Create Exam
+        <div class="card mb-4 mainCard">
+          <div class="card-header main-text">
+            <h3>Create Exam</h3>
           </div>
 
           <div class="card-body">
 
             <div class="mb-3">
-              <label class="form-label">Exam Title</label>
+              <label class="form-label main-text">Exam Title</label>
               <input
                 id="examTitle"
                 type="text"
-                class="form-control"
+                class="form-control inpt"
                 placeholder="Example: JavaScript Basics"
               >
             </div>
 
             <hr>
 
-            <h5>Add Question</h5>
+            <h5 class="main-text">Add Question</h5>
 
             <div class="mb-3">
-              <label class="form-label">Question Text</label>
+              <label class="form-label second-text">Question Text</label>
               <input
                 id="questionText"
                 type="text"
-                class="form-control"
+                class="form-control inpt"
                 placeholder="Example: What is const?"
               >
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Answer 1</label>
-              <input id="answer1" type="text" class="form-control">
+              <label class="form-label second-text">Answer 1</label>
+              <input id="answer1" type="text" class="form-control inpt">
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Answer 2</label>
-              <input id="answer2" type="text" class="form-control">
+              <label class="form-label second-text">Answer 2</label>
+              <input id="answer2" type="text" class="form-control inpt">
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Answer 3</label>
-              <input id="answer3" type="text" class="form-control">
+              <label class="form-label second-text">Answer 3</label>
+              <input id="answer3" type="text" class="form-control inpt">
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Answer 4</label>
-              <input id="answer4" type="text" class="form-control">
+              <label class="form-label second-text">Answer 4</label>
+              <input id="answer4" type="text" class="form-control inpt">
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Correct Answer Number</label>
+              <label class="form-label second-text">Correct Answer Number</label>
               <input
                 id="correctAnswer"
                 type="number"
-                class="form-control"
+                class="form-control inpt"
                 min="1"
                 max="4"
                 placeholder="1-4"
               >
             </div>
 
-            <button id="addQuestionBtn" class="btn btn-success w-100 mb-2">
+            <button id="addQuestionBtn" class="btn btn-success w-100 mb-2 grn-btn">
               Add Question
             </button>
 
@@ -99,15 +98,37 @@
         </div>
 
       </div>
+      <!--RIGHT SIDE -- EXAM PREVIEW -->
+      <div class="col-md-7">
+        <div class="card mainCard">
+              <div class="card-header main-text">
+              <h3>more options</h3>
+              </div>
+              <div class="card-body">
+                <!-- selecting the catagories-->
+                <div class=" secondary-card main-text">
+                  <h6 class=" main-text">please choose an exam category</h6>
+                    <div id="categoryCard"></div>
+                </div>
 
+                <!--the time limitation option -->
+                <div class="secondary-card second-text">time limit
+                    <input id="timeLimit" type="number" class="inpt">
+                </div>
+                
+              </div>
+          </div>
+        </div>
 
+      </div>
     </div>
 
   </div>
-
+  <button id="themeToggle">Dark Mode</button>
   <!-- Main JavaScript file -->
   <script type="module" src="./app.js"></script>
-<script type="module" src="./createExamUI.js"></script>
+  <script type="module" src="./createExamUI.js"></script>
+  
 
 </body>
 

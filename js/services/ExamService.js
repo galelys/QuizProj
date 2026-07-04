@@ -4,6 +4,7 @@ import { Question } from "../models/Question.js";
 export class ExamService {
     constructor() {
         this.storageKey = "exams";
+        this.categories = ["Java" , "c++" , "Math" , "English" , "History" , "Python"];
     }
 
     getAllExams() {
@@ -23,6 +24,9 @@ export class ExamService {
             //clone the data
             exam.id = examData.id;
             exam.createdAt = examData.createdAt;
+            exam.timeLimit = examData.timeLimit;
+            exam.category = examData.category;
+
 
             //inner clone for questions
             exam.questions = examData.questions.map(questionData => {
@@ -45,8 +49,16 @@ export class ExamService {
 
         const exams = this.getAllExams();
         //delete(exam.id) to remove old version of the exam
-        exams.push(exam);
+        const index = exams.findIndex(e => e.id === exam.id);
 
+        if (index !== -1) {
+            // update existing exam
+            exams[index] = exam;       
+        } 
+        // add new exam
+        else {
+            exams.push(exam);         
+        }
         localStorage.setItem(this.storageKey, JSON.stringify(exams));
     }
 
@@ -64,7 +76,17 @@ export class ExamService {
         return exams.find(exam => exam.id === examId);
     }
 
+    getCategories(){
+        return this.categories;
+    }
+
     clearAllExams() {
         localStorage.removeItem(this.storageKey);
     }
+
+    getExamsByCategory(category) {
+        const exams = this.getAllExams();
+        return exams.filter(exam => exam.category === category);
+    }
+
 }

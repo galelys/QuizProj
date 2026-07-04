@@ -19,7 +19,7 @@ export class ExamUI {
   clearBuilderMessage() {
     this.builderMessageElement.innerHTML = "";
   }
-
+/*
   renderExamList() {
     const exams = this.examService.getAllExams();
 
@@ -62,7 +62,7 @@ export class ExamUI {
 
       this.examListElement.appendChild(div);
     });
-  }
+  }*/
 
   renderExamRunner(exam) {
     if (!exam) {

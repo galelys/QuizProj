@@ -4,6 +4,9 @@ export class Exam {
     this.title = title;
     this.questions = [];
     this.createdAt = new Date().toISOString();
+    this.timeLimit = 0;
+    this.category = "";
+
   }
 
   addQuestion(question) {
@@ -13,4 +16,13 @@ export class Exam {
   getQuestionCount() {
     return this.questions.length;
   }
+
+  addTimeLimit(time){
+    this.timeLimit = time;
+  }
+
+  addCategory(category){
+    this.category = category;
+  }
+  
 }

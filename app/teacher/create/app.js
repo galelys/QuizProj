@@ -2,6 +2,7 @@ import { Question } from "../../../js/models/Question.js";
 import { Exam } from "../../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "./createExamUI.js";
+import { initThemeToggle } from "../../../js/ui/theme.js";
 
 const examService = new ExamService();
 const examUI = new ExamUI(examService);
@@ -21,7 +22,12 @@ const correctAnswerInput = document.getElementById("correctAnswer");
 const addQuestionBtn = document.getElementById("addQuestionBtn");
 const saveExamBtn = document.getElementById("saveExamBtn");
 
+
+
 //const examListElement = document.getElementById("examList");
+initThemeToggle();
+
+
 
 addQuestionBtn.addEventListener("click", () => {
   const title = examTitleInput.value.trim();
@@ -99,6 +105,7 @@ saveExamBtn.addEventListener("click", () => {
 
   examUI.renderExamList();
 });
+
 /*
 examListElement.addEventListener("click", event => {
   const examId = event.target.dataset.id;
@@ -134,4 +141,7 @@ function clearQuestionInputs() {
   correctAnswerInput.value = "";
 }
 
-examUI.renderExamList();
+
+
+//examUI.renderExamList();
+
