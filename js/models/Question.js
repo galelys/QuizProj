@@ -1,9 +1,10 @@
 export class Question {
-  constructor(text, answers, correctAnswerIndex) {
+  constructor(text, answers, correctAnswerIndex , difficulty) {
     this.id = crypto.randomUUID();
     this.text = text;
     this.answers = answers;
     this.correctAnswerIndex = correctAnswerIndex;
+    this.difficulty = difficulty;
   }
 
   isCorrect(userAnswerIndex) {

@@ -32,12 +32,26 @@ let categories = examService.getCategories();
 initThemeToggle();
 examUI.showExamCategories(categorsCard ,categories);
 
+// the difficulty slider
+const sliderQDiff = document.getElementById("questionDiff");
+const outputQDiff = document.getElementById("diffValue");
 
+// set initial value
+outputQDiff.textContent = sliderQDiff.value;
+
+// update on change
+sliderQDiff.addEventListener("input", () => {
+  outputQDiff.textContent = sliderQDiff.value;
+});
 
 
 addQuestionBtn.addEventListener("click", () => {
   const title = examTitleInput.value.trim();
   const questionText = questionTextInput.value.trim();
+
+  // the difficulty slider
+  let questionDiff = Number(sliderQDiff.value);
+  //console.log(questionDiff);
 
   const answers = [
     answer1Input.value.trim(),
@@ -77,7 +91,8 @@ addQuestionBtn.addEventListener("click", () => {
   const question = new Question(
     questionText,
     answers,
-    correctAnswerIndex
+    correctAnswerIndex,
+    questionDiff
   );
 
   currentExam.addQuestion(question);
