@@ -108,7 +108,10 @@ export class ExamUI {
       div.className = "exam-card mainCard main-text";
 
       div.innerHTML = `
-        <h4>${exam.title} - Category: ${exam.category} </h4>
+        <h4>
+         ${exam.category} - ${exam.title} -
+        ${exam.timeLimit === 0 ? "Unlimited" : `${exam.timeLimit} min`}
+        </h4>
 
         <p class="small-muted">
           Questions: ${exam.getQuestionCount()} 
