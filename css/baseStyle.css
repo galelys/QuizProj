@@ -56,11 +56,12 @@ body.dark-mode {
     padding:2% 5%;
     
 }
+
 /**/
 .mainCard{
-    background-color:#fcfcfc;
+    background-color:#F7EDDE;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 0px solid #e7d3b6b4;
     
 }
 
