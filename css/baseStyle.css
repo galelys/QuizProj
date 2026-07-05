@@ -17,7 +17,7 @@ body{
 body.dark-mode .menu{
     background-color: #1c1820;
 }
-
+/*
 .menu > button{
     padding: 10px 20px;
     border-radius: 8px;
@@ -38,7 +38,7 @@ body.dark-mode .menu{
 .menu > button:active {
     background: #cc4f4f;
     transition: all 0.2s ease;
-}
+}*/
 
 body.dark-mode .menu > button{
     background-color: #8d3bdf;
@@ -249,6 +249,8 @@ body.dark-mode .secondary-card{
     background: rgb(165, 133, 133);
 }
 
+
+
 body.dark-mode .category-btn{
     background: rgb(255, 19, 19);
 }
@@ -260,21 +262,24 @@ body.dark-mode .category-btn.active{
 body.dark-mode .category-btn:hover {
     background: rgb(165, 133, 133);
 }
-
-.base-btn:hover{
-    background-color: rgba(126, 126, 126, 0.425);
-}
-
-body.dark-mode .base-btn:hover{
-    background-color: rgba(255, 255, 255, 0.13);
-    color: whitesmoke;
-}
-
+/* basic non big or important buttons */
 .base-btn{
     padding: 8px 12px;
     border-radius: 7px;
     border: 0px;
     cursor: pointer;
+}
+
+.base-btn:hover{
+    background-color: rgba(126, 126, 126, 0.425);
+}
+body.dark-mode .base-btn{
+    background-color: rgba(255, 255, 255, 0.13);
+    color: whitesmoke;
+}
+body.dark-mode .base-btn:hover{
+    background-color: #8a7b7481;
+    color: whitesmoke;
 }
 
 #questionDiff{
