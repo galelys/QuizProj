@@ -47,13 +47,19 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     }
 
+
+    // event listener for the exams buttons
 examListElement.addEventListener("click", event => {
   const examId = event.target.dataset.id;
 
+// the run button
   if (event.target.classList.contains("run-btn")) {
     const exam = examService.getExamById(examId);
+    // store the exam id to local store 
+    localStorage.setItem("examID" ,examId );
+    window.location.href = "../ExamRunner/ExamRunner.html";
 
-    examUI.renderExamRunner(exam);
+    //examUI.renderExamRunner(exam);
   }
 
   if (event.target.classList.contains("delete-btn")) {
@@ -65,7 +71,7 @@ examListElement.addEventListener("click", event => {
 
     examService.deleteExam(examId);
 
-    examUI.renderExamList();
+    examUI.renderExamList("teacher");
   }
 });
 
