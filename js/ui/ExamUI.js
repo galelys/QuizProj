@@ -257,26 +257,10 @@ export class ExamUI {
       `;
       return;
     }
-    this.examEditElement.innerHTML = `
+    let title = document.getElementById('examName');
+    title.innerHTML = `
       <h4 class="main-text">EDIT: ${exam.title}</h4>
-
-      <label class="form-label mt-3 second-text">Select question:</label>
-      <select id="questionSelect" class="form-select mb-3 inpt"></select>
-
-      <div id="questionEditor"></div>
-
-      <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
-        Save Changes
-      </button>
-
-      <button id="deleteQuestionBtn" class="btn btn-danger mt-3">
-        Delete Question
-      </button>
-
-      <button id="addQuestionBtn" class="btn btn-primary mt-3">
-      Add New Question
-      </button>
-    `;
+  `;
 
     const select = document.getElementById("questionSelect");
 
@@ -285,6 +269,7 @@ export class ExamUI {
       option.value = index;
       option.textContent = `Question ${index + 1}`;
       select.appendChild(option);
+
     });
 
     const editor = document.getElementById("questionEditor");
@@ -310,6 +295,6 @@ export class ExamUI {
     renderQuestion(0);
 
   }
-
+  
 
 }
