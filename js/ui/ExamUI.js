@@ -258,14 +258,14 @@ export class ExamUI {
       return;
     }
     this.examEditElement.innerHTML = `
-      <h4>EDIT: ${exam.title}</h4>
+      <h4 class="main-text">EDIT: ${exam.title}</h4>
 
-      <label class="form-label mt-3">Select question:</label>
-      <select id="questionSelect" class="form-select mb-3"></select>
+      <label class="form-label mt-3 second-text">Select question:</label>
+      <select id="questionSelect" class="form-select mb-3 inpt"></select>
 
       <div id="questionEditor"></div>
 
-      <button id="saveQuestionBtn" class="btn btn-success mt-3">
+      <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
         Save Changes
       </button>
 
@@ -290,23 +290,19 @@ export class ExamUI {
     const editor = document.getElementById("questionEditor");
 
     function renderQuestion(index) {
-      const question = exam.questions[index];
+      const q = exam.questions[index];
 
       editor.innerHTML = `
-    <div class="question-box">
-      <h5>Edit Question ${index + 1}</h5>
+    <input id="editText" class="form-control mb-2 inpt" value="${q.text}">
 
-      <input class="form-control mb-2" value="${question.text}">
-
-      ${question.answers.map((answer, answerIndex) => `
-        <div class="mb-2">
-          <input class="form-control"
-                 value="${answer}">
-        </div>
-      `).join("")}
-    </div>
-  `;
+    ${q.answers.map((a, i) => `
+      <input class="form-control mb-2 edit-answer inpt"
+             data-index="${i}"
+             value="${a}">
+    `).join("")}
+    `;
     }
+
     select.addEventListener("change", (e) => {
       renderQuestion(Number(e.target.value));
     });
