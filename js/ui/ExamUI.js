@@ -27,7 +27,8 @@ export class ExamUI {
     this.examRunnerElement = document.getElementById("examRunner");
     this.builderMessageElement = document.getElementById("builderMessage");
     this.examEditElement = document.getElementById("examEdit");
-    
+    this.examEditButtonsElement = document.getElementById("questionsBTNCard");
+
   }
 
   showBuilderMessage(message, type = "success") {
@@ -41,36 +42,36 @@ export class ExamUI {
   clearBuilderMessage() {
     this.builderMessageElement.innerHTML = "";
   }
-    /* creates buttons adds the categories and adds the currect color depending on the status of the button 
-    also saves the category in local storage */
+  /* creates buttons adds the categories and adds the currect color depending on the status of the button 
+  also saves the category in local storage */
   showExamCategories(categoriesCard, categories) {
     categoriesCard.innerHTML = "";
 
     categories.forEach(category => {
-        const button = document.createElement("button");
-        button.textContent = category;
-        button.className = "category-btn";
+      const button = document.createElement("button");
+      button.textContent = category;
+      button.className = "category-btn";
 
-        if (this.selectedCategory === category) {
-            button.classList.add("active");
-        }
+      if (this.selectedCategory === category) {
+        button.classList.add("active");
+      }
 
-        button.addEventListener("click", () => { 
-          //this.selectedCategory = category; 
-          localStorage.setItem('selected_category' , category);
-          categoriesCard.querySelectorAll(".category-btn").forEach(btn => 
-            btn.classList.remove("active")); 
-          button.classList.add("active"); 
+      button.addEventListener("click", () => {
+        //this.selectedCategory = category; 
+        localStorage.setItem('selected_category', category);
+        categoriesCard.querySelectorAll(".category-btn").forEach(btn =>
+          btn.classList.remove("active"));
+        button.classList.add("active");
 
-        });
+      });
 
-        categoriesCard.appendChild(button);
+      categoriesCard.appendChild(button);
     });
   }
 
-  sorterListTeacher(val){
+  sorterListTeacher(val) {
     const exams = this.examService.getAllExams();
-      // find by TITLE
+    // find by TITLE
     let results = exams.filter(exam =>
       exam.title.includes(val)
     );
@@ -79,23 +80,23 @@ export class ExamUI {
 
   }
 
-  renderExamList(user){
+  renderExamList(user) {
     const exams = this.examService.getAllExams();
-    if(user === "teacher"){ 
+    if (user === "teacher") {
       this.renderExamListSearchTeacher(exams);
     }
-    else if(user == "student"){
+    else if (user == "student") {
       //this.renderExamListSearchStudent(exams);
       console("future featuer");
     }
-    else{
+    else {
       return;
     }
 
   }
 
   renderExamListSearchTeacher(exams) {
-    
+
     this.examListElement.innerHTML = "";
 
     if (exams.length === 0) {
@@ -237,11 +238,69 @@ export class ExamUI {
     this.examRunnerElement.appendChild(resultDiv);
   }
 
-  renderExamEdit(exam){
-    
+  // function for rendering the edit file
+  renderExamEdit(exam) {
+    this.examEditElement.innerHTML = "";
+    if (!exam) {
+      this.examEditElement.innerHTML = `
+        <div class="alert alert-danger">
+          Exam not found.
+        </div>
+      `;
+      return;
+    }
+    if (exam.questions.length === 0) {
+      this.examEditElement.innerHTML = `
+        <div class="alert alert-warning">
+          This exam has no questions.
+        </div>
+      `;
+      return;
+    }
+    this.examEditElement.innerHTML = `
+  <h4>EDIT: ${exam.title}</h4>
+
+  <label class="form-label mt-3">Select question to edit:</label>
+  <select id="questionSelect" class="form-select mb-3"></select>
+
+  <div id="questionEditor"></div>
+`;
+
+    const select = document.getElementById("questionSelect");
+
+    exam.questions.forEach((q, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `Question ${index + 1}`;
+      select.appendChild(option);
+    });
+    const editor = document.getElementById("questionEditor");
+
+    function renderQuestion(index) {
+      const question = exam.questions[index];
+
+      editor.innerHTML = `
+    <div class="question-box">
+      <h5>Edit Question ${index + 1}</h5>
+
+      <input class="form-control mb-2" value="${question.text}">
+
+      ${question.answers.map((answer, answerIndex) => `
+        <div class="mb-2">
+          <input class="form-control"
+                 value="${answer}">
+        </div>
+      `).join("")}
+    </div>
+  `;
+    }
+    select.addEventListener("change", (e) => {
+      renderQuestion(Number(e.target.value));
+    });
+
+
+
   }
-
-
 
 
 }

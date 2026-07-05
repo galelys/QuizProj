@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
 
-    let examID = localStorage.getItem("ExamID");
-    
+    let examID = localStorage.getItem("examID");
+
+    let exam = examService.getExamById(examID);
+
+    examUI.renderExamEdit(exam);
 
 
 });
