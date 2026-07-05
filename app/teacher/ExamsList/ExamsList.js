@@ -4,12 +4,12 @@ import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 
-document.addEventListener('DOMContentLoaded' , function(){
+document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
 
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
-    
+
     const examListElement = document.getElementById("examList");
 
 
@@ -24,15 +24,15 @@ document.addEventListener('DOMContentLoaded' , function(){
         }
     });
 
-    searchBtn.addEventListener('click' , search);
-    clearBTN.addEventListener('click' , clear);
+    searchBtn.addEventListener('click', search);
+    clearBTN.addEventListener('click', clear);
     // show the list
     examUI.renderExamList("teacher");
 
-    function search(){
+    function search() {
         let searchVal = document.getElementById("searchBAR").value;
 
-        if(searchVal === ""){
+        if (searchVal === "") {
             return;
         }
         console.log(searchVal);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     }
 
-    function clear(){
+    function clear() {
         examUI.renderExamList("teacher");
         document.getElementById("searchBAR").value = "";
 
@@ -49,31 +49,41 @@ document.addEventListener('DOMContentLoaded' , function(){
 
 
     // event listener for the exams buttons
-examListElement.addEventListener("click", event => {
-  const examId = event.target.dataset.id;
+    examListElement.addEventListener("click", event => {
+        const examId = event.target.dataset.id;
 
-// the run button
-  if (event.target.classList.contains("run-btn")) {
-    const exam = examService.getExamById(examId);
-    // store the exam id to local store 
-    localStorage.setItem("examID" ,examId );
-    window.location.href = "../ExamRunner/ExamRunner.html";
+        // the run button
+        if (event.target.classList.contains("run-btn")) {
+            const exam = examService.getExamById(examId);
+            // store the exam id to local store 
+            localStorage.setItem("examID", examId);
+            window.location.href = "../../ExamRunner/ExamRunner.html";
 
-    //examUI.renderExamRunner(exam);
-  }
+            //examUI.renderExamRunner(exam);
+        }
+        // the edit button
+        if (event.target.classList.contains("edit-btn")) {
+            const exam = examService.getExamById(examId);
 
-  if (event.target.classList.contains("delete-btn")) {
-    const confirmed = confirm("Are you sure you want to delete this exam?");
+            // store the exam id to local store 
+            localStorage.setItem("examID", examId);
+            window.location.href = "../Edit/Edit.html";
 
-    if (!confirmed) {
-      return;
-    }
+            //examUI.renderExamRunner(exam);
+        }
+        // the delete button 
+        if (event.target.classList.contains("delete-btn")) {
+            const confirmed = confirm("Are you sure you want to delete this exam?");
 
-    examService.deleteExam(examId);
+            if (!confirmed) {
+                return;
+            }
 
-    examUI.renderExamList("teacher");
-  }
-});
+            examService.deleteExam(examId);
+
+            examUI.renderExamList("teacher");
+        }
+    });
 
 
 
