@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     searchBtn.addEventListener('click' , search);
     clearBTN.addEventListener('click' , clear);
     // show the list
-    examUI.renderExamList();
+    examUI.renderExamList("teacher");
 
     function search(){
         let searchVal = document.getElementById("searchBAR").value;
@@ -33,13 +33,13 @@ document.addEventListener('DOMContentLoaded' , function(){
             return;
         }
         console.log(searchVal);
-        examUI.renderSearchListTeacher(searchVal);
+        examUI.sorterListTeacher(searchVal);
 
 
     }
 
     function clear(){
-        examUI.renderExamList();
+        examUI.renderExamList("teacher");
         document.getElementById("searchBAR").value = "";
 
     }

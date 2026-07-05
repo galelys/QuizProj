@@ -1,3 +1,22 @@
+/*IMPORTANT!!
+  the render list functions 
+
+  ! renderSearchListTeacher( exams) - the search UI for the teacher
+  recives the exams list that is needed to show
+
+  ! renderExamList(val) - shows all the exams in a list, 
+  recives a string of the user that requesting the list 
+
+  ! sorterListTeacher - 
+  recives the string that was inserted in the search bar
+  it filters the exams by that, works alsowith partially dosent have to be exact
+  then calls renderSearchListTeacher( exams)
+
+
+
+*/
+
+
 export class ExamUI {
   constructor(examService) {
     //get service for CRUD Operations on Exams
@@ -47,26 +66,33 @@ export class ExamUI {
     });
   }
 
-  renderSearchListTeacher(val){
+  sorterListTeacher(val){
     const exams = this.examService.getAllExams();
       // find by TITLE
-      let results = exams.filter(exam => exam.title === val);
-        if (exams.length === 0) {
-      this.examListElement.innerHTML = `
-        <p class="text-muted">No exams saved yet.</p>
-      `;
+    let results = exams.filter(exam =>
+      exam.title.includes(val)
+    );
+
+    this.renderExamListSearchTeacher(results);
+
+  }
+
+  renderExamList(user){
+    const exams = this.examService.getAllExams();
+    if(user === "teacher"){ 
+      this.renderExamListSearchTeacher(exams);
+    }
+    else if(user == "student"){
+      //this.renderExamListSearchStudent(exams);
+      console("future featuer");
+    }
+    else{
       return;
     }
-    this.renderExamListSearch(results);
 
   }
 
-  renderExamList(){
-    const exams = this.examService.getAllExams();
-    this.renderExamListSearch(exams);
-  }
-
-  renderExamListSearch(exams) {
+  renderExamListSearchTeacher(exams) {
     
     this.examListElement.innerHTML = "";
 
