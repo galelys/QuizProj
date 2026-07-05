@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
     examUI.renderExamEdit(exam);
 
     // relevant buttons for editing the test
-    let saveBTN = examService.getExamById(saveQuestionBtn);
-    let deleteBTN = examService.getExamById(deleteQuestionBtn);
-    let addBTN = examService.getExamById(addQuestionBtn);
+    let saveBTN = document.getElementById('saveQuestionBtn');
+    let deleteBTN = document.getElementById('deleteQuestionBtn');
+    let addBTN = document.getElementById('addQuestionBtn');
 
 
     saveBTN.addEventListener("click", () => {
