@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
+    
+    const examListElement = document.getElementById("examList");
+
 
     let searchBtn = document.getElementById("searchBTN");
     let CLRBtn = document.getElementById("clearBTN");
@@ -44,7 +47,27 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     }
 
+examListElement.addEventListener("click", event => {
+  const examId = event.target.dataset.id;
 
+  if (event.target.classList.contains("run-btn")) {
+    const exam = examService.getExamById(examId);
+
+    examUI.renderExamRunner(exam);
+  }
+
+  if (event.target.classList.contains("delete-btn")) {
+    const confirmed = confirm("Are you sure you want to delete this exam?");
+
+    if (!confirmed) {
+      return;
+    }
+
+    examService.deleteExam(examId);
+
+    examUI.renderExamList();
+  }
+});
 
 
 
