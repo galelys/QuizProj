@@ -12,6 +12,7 @@
   it filters the exams by that, works alsowith partially dosent have to be exact
   then calls renderSearchListTeacher( exams)
 
+  ! in the builder, there are the id names for the needed divs to insert there the exams 
 
 
 */
@@ -25,6 +26,7 @@ export class ExamUI {
     this.examListElement = document.getElementById("examList");
     this.examRunnerElement = document.getElementById("examRunner");
     this.builderMessageElement = document.getElementById("builderMessage");
+    this.examEditElement = document.getElementById("examEdit");
     
   }
 
@@ -234,4 +236,12 @@ export class ExamUI {
 
     this.examRunnerElement.appendChild(resultDiv);
   }
+
+  renderExamEdit(exam){
+    
+  }
+
+
+
+
 }

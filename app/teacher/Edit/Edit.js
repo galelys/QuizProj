@@ -9,5 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
+
+    let examID = localStorage.getItem("ExamID");
     
+
+
 });
