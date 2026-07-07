@@ -81,8 +81,8 @@ function goToPage(id) {
     
     const target =
         user.type === "teacher"
-            ? "../teacher/home.html"
-            : "../student/home.html";
+            ? "../teacher/Home/home.html"
+            : "../student/Home/home.html";
 
     window.location.href = target + "?id=" + encodeURIComponent(id);
 }
