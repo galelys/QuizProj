@@ -17,6 +17,15 @@ body{
 body.dark-mode .menu{
     background-color: #1c1820;
 }
+.error-msg{
+    color: salmon;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+.inpt-err{
+    border: 2px solid red
+}
 /*
 .menu > button{
     padding: 10px 20px;

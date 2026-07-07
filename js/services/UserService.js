@@ -29,7 +29,7 @@ export class UserService {
     }
     const users = JSON.parse(data);
 
-    return users.find( u => String(u.id) === String(id)) || null;
+    return users.find( u => String(u.name) === String(name)) || null;
   }
 
   findUserById(id){
@@ -38,12 +38,18 @@ export class UserService {
       return null; //if not exist return null
     }
     const users = JSON.parse(data);
+
     return users.find( u => u.id === id ) || null;
   }
 
   // login check
   login(id, password) {
     let usr = this.findUserById(id);
+    //in case that id is not in our datd
+    if(!usr){
+      return null;
+    }
+
     if(usr.password === password ){
       return usr
     }
