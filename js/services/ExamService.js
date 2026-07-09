@@ -62,7 +62,6 @@ export class ExamService {
         localStorage.setItem(this.storageKey, JSON.stringify(exams));
     }
 
-    saveQuestion(Question){}
     
 
     deleteExam(examId) {

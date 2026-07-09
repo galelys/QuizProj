@@ -261,7 +261,7 @@ export class ExamUI {
   renderQuestion(exam, index) {
     const editor = document.getElementById("questionEditor");
     const q = exam.questions[index];
-
+ editor.innerHTML = ``;
       editor.innerHTML = `
       <label class="form-label second-text">Question: </label>
       <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">

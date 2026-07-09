@@ -17,4 +17,5 @@ export class Question {
     this.correctAnswerIndex = correctAnswerIndex;
     this.difficulty = difficulty;
   }
+
 }

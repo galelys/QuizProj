@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // update on change
   sliderQDiff.addEventListener("input", () => {
     outputQDiff.textContent = sliderQDiff.value;
-    
+
   });
 
   function saveQuestion() {
@@ -61,8 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
     );
     exam.updateQuestion(0, question);
     examService.saveExam(exam);
-
+    examUI.renderExamEdit(exam);
   }
+
+  deleteBTN.addEventListener('click', () => {
+    let index = localStorage.getItem('currentQuestionIndex');
+    exam.removeQuestion(index);
+    examService.saveExam(exam);
+    location.reload();
+    examUI.renderExamEdit(exam);
+
+  });
 
 
 
