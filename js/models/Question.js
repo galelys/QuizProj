@@ -1,5 +1,5 @@
 export class Question {
-  constructor(text, answers, correctAnswerIndex , difficulty) {
+  constructor(text, answers, correctAnswerIndex, difficulty) {
     this.id = crypto.randomUUID();
     this.text = text;
     this.answers = answers;
@@ -11,7 +11,7 @@ export class Question {
     return userAnswerIndex === this.correctAnswerIndex;
   }
 
-  updateQuestion(text, answers, correctAnswerIndex , difficulty){
+  updateQuestion(text, answers, correctAnswerIndex, difficulty) {
     this.text = text;
     this.answers = answers;
     this.correctAnswerIndex = correctAnswerIndex;

@@ -24,10 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let deleteBTN = document.getElementById('deleteQuestionBtn');
   let addBTN = document.getElementById('addQuestionBtn');
 
-  const answer1Input = document.getElementById("answer1");
-  const answer2Input = document.getElementById("answer2");
-  const answer3Input = document.getElementById("answer3");
-  const answer4Input = document.getElementById("answer0");
+
+
   const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
   const outputQDiff = document.getElementById("diffValue");
@@ -43,15 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function saveQuestion() {
-    const questionText = questionTextInput.value.trim();
+
+    const questionText = document.getElementById("questionText").value.trim();
     const correctAnswerNumber = Number(correctAnswerInput.value);
-    let questionDiff = Number(sliderQDiff.value);
+    const questionDiff = Number(
+      document.getElementById("questionDiff").value
+    );
     const answers = [
-      answer1Input.value.trim(),
-      answer2Input.value.trim(),
-      answer3Input.value.trim(),
-      answer4Input.value.trim()
+      document.getElementById("answer0").value,
+      document.getElementById("answer1").value,
+      document.getElementById("answer2").value,
+      document.getElementById("answer3").value
     ];
+    
 
     const question = new Question(
       questionText,
@@ -59,7 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
       correctAnswerNumber,
       questionDiff
     );
-    exam.updateQuestion(0, question);
+
+    let index = localStorage.getItem('currentQuestionIndex');
+    exam.updateQuestion(index, question);
     examService.saveExam(exam);
     examUI.renderExamEdit(exam);
   }
@@ -68,11 +72,23 @@ document.addEventListener('DOMContentLoaded', function () {
     let index = localStorage.getItem('currentQuestionIndex');
     exam.removeQuestion(index);
     examService.saveExam(exam);
-    location.reload();
     examUI.renderExamEdit(exam);
 
   });
 
+  addBTN.addEventListener('click', () => {
+    const answers = ["", "", "", ""];
 
+    const question = new Question("", answers, 0, 0);
+
+    exam.addQuestion(question);
+
+    examService.saveExam(exam);
+
+    const newIndex = exam.questions.length - 1;
+
+    examUI.renderQuestionSelect(exam, newIndex);
+    examUI.renderQuestion(exam, newIndex);
+  });
 
 });

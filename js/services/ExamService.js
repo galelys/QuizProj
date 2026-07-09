@@ -4,7 +4,7 @@ import { Question } from "../models/Question.js";
 export class ExamService {
     constructor() {
         this.storageKey = "exams";
-        this.categories = ["Java" , "c++" , "Math" , "English" , "History" , "Python"];
+        this.categories = ["Java", "c++", "Math", "English", "History", "Python"];
     }
 
     getAllExams() {
@@ -53,16 +53,16 @@ export class ExamService {
 
         if (index !== -1) {
             // update existing exam
-            exams[index] = exam;       
-        } 
+            exams[index] = exam;
+        }
         // add new exam
         else {
-            exams.push(exam);         
+            exams.push(exam);
         }
         localStorage.setItem(this.storageKey, JSON.stringify(exams));
     }
 
-    
+
 
     deleteExam(examId) {
         const exams = this.getAllExams();
@@ -78,7 +78,7 @@ export class ExamService {
         return exams.find(exam => exam.id === examId);
     }
 
-    getCategories(){
+    getCategories() {
         return this.categories;
     }
 

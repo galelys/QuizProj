@@ -241,47 +241,60 @@ export class ExamUI {
 
   renderExamEdit(exam) {
 
-    // THE DROP DOWN COMPONENT
     const select = document.getElementById("questionSelect");
-        exam.questions.forEach((q, index) => {
-      const option = document.createElement("option");
-      option.value = index;
-      option.textContent = `Question ${index + 1}`;
-      select.appendChild(option);
-    });
-    select.addEventListener("change", (e) => {
-      this.renderQuestion(exam , Number(e.target.value));
-    });
 
-    this.renderQuestion(exam ,0);
-    
+    this.renderQuestionSelect(exam);
+
+    select.onchange = (e) => {
+      this.renderQuestion(exam, Number(e.target.value));
+    };
+
+    this.renderQuestion(exam, 0);
   }
 
+  renderQuestionSelect(exam, selectedIndex = 0) {
+    const select = document.getElementById("questionSelect");
+
+    // clear old options
+    select.innerHTML = "";
+
+    exam.questions.forEach((q, index) => {
+      const option = document.createElement("option");
+
+      option.value = index;
+      option.textContent = `Question ${index + 1}`;
+
+      select.appendChild(option);
+    });
+
+    // select the wanted question
+    select.value = selectedIndex;
+  }
 
   renderQuestion(exam, index) {
     const editor = document.getElementById("questionEditor");
     const q = exam.questions[index];
- editor.innerHTML = ``;
-      editor.innerHTML = `
+    editor.innerHTML = ``;
+    editor.innerHTML = `
       <label class="form-label second-text">Question: </label>
       <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
 
     ${q.answers.map((a, i) => `
-      <label class="form-label second-text">Answer ${i+1}</label>
+      <label class="form-label second-text">Answer ${i + 1}</label>
       <input id="answer${i}" class="form-control mb-2 edit-answer inpt"
              data-index="${i}"
              value="${a}">
     `).join("")} 
     `;
-    
-         const sliderQDiff = document.getElementById("questionDiff");
-          const outputQDiff = document.getElementById("diffValue");
-       sliderQDiff.value = q.difficulty;
 
-      const currectAnswer = document.getElementById("correctAnswer");
-      currectAnswer.value = q.correctAnswerIndex;
-    localStorage.setItem('currentQuestionIndex',index);
-    }
+    const sliderQDiff = document.getElementById("questionDiff");
+    const outputQDiff = document.getElementById("diffValue");
+    sliderQDiff.value = q.difficulty;
+
+    const currectAnswer = document.getElementById("correctAnswer");
+    currectAnswer.value = q.correctAnswerIndex;
+    localStorage.setItem('currentQuestionIndex', index);
+  }
 
 
   // function for rendering the edit file
@@ -341,7 +354,7 @@ export class ExamUI {
     renderQuestion(0);
 
   }*/
-  
-    
+
+
 
 }

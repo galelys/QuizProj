@@ -12,17 +12,17 @@ export class Exam {
   addQuestion(question) {
     this.questions.push(question);
   }
-    removeQuestion(index) {
-        if (index >= 0 && index < this.questions.length) {
-            this.questions.splice(index, 1);
-        }
-    }
-  
-updateQuestion(index, question) {
+  removeQuestion(index) {
     if (index >= 0 && index < this.questions.length) {
-        this.questions[index] = question;
+      this.questions.splice(index, 1);
     }
-}
+  }
+
+  updateQuestion(index, question) {
+    if (index >= 0 && index < this.questions.length) {
+      this.questions[index] = question;
+    }
+  }
 
   getQuestionCount() {
     return this.questions.length;
