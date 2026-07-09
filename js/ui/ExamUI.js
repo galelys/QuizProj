@@ -271,8 +271,15 @@ export class ExamUI {
       <input id="answer${i}" class="form-control mb-2 edit-answer inpt"
              data-index="${i}"
              value="${a}">
-    `).join("")}
+    `).join("")} 
     `;
+    
+         const sliderQDiff = document.getElementById("questionDiff");
+          const outputQDiff = document.getElementById("diffValue");
+       sliderQDiff.value = q.difficulty;
+
+      const currectAnswer = document.getElementById("correctAnswer");
+      currectAnswer.value = q.correctAnswerIndex;
     localStorage.setItem('currentQuestionIndex',index);
     }
 

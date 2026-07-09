@@ -12,40 +12,45 @@
 </head>
 
 <body>
-  <div>
-    <div id="examName"></div>
-    <div>
-      <div id="questionsBTNCard" class="mainCard">
-
-
-        <label class="form-label mt-3 second-text">Select question:</label>
-        <select id="questionSelect" class="form-select mb-3 inpt"></select>
-
-        <div id="questionEditor">
-
+  <div class="container py-4">
+    <div >
+      <div class="col-md-5">
+        
       </div>
- <div class="mb-3">
-              <label class="form-label second-text">Correct Answer Number</label>
-              <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
-            </div>
-            <div class="mb-3">
-              <label class="form-label second-text">Corrent Answer difficulty <span id="diffValue">0</span> </label>
-              <input id="questionDiff" type="range" min="0" max="10" value="0">
-            </div>
-      <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
-        Save Changes
-      </button>
+      <div id="examName"></div>
+      <div>
+        <div id="questionsBTNCard" class="mainCard col-md-5">
 
-      <button id="deleteQuestionBtn" class="btn btn-danger mt-3">
-        Delete Question
-      </button>
 
-      <button id="addQuestionBtn" class="btn btn-primary mt-3">
-        Add New Question
-      </button>
+          <label class="form-label mt-3 second-text">Select question:</label>
+          <select id="questionSelect" class="form-select mb-3 inpt"></select>
+
+          <div id="questionEditor">
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label second-text">Correct Answer Number</label>
+            <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
+          </div>
+          <div class="mb-3">
+            <label class="form-label second-text">Corrent Answer difficulty <span id="diffValue">0</span> </label>
+            <input id="questionDiff" type="range" min="0" max="10" value="0">
+          </div>
+          <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
+            Save Changes
+          </button>
+
+          <button id="deleteQuestionBtn" class="btn btn-danger mt-3">
+            Delete Question
+          </button>
+
+          <button id="addQuestionBtn" class="btn btn-primary mt-3">
+            Add New Question
+          </button>
+        </div>
+      </div>
+      <div id="examEdit"></div>
     </div>
-  </div>
-  <div id="examEdit"></div>
   </div>
   <button id="themeToggle">Dark Mode</button>
 </body>

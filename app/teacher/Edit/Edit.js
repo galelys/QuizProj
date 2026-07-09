@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const answer4Input = document.getElementById("answer0");
   const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
-
+  const outputQDiff = document.getElementById("diffValue");
   const correctAnswerInput = document.getElementById("correctAnswer");
   let timeLimitInput = document.getElementById('timeLimit');
 
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // update on change
   sliderQDiff.addEventListener("input", () => {
     outputQDiff.textContent = sliderQDiff.value;
+    
   });
 
   function saveQuestion() {
