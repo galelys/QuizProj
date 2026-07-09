@@ -20,20 +20,33 @@ document.addEventListener('DOMContentLoaded', function () {
   let saveBTN = document.getElementById('saveQuestionBtn');
   let deleteBTN = document.getElementById('deleteQuestionBtn');
   let addBTN = document.getElementById('addQuestionBtn');
+  let saveExamBTN = document.getElementById("saveExamBTN");
 
   const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
   const outputQDiff = document.getElementById("diffValue");
   const correctAnswerInput = document.getElementById("correctAnswer");
+
+
   let timeLimitInput = document.getElementById('timeLimit');
 
   saveBTN.addEventListener("click", saveQuestion);
+  saveExamBTN.addEventListener("click", saveExam);
 
   // update on change
   sliderQDiff.addEventListener("input", () => {
     outputQDiff.textContent = sliderQDiff.value;
 
   });
+  function saveExam() {
+    let timeLimitInput = document.getElementById('examTimeLimit').value;
+    let examTitle = document.getElementById('examTitle').value;
+
+    exam.updateExam(examTitle, timeLimitInput);
+    examService.saveExam(exam);
+    examUI.renderExamEdit(exam);
+
+  }
 
   function saveQuestion() {
 
@@ -60,23 +73,23 @@ document.addEventListener('DOMContentLoaded', function () {
     let index = localStorage.getItem('currentQuestionIndex');
 
     if (!questionText) {
-    examUI.showBuilderMessage("Please enter question text.", "danger");
-    return;
-  }
+      examUI.showBuilderMessage("Please enter question text.", "danger");
+      return;
+    }
 
-  if (answers.some(answer => answer === "")) {
-    examUI.showBuilderMessage("Please fill all 4 answers.", "danger");
-    return;
-  }
+    if (answers.some(answer => answer === "")) {
+      examUI.showBuilderMessage("Please fill all 4 answers.", "danger");
+      return;
+    }
 
-  if (correctAnswerNumber < 1 || correctAnswerNumber > 4) {
-    examUI.showBuilderMessage("Correct answer must be a number from 1 to 4.", "danger");
-    return;
-  }
+    if (correctAnswerNumber < 1 || correctAnswerNumber > 4) {
+      examUI.showBuilderMessage("Correct answer must be a number from 1 to 4.", "danger");
+      return;
+    }
     examUI.showBuilderMessage(
-    `Question added. Current exam has ${exam.getQuestionCount()} question(s).`,
-    "success"
-  );
+      `Question added. Current exam has ${exam.getQuestionCount()} question(s).`,
+      "success"
+    );
 
     exam.updateQuestion(index, question);
     examService.saveExam(exam);
@@ -106,5 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     examUI.renderQuestionSelect(exam, newIndex);
     examUI.renderQuestion(exam, newIndex);
   });
+
+
 
 });
