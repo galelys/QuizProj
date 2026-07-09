@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // the export exam button //
-        if (event.target.classList.contains("import-btn")) {
+        if (event.target.classList.contains("export-btn")) {
             const exam = examService.getExamById(examId);
             // Convert exam object into JSON file.
             exportExam(exam)
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Trigger browser download
         a.click();
-        
+
         // Release memory used by the temporary URL
         URL.revokeObjectURL(url);
     }

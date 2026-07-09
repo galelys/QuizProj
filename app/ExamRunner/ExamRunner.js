@@ -5,9 +5,18 @@ import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+
     initThemeToggle();
 
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
+
+    // Load the selected exam using the ID stored in localStorage
+    let examID = localStorage.getItem("examID");
+    let exam = examService.getExamById(examID);
+
+    examUI.renderExamRunner(exam);
+
     
+
 });
