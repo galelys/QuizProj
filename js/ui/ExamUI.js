@@ -263,8 +263,8 @@ export class ExamUI {
     const q = exam.questions[index];
 
       editor.innerHTML = `
-      
-    <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
+      <label class="form-label second-text">Question: </label>
+      <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
 
     ${q.answers.map((a, i) => `
       <label class="form-label second-text">Answer ${i+1}</label>

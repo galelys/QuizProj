@@ -24,7 +24,14 @@
         <div id="questionEditor">
 
       </div>
-
+ <div class="mb-3">
+              <label class="form-label second-text">Correct Answer Number</label>
+              <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
+            </div>
+            <div class="mb-3">
+              <label class="form-label second-text">Corrent Answer difficulty <span id="diffValue">0</span> </label>
+              <input id="questionDiff" type="range" min="0" max="10" value="0">
+            </div>
       <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
         Save Changes
       </button>
