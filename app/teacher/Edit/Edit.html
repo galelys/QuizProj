@@ -33,10 +33,26 @@
           </label>
 
           <select id="questionSelect" class="form-select mb-3 inpt"></select>
-
+      <label class="form-label second-text">Question: </label>
+      <input id="questionText" class="form-control mb-2 inpt" value="">
 
           <!-- Question inputs are generated dynamically by ExamUI.js -->
-          <div id="questionEditor"></div>
+          <div id="questionEditor">
+            <label class="form-label second-text">Answer 1</label>
+            <input id="answer0" type="text" class="form-control inpt">
+          </div>
+          <div class="mb-3">
+            <label class="form-label second-text">Answer 2</label>
+            <input id="answer1" type="text" class="form-control inpt">
+          </div>
+          <div class="mb-3">
+            <label class="form-label second-text">Answer 3</label>
+            <input id="answer2" type="text" class="form-control inpt">
+          </div>
+          <div class="mb-3">
+            <label class="form-label second-text">Answer 4</label>
+            <input id="answer3" type="text" class="form-control inpt">
+          </div>
 
 
           <!-- Stores the index of the correct answer -->
@@ -44,27 +60,18 @@
             <label class="form-label second-text">
               Correct Answer Number
             </label>
-            <input id="correctAnswer"
-                   type="number"
-                   class="form-control inpt"
-                   min="1"
-                   max="4"
-                   placeholder="1-4">
+            <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
           </div>
 
 
           <!-- Question difficulty slider -->
           <div class="mb-3">
             <label class="form-label second-text">
-              Correct Answer difficulty 
+              Correct Answer difficulty
               <span id="diffValue">0</span>
             </label>
 
-            <input id="questionDiff"
-                   type="range"
-                   min="0"
-                   max="10"
-                   value="0">
+            <input id="questionDiff" type="range" min="0" max="10" value="0">
           </div>
 
 

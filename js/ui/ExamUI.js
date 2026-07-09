@@ -283,20 +283,17 @@ export class ExamUI {
   }
 
   renderQuestion(exam, index) {
-    const editor = document.getElementById("questionEditor");
     const q = exam.questions[index];
-    editor.innerHTML = ``;
-    editor.innerHTML = `
-      <label class="form-label second-text">Question: </label>
-      <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
 
-    ${q.answers.map((a, i) => `
-      <label class="form-label second-text">Answer ${i + 1}</label>
-      <input id="answer${i}" class="form-control mb-2 edit-answer inpt"
-             data-index="${i}"
-             value="${a}">
-    `).join("")} 
-    `;
+    document.getElementById("questionText").value = q.text;
+
+    for (let i = 0; i < 4; i++) {
+      document.getElementById(`answer${i}`).value = q.answers[i];
+    }
+
+    document.getElementById("correctAnswer").value = q.correctAnswerIndex;
+    document.getElementById("questionDiff").value = q.difficulty;
+    document.getElementById("diffValue").textContent = q.difficulty;
 
     const sliderQDiff = document.getElementById("questionDiff");
     const outputQDiff = document.getElementById("diffValue");
@@ -306,8 +303,52 @@ export class ExamUI {
     currectAnswer.value = q.correctAnswerIndex;
     localStorage.setItem('currentQuestionIndex', index);
   }
+  /*
+    renderQuestion(exam, index) {
+      
+      const q = exam.questions[index];
+      
+  
+  
+  
+      for(let i = 0 ; i<4 ; i++){
+        let inptA = document.getElementById(`answer${i}`);
+        inptA.value = q.value;
+  
+      }
+  
+      editor.innerHTML = `
+        <label class="form-label second-text">Question: </label>
+        <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
+  
+      ${q.answers.map((a, i) => `
+        <label class="form-label second-text">Answer ${i + 1}</label>
+        <input id="answer${i}" class="form-control mb-2 edit-answer inpt"
+               data-index="${i}"
+               value="${a}">
+      `).join("")} 
+      `;
+  
+      const sliderQDiff = document.getElementById("questionDiff");
+      const outputQDiff = document.getElementById("diffValue");
+      sliderQDiff.value = q.difficulty;
+  
+      const currectAnswer = document.getElementById("correctAnswer");
+      currectAnswer.value = q.correctAnswerIndex;
+      localStorage.setItem('currentQuestionIndex', index);
+    }*/
+renderEmptyQuestion() {
 
+    document.getElementById("questionText").value = "";
 
+    for (let i = 0; i < 4; i++) {
+        document.getElementById(`answer${i }`).value = "";
+    }
+
+    document.getElementById("correctAnswer").value = "";
+    document.getElementById("questionDiff").value = 0;
+    document.getElementById("diffValue").textContent = 0;
+}
   // function for rendering the edit file
   /*renderExamEdit(exam) {
     this.examEditElement.innerHTML = "";

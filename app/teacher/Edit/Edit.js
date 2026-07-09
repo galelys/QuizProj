@@ -5,31 +5,40 @@ import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+
+  // Initialize dark/light theme
   initThemeToggle();
 
+  // Create service and UI instances
   const examService = new ExamService();
   const examUI = new ExamUI(examService);
 
+  // Load the selected exam using the ID stored in localStorage
   let examID = localStorage.getItem("examID");
-
   let exam = examService.getExamById(examID);
 
+
+  // Render the exam editor
   examUI.renderExamEdit(exam);
 
-  // relevant buttons for editing the test
+  // Main action buttons
   let saveBTN = document.getElementById('saveQuestionBtn');
   let deleteBTN = document.getElementById('deleteQuestionBtn');
   let addBTN = document.getElementById('addQuestionBtn');
   let saveExamBTN = document.getElementById("saveExamBTN");
 
+  // Frequently used input elements
   const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
   const outputQDiff = document.getElementById("diffValue");
   const correctAnswerInput = document.getElementById("correctAnswer");
 
+  // Indicates whether the user is creating a new question
+  // or editing an existing one
+  let isNewQuestion = false;
 
-  let timeLimitInput = document.getElementById('timeLimit');
 
+  // saving button events
   saveBTN.addEventListener("click", saveQuestion);
   saveExamBTN.addEventListener("click", saveExam);
 
@@ -38,21 +47,35 @@ document.addEventListener('DOMContentLoaded', function () {
     outputQDiff.textContent = sliderQDiff.value;
 
   });
+
+
+  /**
+   * Saves general exam information
+   * (title and time limit).
+   */
   function saveExam() {
 
     let timeLimitInput = document.getElementById('examTimeLimit').value;
     let examTitle = document.getElementById('examTitle').value;
 
     exam.updateExam(examTitle, timeLimitInput);
+    // save changes
     examService.saveExam(exam);
+    // Refresh the UI
     examUI.renderExamEdit(exam);
-    
+
   }
 
+  /**
+ * Saves either:
+ * 1. A newly created question
+ * 2. Updates an existing question
+ */
   function saveQuestion() {
-
+    // Read current question values
     const questionText = document.getElementById("questionText").value.trim();
     const correctAnswerNumber = Number(correctAnswerInput.value);
+
     const questionDiff = Number(
       document.getElementById("questionDiff").value
     );
@@ -63,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("answer3").value
     ];
 
-
+    // Create a Question object
     const question = new Question(
       questionText,
       answers,
@@ -71,8 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
       questionDiff
     );
 
+    // Current question being edited.
     let index = localStorage.getItem('currentQuestionIndex');
-
+    // ----- Validation -----
     if (!questionText) {
       examUI.showBuilderMessage("Please enter question text.", "danger");
       return;
@@ -87,17 +111,32 @@ document.addEventListener('DOMContentLoaded', function () {
       examUI.showBuilderMessage("Correct answer must be a number from 1 to 4.", "danger");
       return;
     }
+
+    // ----- Save -----
+    if (isNewQuestion) {
+      // Add a brand-new question to the exam
+      exam.addQuestion(question);
+      // Switch back to edit mode
+      isNewQuestion = false;
+    } else {
+      // Update the currently selected question
+      exam.updateQuestion(index, question);
+    }
     examUI.showBuilderMessage(
       `Question added. Current exam has ${exam.getQuestionCount()} question(s).`,
       "success"
     );
-
-    exam.updateQuestion(index, question);
+    // Save the updated exam to localStorage
     examService.saveExam(exam);
+
+    // Refresh the question selector and editor
     examUI.renderQuestionSelect(exam, index);
     examUI.renderQuestion(exam, index);
   }
 
+  /**
+   * Deletes the currently selected question.
+   */
   deleteBTN.addEventListener('click', () => {
     let index = localStorage.getItem('currentQuestionIndex');
     exam.removeQuestion(index);
@@ -106,19 +145,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   });
 
+  /**
+   * Clears the editor so the user can create a new question.
+   * The question is NOT added until Save is pressed.
+   */
   addBTN.addEventListener('click', () => {
-    const answers = ["", "", "", ""];
+    isNewQuestion = true;
+    // Reserve the next available index
+    localStorage.setItem('currentQuestionIndex', exam.getQuestionCount());
+    // Display an empty form
+    examUI.renderEmptyQuestion();
 
-    const question = new Question("", answers, -1, 0);
-
-    exam.addQuestion(question);
-
-    examService.saveExam(exam);
-
-    const newIndex = exam.questions.length - 1;
-
-    examUI.renderQuestionSelect(exam, newIndex);
-    examUI.renderQuestion(exam, newIndex);
   });
 
 
