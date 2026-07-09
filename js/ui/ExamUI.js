@@ -238,9 +238,18 @@ export class ExamUI {
     this.examRunnerElement.appendChild(resultDiv);
   }
 
+  renderExamInformationEdit(exam) {
+    let title = document.getElementById('examInfoCard');
+    title.innerHTML = `<h4 class="main-text"> Exam name ${exam.title}</h4> 
+    <label>edit exam title</label>
+    <input id="examTitle" class="form-control mb-2 inpt" value="${exam.title}">
+    <label>edit exam time limit</label>
+    <input id="examTimeLimit" class="form-control mb-2 inpt" value="${exam.timeLimit}">
+    `;
 
+  }
   renderExamEdit(exam) {
-
+    this.renderExamInformationEdit(exam)
     const select = document.getElementById("questionSelect");
 
     this.renderQuestionSelect(exam);
@@ -250,6 +259,7 @@ export class ExamUI {
     };
 
     this.renderQuestion(exam, 0);
+
   }
 
   renderQuestionSelect(exam, selectedIndex = 0) {

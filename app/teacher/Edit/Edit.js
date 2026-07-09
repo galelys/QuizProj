@@ -7,9 +7,6 @@ import { initThemeToggle } from "../../../js/ui/theme.js";
 document.addEventListener('DOMContentLoaded', function () {
   initThemeToggle();
 
-
-  // let saveBTN = examService.getExamById(examID);
-
   const examService = new ExamService();
   const examUI = new ExamUI(examService);
 
@@ -23,8 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let saveBTN = document.getElementById('saveQuestionBtn');
   let deleteBTN = document.getElementById('deleteQuestionBtn');
   let addBTN = document.getElementById('addQuestionBtn');
-
-
 
   const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
@@ -53,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("answer2").value,
       document.getElementById("answer3").value
     ];
-    
+
 
     const question = new Question(
       questionText,
@@ -63,9 +58,30 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
     let index = localStorage.getItem('currentQuestionIndex');
+
+    if (!questionText) {
+    examUI.showBuilderMessage("Please enter question text.", "danger");
+    return;
+  }
+
+  if (answers.some(answer => answer === "")) {
+    examUI.showBuilderMessage("Please fill all 4 answers.", "danger");
+    return;
+  }
+
+  if (correctAnswerNumber < 1 || correctAnswerNumber > 4) {
+    examUI.showBuilderMessage("Correct answer must be a number from 1 to 4.", "danger");
+    return;
+  }
+    examUI.showBuilderMessage(
+    `Question added. Current exam has ${exam.getQuestionCount()} question(s).`,
+    "success"
+  );
+
     exam.updateQuestion(index, question);
     examService.saveExam(exam);
-    examUI.renderExamEdit(exam);
+    examUI.renderQuestionSelect(exam, index);
+    examUI.renderQuestion(exam, index);
   }
 
   deleteBTN.addEventListener('click', () => {
@@ -79,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
   addBTN.addEventListener('click', () => {
     const answers = ["", "", "", ""];
 
-    const question = new Question("", answers, 0, 0);
+    const question = new Question("", answers, -1, 0);
 
     exam.addQuestion(question);
 
