@@ -36,8 +36,8 @@ export class Exam {
     this.category = category;
   }
 
-  updateExam(title, timeLimit){
-        this.timeLimit = timeLimit;
+  updateExam(title, timeLimit) {
+    this.timeLimit = timeLimit;
     this.title = title;
   }
 

@@ -14,7 +14,6 @@
 
   ! in the builder, there are the id names for the needed divs to insert there the exams 
 
-
 */
 
 
@@ -240,14 +239,12 @@ export class ExamUI {
 
   renderExamInformationEdit(exam) {
     let title = document.getElementById('examInfoCard');
-    title.innerHTML=``;
+    title.innerHTML = ``;
     title.innerHTML = `<h4 class="main-text"> Exam name ${exam.title}</h4> 
     <label>Exam title</label>
     <input id="examTitle" class="form-control mb-2 inpt" value="${exam.title}">
     <label>Exam time limit</label>
     <input id="examTimeLimit" class="form-control mb-2 inpt" value="${exam.timeLimit}">
-
-   
     `;
 
   }

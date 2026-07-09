@@ -12,27 +12,67 @@
 </head>
 
 <body>
+
+  <!-- Navigation menu is loaded dynamically from nav.js -->
+  <div id="menuBTNS"></div>
+
   <div class="container py-4">
+
+    <!-- Main page layout: two columns -->
     <div class="row">
+
+      <!-- Left column: question editing area -->
       <div class="col-md-5">
-      
-    
+
+        <!-- Card containing question selection and editing controls -->
         <div id="questionsBTNCard" class="mainCard">
-          <label class="form-label mt-3 second-text">Select question:</label>
+
+          <!-- Dropdown for selecting an existing question -->
+          <label class="form-label mt-3 second-text">
+            Select question:
+          </label>
+
           <select id="questionSelect" class="form-select mb-3 inpt"></select>
 
-          <div id="questionEditor">
 
-          </div>
+          <!-- Question inputs are generated dynamically by ExamUI.js -->
+          <div id="questionEditor"></div>
+
+
+          <!-- Stores the index of the correct answer -->
           <div class="mb-3">
-            <label class="form-label second-text">Correct Answer Number</label>
-            <input id="correctAnswer" type="number" class="form-control inpt" min="1" max="4" placeholder="1-4">
+            <label class="form-label second-text">
+              Correct Answer Number
+            </label>
+            <input id="correctAnswer"
+                   type="number"
+                   class="form-control inpt"
+                   min="1"
+                   max="4"
+                   placeholder="1-4">
           </div>
+
+
+          <!-- Question difficulty slider -->
           <div class="mb-3">
-            <label class="form-label second-text">Corrent Answer difficulty <span id="diffValue">0</span> </label>
-            <input id="questionDiff" type="range" min="0" max="10" value="0">
+            <label class="form-label second-text">
+              Correct Answer difficulty 
+              <span id="diffValue">0</span>
+            </label>
+
+            <input id="questionDiff"
+                   type="range"
+                   min="0"
+                   max="10"
+                   value="0">
           </div>
+
+
+          <!-- Displays validation messages -->
           <div id="builderMessage"></div>
+
+
+          <!-- Question CRUD actions -->
           <button id="saveQuestionBtn" class="btn btn-success mt-3 grn-btn">
             Save Changes
           </button>
@@ -44,22 +84,55 @@
           <button id="addQuestionBtn" class="btn btn-primary mt-3">
             Add New Question
           </button>
-        </div>
-      
 
-      <div id="examEdit"></div>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-5">
-      <div class="mainCard main-text">update test information
-        <div id="examInfoCard"></div>
+        </div>
+
+        <!-- Reserved for additional exam editing components -->
+        <div id="examEdit"></div>
+
       </div>
-    </div>
+
+
+      <!-- Empty column used for spacing between cards -->
+      <div class="col-md-2"></div>
+
+
+      <!-- Right column: exam metadata editing -->
+      <div class="col-md-5">
+
+        <!-- Card containing exam information -->
+        <div class="mainCard main-text">
+
+          <!-- Exam title, category, and time limit are rendered dynamically -->
+          Update test information
+
+          <div id="examInfoCard"></div>
+
+          <!-- Saves exam-level changes -->
+          <button id="saveExamBTN" class="base-btn">
+            Save Exam
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
-  
-  <button id="themeToggle">Dark Mode</button>
+
+
+  <!-- Toggles between light and dark themes -->
+  <button id="themeToggle">
+    Dark Mode
+  </button>
+
 </body>
+
+
+<!-- Main page logic -->
 <script type="module" src="./Edit.js"></script>
+
+<!-- Navigation component -->
+<script type="module" src="../nav.js"></script>
 
 </html>

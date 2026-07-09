@@ -30,7 +30,7 @@ let categories = examService.getCategories();
 
 //const examListElement = document.getElementById("examList");
 initThemeToggle();
-examUI.showExamCategories(categorsCard ,categories);
+examUI.showExamCategories(categorsCard, categories);
 
 // the difficulty slider
 const sliderQDiff = document.getElementById("questionDiff");
@@ -116,23 +116,23 @@ saveExamBtn.addEventListener("click", () => {
     return;
   }
   currentExam.category = localStorage.getItem('selected_category');
-  if(currentExam.category === null){
-        examUI.showBuilderMessage("Cannot save exam without a category.", "danger");
+  if (currentExam.category === null) {
+    examUI.showBuilderMessage("Cannot save exam without a category.", "danger");
     return;
   }
   localStorage.removeItem('selected_category');
   let time = Number(timeLimitInput.value);
-    if(isNaN(time) || time <= -1){
-      examUI.showBuilderMessage("Cannot save exam without questions.", "danger");
+  if (isNaN(time) || time <= -1) {
+    examUI.showBuilderMessage("Cannot save exam without questions.", "danger");
     return;
-    
+
   }
   currentExam.timeLimit = time;
-  
+
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
-  
+
   currentExam = null;
 
   examTitleInput.value = "";

@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   });
   function saveExam() {
-    
+
     let timeLimitInput = document.getElementById('examTimeLimit').value;
     let examTitle = document.getElementById('examTitle').value;
 
