@@ -240,6 +240,16 @@ export class ExamUI {
     });
   }
 
+
+  
+/*
+  ===========================================================
+  renderExamRunner(exam)
+  Responsible for displaying an exam to the student.
+  The function does not modify the exam.
+  It only collects the student's answers.
+  ===========================================================
+  */
   renderExamRunner(exam) {
     // Validate that the requested exam exists
     if (!exam) {
@@ -274,6 +284,7 @@ export class ExamUI {
     // Value = selected answer index
     const userAnswers = [];
     let questionIndex = 0;
+
 
     /*
     Creates the HTML of the current question.
@@ -330,6 +341,7 @@ export class ExamUI {
     prevButton.textContent = "Prev";
     submitButton.textContent = "Submit";
 
+
     /*
     Submit button:
     submits it into local storage for later to calculate final score.
@@ -358,6 +370,7 @@ export class ExamUI {
       }
 
     });
+
 
     /*
     Previous button:
@@ -457,7 +470,7 @@ Displays the final result.
   }
 
 
-  
+
 
   /*
  ===========================================================
