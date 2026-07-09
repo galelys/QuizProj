@@ -238,8 +238,47 @@ export class ExamUI {
     this.examRunnerElement.appendChild(resultDiv);
   }
 
-  // function for rendering the edit file
+
   renderExamEdit(exam) {
+
+    // THE DROP DOWN COMPONENT
+    const select = document.getElementById("questionSelect");
+        exam.questions.forEach((q, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `Question ${index + 1}`;
+      select.appendChild(option);
+    });
+    select.addEventListener("change", (e) => {
+      this.renderQuestion(exam , Number(e.target.value));
+    });
+
+    this.renderQuestion(exam ,0);
+    
+  }
+
+
+  renderQuestion(exam, index) {
+    const editor = document.getElementById("questionEditor");
+    const q = exam.questions[index];
+
+      editor.innerHTML = `
+      
+    <input id="questionText" class="form-control mb-2 inpt" value="${q.text}">
+
+    ${q.answers.map((a, i) => `
+      <label class="form-label second-text">Answer ${i+1}</label>
+      <input id="answer${i}" class="form-control mb-2 edit-answer inpt"
+             data-index="${i}"
+             value="${a}">
+    `).join("")}
+    `;
+    localStorage.setItem('currentQuestionIndex',index);
+    }
+
+
+  // function for rendering the edit file
+  /*renderExamEdit(exam) {
     this.examEditElement.innerHTML = "";
     if (!exam) {
       this.examEditElement.innerHTML = `
@@ -294,7 +333,8 @@ export class ExamUI {
 
     renderQuestion(0);
 
-  }
+  }*/
   
+    
 
 }

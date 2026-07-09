@@ -5,45 +5,57 @@ import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded', function () {
-    initThemeToggle();
-
-    
-   // let saveBTN = examService.getExamById(examID);
-
-    const examService = new ExamService();
-    const examUI = new ExamUI(examService);
-
-    let examID = localStorage.getItem("examID");
-
-    let exam = examService.getExamById(examID);
-
-    examUI.renderExamEdit(exam);
-
-    // relevant buttons for editing the test
-    let saveBTN = document.getElementById('saveQuestionBtn');
-    let deleteBTN = document.getElementById('deleteQuestionBtn');
-    let addBTN = document.getElementById('addQuestionBtn');
+  initThemeToggle();
 
 
-    saveBTN.addEventListener("click", () => {
-  const index = Number(select.value);
+  // let saveBTN = examService.getExamById(examID);
 
-  const question = exam.questions[index];
+  const examService = new ExamService();
+  const examUI = new ExamUI(examService);
 
-  // update text
-  question.text = document.getElementById("editText").value;
+  let examID = localStorage.getItem("examID");
 
-  // update answers
-  const answerInputs = document.querySelectorAll(".edit-answer");
-  question.answers = Array.from(answerInputs).map(input => input.value);
+  let exam = examService.getExamById(examID);
 
-  examService.saveExam(exam); // if you have persistence
+  examUI.renderExamEdit(exam);
 
-  alert("Question updated!");
-});
+  // relevant buttons for editing the test
+  let saveBTN = document.getElementById('saveQuestionBtn');
+  let deleteBTN = document.getElementById('deleteQuestionBtn');
+  let addBTN = document.getElementById('addQuestionBtn');
+
+  const answer1Input = document.getElementById("answer1");
+  const answer2Input = document.getElementById("answer2");
+  const answer3Input = document.getElementById("answer3");
+  const answer4Input = document.getElementById("answer0");
+  const questionTextInput = document.getElementById("questionText");
+
+  const correctAnswerInput = document.getElementById("correctAnswer");
+  let timeLimitInput = document.getElementById('timeLimit');
+
+  saveBTN.addEventListener("click", saveQuestion);
 
 
+  function saveQuestion() {
+    const questionText = questionTextInput.value.trim();
 
+  const answers = [
+    answer1Input.value.trim(),
+    answer2Input.value.trim(),
+    answer3Input.value.trim(),
+    answer4Input.value.trim()
+  ];
+
+   const question = new Question(
+    questionText,
+    answers,
+    0,
+    0
+  );
+  exam.updateQuestion( 0,question);
+  examService.saveExam(exam);
+
+  }
 
 
 

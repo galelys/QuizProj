@@ -12,17 +12,25 @@ export class Exam {
   addQuestion(question) {
     this.questions.push(question);
   }
+  
+  updateQuestion(index , question) {
+    //const index = this.questions.findIndex(q => q.id === question.id);
+
+    if (index !== -1) {
+      this.questions[index] = question;
+    }
+  }
 
   getQuestionCount() {
     return this.questions.length;
   }
 
-  addTimeLimit(time){
+  addTimeLimit(time) {
     this.timeLimit = time;
   }
 
-  addCategory(category){
+  addCategory(category) {
     this.category = category;
   }
-  
+
 }

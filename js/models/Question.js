@@ -10,4 +10,11 @@ export class Question {
   isCorrect(userAnswerIndex) {
     return userAnswerIndex === this.correctAnswerIndex;
   }
+
+  updateQuestion(text, answers, correctAnswerIndex , difficulty){
+    this.text = text;
+    this.answers = answers;
+    this.correctAnswerIndex = correctAnswerIndex;
+    this.difficulty = difficulty;
+  }
 }
