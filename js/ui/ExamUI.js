@@ -140,7 +140,11 @@ export class ExamUI {
           data-id="${exam.id}">
           Delete
         </button>
-
+        <button
+          class="btn btn-sm btn-danger import-btn base-btn"
+          data-id="${exam.id}">
+          Export
+        </button>
 
       `;
 
