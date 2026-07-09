@@ -1,0 +1,33 @@
+.question-title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.answers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.answer-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 18px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.answer-label:hover {
+    background-color: #f5f5f5;
+}
+
+.answer-label input[type="radio"] {
+    transform: scale(1.2);
+}

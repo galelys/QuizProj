@@ -241,15 +241,15 @@ export class ExamUI {
   }
 
 
-  
-/*
-  ===========================================================
-  renderExamRunner(exam)
-  Responsible for displaying an exam to the student.
-  The function does not modify the exam.
-  It only collects the student's answers.
-  ===========================================================
-  */
+
+  /*
+    ===========================================================
+    renderExamRunner(exam)
+    Responsible for displaying an exam to the student.
+    The function does not modify the exam.
+    It only collects the student's answers.
+    ===========================================================
+    */
   renderExamRunner(exam) {
     // Validate that the requested exam exists
     if (!exam) {
@@ -270,7 +270,7 @@ export class ExamUI {
     // Display exam header information
     this.examRunnerElement.innerHTML = `
         <h4>${exam.title}</h4>
-        <p class="text-muted">
+        <p class="tsecond-text">
             Answer all questions and submit the exam.
         </p>
     `;
@@ -298,16 +298,19 @@ export class ExamUI {
       const question = exam.questions[questionIndex];
       questionDiv.innerHTML = `
             <h5> ${questionIndex + 1}. ${question.text} </h5>
+            
             ${question.answers.map((answer, answerIndex) => `
-                <label class="answer-label">
-                    <input 
-                      type="radio"
-                        name="question-${questionIndex}"
-                        value="${answerIndex}">
-                    ${answer}
-                </label>
+            <div style="padding: 5px;">
+            <label class="answer-label">
+            <input
+            type="radio"
+            name="question-${questionIndex}"
+            value="${answerIndex}">
+            <span>${answer}</span>
+            </label>
+            </div>
             `).join("")}
-        `;
+            `;
 
 
       // Needed when user presses "Prev".
@@ -534,16 +537,16 @@ selectedIndex controls which option is selected.
 
 
 
-/*
-Loads an existing question into the editor.
-
-Used when:
-- selecting question from dropdown
-- returning after save
-
-Stores current index in localStorage
-so Edit.js knows which question is being edited.
-*/
+  /*
+  Loads an existing question into the editor.
+  
+  Used when:
+  - selecting question from dropdown
+  - returning after save
+  
+  Stores current index in localStorage
+  so Edit.js knows which question is being edited.
+  */
   renderQuestion(exam, index) {
     const q = exam.questions[index];
 
