@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     exam.updateExam(examTitle, timeLimitInput);
     examService.saveExam(exam);
     examUI.renderExamEdit(exam);
-
+    
   }
 
   function saveQuestion() {

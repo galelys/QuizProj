@@ -155,6 +155,8 @@ body.dark-mode #themeToggle {
     
 }
 
+
+
 /* for ivalid or empty input */
 .inpt-err{
     border: 1px solid red;
