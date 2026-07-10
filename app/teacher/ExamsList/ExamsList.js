@@ -3,7 +3,7 @@ import { Exam } from "../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
-
+import { UserService } from "../../../js/services/UserService.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -15,12 +15,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
 
+    const userService = new UserService();
+    const user = JSON.parse(localStorage.getItem("activeUser"));
+
     // Container that holds the generated exam cards/list
     const examListElement = document.getElementById("examList");
 
     // Search and clear buttons
     let searchBtn = document.getElementById("searchBTN");
-    let CLRBtn = document.getElementById("clearBTN");
+    let clearBTN = document.getElementById("clearBTN");
 
     // Import button + its hidden file input
     let importBtn = document.getElementById("importBTN");
@@ -132,9 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function importExam(event) {
         // The file the user picked
         const file = event.target.files[0];
-        if (!file) {
-            return;
-        }
+        if (!file) { return; }
 
         const reader = new FileReader();
 
@@ -145,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Rebuild a clean Exam object from the raw data
                 const user = JSON.parse(localStorage.getItem('activeUser'));
-                const exam = new Exam(data.title , user.id);
+                const exam = new Exam(data.title, user.id);
                 // New id so importing the same file twice does not overwrite
                 exam.id = crypto.randomUUID();
                 exam.createdAt = data.createdAt || new Date().toISOString();
@@ -164,8 +165,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 // Save the imported exam and refresh the list
+                user.addExamCreation(exam.id);
+                userService.saveUser(user);
+                localStorage.setItem("activeUser", JSON.stringify(user));
+                // Save the imported exam and refresh the list
                 examService.saveExam(exam);
-                examUI.renderExamList("teacher");
+
+                alert("Exam was added successfully");
             } catch (err) {
                 // The file was not valid exam JSON
                 alert("Invalid exam file.");
