@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const examUI = new ExamUI(examService);
 
     const userService = new UserService();
-    const user = JSON.parse(localStorage.getItem("activeUser"));
+    const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+    const user = userService.findUserById(activeUser.id);
 
     // Container that holds the generated exam cards/list
     const examListElement = document.getElementById("examList");
@@ -144,8 +145,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Turn the file text back into an object
                 const data = JSON.parse(e.target.result);
 
-                // Rebuild a clean Exam object from the raw data
-                const user = JSON.parse(localStorage.getItem('activeUser'));
+                // Rebuild a clean Exam object from the raw data.
+                // Uses the module-level `user` (a real User instance with addExamCreation).
                 const exam = new Exam(data.title, user.id);
                 // New id so importing the same file twice does not overwrite
                 exam.id = crypto.randomUUID();
@@ -170,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem("activeUser", JSON.stringify(user));
                 // Save the imported exam and refresh the list
                 examService.saveExam(exam);
+                examUI.renderExamList("teacher");
 
                 alert("Exam was added successfully");
             } catch (err) {
