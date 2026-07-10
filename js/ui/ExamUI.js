@@ -163,7 +163,6 @@ export class ExamUI {
     }
     else if (user == "student") {
       this.renderExamListSearchStudent(exams);
-      console("future featuer");
     }
     else {
       return;
@@ -243,60 +242,96 @@ export class ExamUI {
     });
   }
 
-  /*
+/*
+Creates exam cards for student view.
 
-  Creates exam cards for student view.
+If the student has not completed the exam:
+- displays Start Exam
 
-  Each card contains:
+If the student has already completed the exam:
+- displays View My Answers
+*/
+renderExamListSearchStudent(exams) {
+  this.examListElement.innerHTML = "";
 
-  - exam information
+  const user = JSON.parse(
+    localStorage.getItem("activeUser")
+  );
 
-  - number of questions
+  if (!user) {
+    this.examListElement.innerHTML = `
+      <p class="text-danger">Active user was not found.</p>
+    `;
+    return;
+  }
 
-  - time limit
+  const examResults = Array.isArray(user.examsResults)
+    ? user.examsResults
+    : [];
 
-  - start exam button
-  */
+  if (exams.length === 0) {
+    this.examListElement.innerHTML = `
+      <p class="text-muted">No exams available.</p>
+    `;
+    return;
+  }
 
-    renderExamListSearchStudent(exams) {
-      this.examListElement.innerHTML = "";
+  exams.forEach(exam => {
+    const completedResult = examResults.find(
+      result => result.examID === exam.id
+    );
 
-      if (exams.length === 0) {
-        this.examListElement.innerHTML = `
-            <p class="text-muted">No exams available.</p>
-        `;
-        return;
+    const div = document.createElement("div");
+    div.className = "exam-card mainCard main-text";
+
+    const actionButton = completedResult
+      ? `
+        <button
+          class="btn btn-info view-answers-btn base-btn"
+          data-id="${exam.id}">
+          View My Answers
+        </button>
+      `
+      : `
+        <button
+          class="btn btn-success run-btn base-btn"
+          data-id="${exam.id}">
+          Start Exam
+        </button>
+      `;
+
+    div.innerHTML = `
+      <h4>${exam.category} - ${exam.title}</h4>
+
+      <p class="small-muted">
+        Questions: ${exam.getQuestionCount()}
+      </p>
+
+      <p class="small-muted">
+        Time limit:
+        ${
+          exam.timeLimit === 0
+            ? "Unlimited"
+            : `${exam.timeLimit} min`
+        }
+      </p>
+
+      ${
+        completedResult
+          ? `
+            <p class="small-muted">
+              Score: ${completedResult.percentage}%
+            </p>
+          `
+          : ""
       }
 
-      exams.forEach(exam => {
-        const div = document.createElement("div");
+      ${actionButton}
+    `;
 
-        div.className = "exam-card mainCard main-text";
-
-        div.innerHTML = `
-            <h4>${exam.category} - ${exam.title}</h4>
-
-            <p class="small-muted">
-                Questions: ${exam.getQuestionCount()}
-            </p>
-
-            <p class="small-muted">
-                Time limit:
-                ${exam.timeLimit === 0
-            ? "Unlimited"
-            : `${exam.timeLimit} min`}
-            </p>
-
-            <button
-                class="btn btn-success run-btn base-btn"
-                data-id="${exam.id}">
-                Start Exam
-            </button>
-        `;
-
-        this.examListElement.appendChild(div);
-      });
-    }
+    this.examListElement.appendChild(div);
+  });
+}
 
 
 

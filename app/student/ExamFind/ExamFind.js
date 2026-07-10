@@ -8,21 +8,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
 
-    const examListElement =
-        document.getElementById("examList");
+    const examListElement = document.getElementById("examList");
 
     examUI.renderExamList("student");
 
     examListElement.addEventListener("click", event => {
-        if (!event.target.classList.contains("run-btn")) {
+        const examId = event.target.dataset.id;
+
+        if (!examId) {
             return;
         }
 
-        const examId = event.target.dataset.id;
+        if (event.target.classList.contains("run-btn")) {
+            localStorage.setItem("examID", examId);
 
-        localStorage.setItem("examID", examId);
+            window.location.href =
+                "../../ExamRunner/ExamRunner.html";
+        }
 
-        window.location.href =
-            "../../ExamRunner/ExamRunner.html";
+        if (event.target.classList.contains("view-answers-btn")) {
+            localStorage.setItem("examID", examId);
+
+            window.location.href =
+                "../ExamReview/ExamReview.html";
+        }
     });
 });

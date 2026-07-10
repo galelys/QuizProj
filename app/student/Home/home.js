@@ -107,5 +107,5 @@ function displayAverageGrade(results) {
 }
 
 function goToSearchExams() {
-    window.location.href = "../../teacher/ExamsList/ExamsList.html";
+    window.location.href = "../ExamFind/ExamFind.html";
 }
