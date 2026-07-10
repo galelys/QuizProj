@@ -3,9 +3,13 @@ import { Exam } from "../../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
+import { UserService } from "../../../js/services/UserService.js";
 
 const examService = new ExamService();
 const examUI = new ExamUI(examService);
+const userService = new UserService();
+const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+const user = userService.findUserById(activeUser.id);
 
 let currentExam = null;
 
@@ -138,6 +142,10 @@ saveExamBtn.addEventListener("click", () => {
   }
   currentExam.timeLimit = time;
 
+  // Record this exam under the teacher who created it
+  user.addExamCreation(currentExam.id);
+  userService.saveUser(user);
+
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
@@ -181,8 +189,9 @@ function importExam(event) {
       // Turn the file text back into an object
       const data = JSON.parse(e.target.result);
 
-      // Rebuild a clean Exam object from the raw data
-      const user = JSON.parse(localStorage.getItem('activeUser'));
+      // Rebuild a clean Exam object from the raw data.
+      // Uses the module-level `user` (a real User instance with addExamCreation),
+      // not a plain object parsed from localStorage.
       const exam = new Exam(data.title, user.id);
 
       // New id so importing the same file twice does not overwrite
@@ -202,6 +211,10 @@ function importExam(event) {
         return question;
       });
 
+
+      // Record this exam under the teacher who created it
+      user.addExamCreation(exam.id);
+      userService.saveUser(user);
       // Save the imported exam and refresh the list
       examService.saveExam(exam);
       alert("Exam was added successfully");

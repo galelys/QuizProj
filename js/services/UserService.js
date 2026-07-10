@@ -1,4 +1,4 @@
-import { User } from "../models/User.js";
+import { User } from "../models/user.js";
 
 export class UserService {
   constructor() {
@@ -63,7 +63,8 @@ export class UserService {
 
     // restore saved properties
     user.id = userData.id;
-    user.examResults = userData.examResults || [];
+    user.examsResults = userData.examsResults || [];
+    user.examsCreated = userData.examsCreated || [];
 
 
     return user;
@@ -91,13 +92,9 @@ export class UserService {
     const users = data ? JSON.parse(data) : [];
 
 
-    // Find existing user
-    const index = users.findIndex(
-      user => user.id === user.id
-    );
-
-    // Update existing user
-    users[index] = user;
+    // Find existing user: update if present, append if new
+    const index = users.findIndex(u => u.id === user.id);
+    if (index === -1) users.push(user); else users[index] = user;
 
 
     localStorage.setItem(
