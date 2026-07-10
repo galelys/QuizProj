@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const user = JSON.parse(localStorage.getItem('activeUser'));
     
 
-    if (user.type === "teacher") {
+    if (user.type === "student") {
         console.log("hi");
         results.userID = user.id;
         exam.updateStats(results);
