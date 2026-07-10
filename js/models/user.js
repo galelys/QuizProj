@@ -4,6 +4,7 @@ export class User {
         this.name = name;
         this.password = password; 
         this.type = type;
+        this.examsResults = [];
   }
 
     checkPassword(inputPassword) {
@@ -16,6 +17,10 @@ export class User {
 
     getUserType(){
         return this.type;
+    }
+
+    addExamResults(results){
+        this.examsResults.push(results);
     }
     
 }

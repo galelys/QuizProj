@@ -4,10 +4,10 @@ export class UserService {
   constructor() {
     this.storageKey = "users";
   }
-  
+
   // add new user
   addUser(user) {
-    if(this.findUserById(user.id) !== null){
+    if (this.findUserById(user.id) !== null) {
       return false;
     }
 
@@ -17,7 +17,7 @@ export class UserService {
 
     localStorage.setItem(this.storageKey, JSON.stringify(plainUsers));
     return true;
- 
+
   }
 
   // find user by name
@@ -29,32 +29,84 @@ export class UserService {
     }
     const users = JSON.parse(data);
 
-    return users.find( u => String(u.name) === String(name)) || null;
+    return users.find(u => String(u.name) === String(name)) || null;
   }
 
-  findUserById(id){
+  findUserById(id) {
+
     const data = localStorage.getItem(this.storageKey);
+
     if (!data) {
-      return null; //if not exist return null
+      return null;
     }
+
+
     const users = JSON.parse(data);
 
-    return users.find( u => u.id === id ) || null;
+    const userData = users.find(
+      u => u.id === id
+    );
+
+
+    if (!userData) {
+      return null;
+    }
+
+
+    // recreate User class object
+    const user = new User(
+      userData.name,
+      userData.password,
+      userData.type
+    );
+
+
+    // restore saved properties
+    user.id = userData.id;
+    user.examResults = userData.examResults || [];
+
+
+    return user;
   }
 
   // login check
   login(id, password) {
     let usr = this.findUserById(id);
     //in case that id is not in our datd
-    if(!usr){
+    if (!usr) {
       return null;
     }
 
-    if(usr.password === password ){
-      return usr
+    if (usr.password === password) {
+      return usr;
     }
     return null;
-    
+
   }
+
+  saveUser(user) {
+
+    const data = localStorage.getItem(this.storageKey);
+
+    const users = data ? JSON.parse(data) : [];
+
+
+    // Find existing user
+    const index = users.findIndex(
+      user => user.id === user.id
+    );
+
+    // Update existing user
+    users[index] = user;
+
+
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(users)
+    );
+
+  }
+
+
 
 }
