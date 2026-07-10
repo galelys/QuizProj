@@ -24,4 +24,88 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("title").textContent = `Hello, ${user.name}`;
+
+    //Exams array for the student
+    const results = Array.isArray(user.examsResults)
+        ? user.examsResults
+        : [];
+
+
+    displayCompletedExams(results);
+
+    displayPreviousGrades(results);
+
+    displayAverageGrade(results);
+
+
+    //search exam button
+    const searchExamsButton = document.getElementById("searchExamsBTN");
+
+    searchExamsButton.addEventListener("click", goToSearchExams);
 });
+
+
+function displayCompletedExams(results) {
+    const list = document.getElementById("completedExamsList");
+
+    list.innerHTML = "";
+
+    //if not completed exams the array is empty
+    if (results.length === 0) {
+        list.innerHTML = "<li>No completed exams yet.</li>";
+        return;
+    }
+
+    results.forEach(result => {
+        const item = document.createElement("li");
+
+        item.textContent = result.examTitle || "Unknown";
+
+        list.appendChild(item);
+    });
+
+}
+
+function displayPreviousGrades(results) {
+    const list = document.getElementById("gradesList");
+
+    list.innerHTML = "";
+
+    if (results.length === 0) {
+        list.innerHTML = "<li>No grades yet.</li>";
+        return;
+    }
+
+    results.forEach(result => {
+        const item = document.createElement("li");
+
+        item.textContent =
+            `${result.examTitle} - ${result.percentage}`;
+
+        list.appendChild(item);
+    });
+}
+
+function displayAverageGrade(results) {
+
+    const averageElement = document.getElementById("averageGrade");
+
+    if (results.length === 0) {
+        averageElement.textContent = "No grades yet.";
+        return;
+    }
+
+    let sum = 0;
+
+    results.forEach(result => {
+        sum += result.percentage;
+    });
+
+    const average = sum / results.length;
+
+    averageElement.textContent = average.toFixed(2) + "%";
+}
+
+function goToSearchExams() {
+    window.location.href = "../../teacher/ExamsList/ExamsList.html";
+}

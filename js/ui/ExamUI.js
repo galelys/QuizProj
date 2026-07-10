@@ -162,7 +162,7 @@ export class ExamUI {
       this.renderExamListSearchTeacher(exams);
     }
     else if (user == "student") {
-      //this.renderExamListSearchStudent(exams);
+      this.renderExamListSearchStudent(exams);
       console("future featuer");
     }
     else {
@@ -191,6 +191,7 @@ export class ExamUI {
       `;
       return;
     }
+
 
     // for each Exam object create div and add it to html
     exams.forEach(exam => {
@@ -241,6 +242,61 @@ export class ExamUI {
       this.examListElement.appendChild(div);
     });
   }
+
+  /*
+
+  Creates exam cards for student view.
+
+  Each card contains:
+
+  - exam information
+
+  - number of questions
+
+  - time limit
+
+  - start exam button
+  */
+
+    renderExamListSearchStudent(exams) {
+      this.examListElement.innerHTML = "";
+
+      if (exams.length === 0) {
+        this.examListElement.innerHTML = `
+            <p class="text-muted">No exams available.</p>
+        `;
+        return;
+      }
+
+      exams.forEach(exam => {
+        const div = document.createElement("div");
+
+        div.className = "exam-card mainCard main-text";
+
+        div.innerHTML = `
+            <h4>${exam.category} - ${exam.title}</h4>
+
+            <p class="small-muted">
+                Questions: ${exam.getQuestionCount()}
+            </p>
+
+            <p class="small-muted">
+                Time limit:
+                ${exam.timeLimit === 0
+            ? "Unlimited"
+            : `${exam.timeLimit} min`}
+            </p>
+
+            <button
+                class="btn btn-success run-btn base-btn"
+                data-id="${exam.id}">
+                Start Exam
+            </button>
+        `;
+
+        this.examListElement.appendChild(div);
+      });
+    }
 
 
 
