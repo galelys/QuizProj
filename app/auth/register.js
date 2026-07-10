@@ -2,17 +2,17 @@ import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
 import { initThemeToggle } from "../../js/ui/theme.js";
 
-document.addEventListener('DOMContentLoaded' , function(){
+document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
-    
-    
+
+
     // back to log in button 
     let btn_back = document.getElementById('backLogBTN');
     // button for submitting a new user 
-    let registration_btn =  document.getElementById('regiBTN');
-    
-    btn_back.addEventListener('click' , goToLogin);
-    registration_btn.addEventListener('click' , registser);
+    let registration_btn = document.getElementById('regiBTN');
+
+    btn_back.addEventListener('click', goToLogin);
+    registration_btn.addEventListener('click', registser);
 
 });
 
@@ -27,7 +27,7 @@ function goToLogin() {
     redirects to the relevent page 
 */
 
-function registser(){
+function registser() {
     const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
@@ -36,21 +36,21 @@ function registser(){
     // see if inputs are empty if yes then return
     inputs.forEach(e => {
         let val = e.value.trim();
-        if(val === ""){
+        if (val === "") {
             e.style.border = "1px solid red";
             isValid = false;
         }
-        else{
-            e.style.border = ""; 
+        else {
+            e.style.border = "";
         }
-        
+
     });
     if (!isValid) {
-        return; 
+        return;
     }
     // creation of a new user
-    let userType =  document.getElementById("btnradio1").checked ? "teacher" : "student";
-    let id =document.getElementById("id").value 
+    let userType = document.getElementById("btnradio1").checked ? "teacher" : "student";
+    let id = document.getElementById("id").value
     // make a user
     const newUser = new User(
         document.getElementById("userName").value,
@@ -58,7 +58,7 @@ function registser(){
         userType,
         id
     );
-    
+
     console.log(newUser);
 
     // send to be added to local storage
@@ -71,13 +71,13 @@ function registser(){
 
 /* function to redirect the user to its intended page */
 function goToPage(id) {
-    
+
     const userService = new UserService();
     const user = userService.findUserById(id);
-
+    localStorage.setItem("activeUser", JSON.stringify(user));
     if (!user) return;
-    localStorage.setItem("activeUser" , JSON.stringify(user));
-    
+
+
     const target =
         user.type === "teacher"
             ? "../teacher/Home/home.html"
