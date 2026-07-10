@@ -231,9 +231,14 @@ export class ExamUI {
           Delete
         </button>
         <button
-          class="btn btn-sm btn-danger export-btn base-btn"
+          class="btn btn-sm export-btn base-btn"
           data-id="${exam.id}">
           Export
+        </button>
+        <button
+          class="btn btn-sm btn-danger statistics-btn base-btn"
+          data-id="${exam.id}">
+          Statistics
         </button>
 
       `;
@@ -601,7 +606,12 @@ Displays the final result.
       <p>Score: ${score} / ${higestScore}</p>
       <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
       <p>Score: ${Math.round((score / higestScore) * 100)}%</p>
+
+      <button id="resultsBTN" class="base-btn">watch questions</button>
+      <button id="returnBTN" class="base-btn">Return</button>
     `;
+
+
     results.score = score;
     results.examMaxScore = higestScore;
     results.answersCount = answersCount;
@@ -614,6 +624,7 @@ Displays the final result.
     }
     //return score;
     //localStorage.setItem("results", JSON.stringify(userAnswers));
+
 
   }
 
