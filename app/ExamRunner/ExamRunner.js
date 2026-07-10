@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initThemeToggle();
 
+
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
     const userService = new UserService();
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load the selected exam using the ID stored in localStorage
     let examID = localStorage.getItem("examID");
     let exam = examService.getExamById(examID);
+
 
     const user = JSON.parse(localStorage.getItem('activeUser'));
 
@@ -35,8 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const u = userService.findUserById(user.id);
             u.addExamResults(results);
             userService.saveUser(u);
+
+            //const user = JSON.parse(localStorage.getItem('activeUser' ));
+            localStorage.setItem('activeUser' , JSON.stringify(u) );
+
         }
     });
-
 
 });

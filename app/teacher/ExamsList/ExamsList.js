@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const userService = new UserService();
     const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+    // If nobody is signed in, send them to the login page instead of crashing.
+    if (!activeUser) {
+        window.location.href = "../../auth/login.html";
+        return;
+    }
     const user = userService.findUserById(activeUser.id);
 
     // Container that holds the generated exam cards/list
@@ -142,6 +147,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         reader.onload = e => {
             try {
+                // Make sure we still have a valid signed-in user before importing.
+                if (!user) {
+                    alert("You must be signed in to import an exam.");
+                    return;
+                }
+
                 // Turn the file text back into an object
                 const data = JSON.parse(e.target.result);
 
