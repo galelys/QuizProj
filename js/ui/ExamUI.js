@@ -285,6 +285,9 @@ export class ExamUI {
     // Index = question number
     // Value = selected answer index
     const userAnswers = [];
+    for(let i = 0 ; i< exam.getQuestionCount();i++){
+      userAnswers[i] = -1;
+    }
     let questionIndex = 0;
 
 
@@ -330,7 +333,7 @@ export class ExamUI {
     if (exam.timeLimit > 0) {
 
       updateTimer();
-      timerInterval = setInterval(() => { updateTimer(); }, 10);
+      timerInterval = setInterval(() => { updateTimer(); }, 1000);
 
     }
 
@@ -390,6 +393,14 @@ export class ExamUI {
     submits it into local storage for later to calculate final score.
     */
     submitButton.addEventListener("click", () => {
+            const selected = questionDiv.querySelector(
+        `input[name="question-${questionIndex}"]:checked`
+      );
+      // If no answer selected,
+      // save -1 as unanswered.
+      if (!selected) { userAnswers[questionIndex] = -1; }
+      else { userAnswers[questionIndex] = Number(selected.value); }
+
       clearInterval(timerInterval);
       this.checkExam(exam, userAnswers);
     });
@@ -484,7 +495,7 @@ Displays the final result.
     `;
 
     this.examRunnerElement.appendChild(resultDiv);
-    //localStorage.setItem("results" , JSON.parse());
+    localStorage.setItem("results" , JSON.stringify(userAnswers));
 
   }
 
