@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Project styles -->
+    <link rel="stylesheet" href="../../../css/baseStyle.css">
+    <link rel="stylesheet" href="./ExamFind.css">
+
+    <title>Find Exams</title>
+
+</head>
+
+<body>
+    <main class="container py-4">
+
+        <h1 class="main-text mb-4">
+            Find an Exam
+        </h1>
+
+        <div class="mb-4">
+            <input id="searchBAR" type="text" class="inpt" placeholder="Search exam by title" autocomplete="off">
+
+            <button id="searchBTN" class="base-btn">
+                Search
+            </button>
+
+            <button id="clearBTN" class="base-btn">
+                Clear
+            </button>
+        </div>
+
+        <div id="examList"></div>
+
+        <div class="mt-4">
+            <button id="backHomeBTN" class="base-btn">
+                Back Home
+            </button>
+        </div>
+
+    </main>
+
+    <button id="themeToggle">
+        Dark Mode
+    </button>
+
+
+
+</body>
+<script type="module" src="./ExamFind.js"></script>
+
+</html>

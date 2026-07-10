@@ -1,5 +1,5 @@
 import { Question } from "../../../js/models/Question.js";
-import { Exam } from "../../../../js/models/exam.js";
+import { Exam } from "../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveQuestion() {
     // Read current question values
     const questionText = document.getElementById("questionText").value.trim();
-    const correctAnswerNumber = Number(correctAnswerInput.value);
+    const correctAnswerNumber = Number(correctAnswerInput.value) -1;
 
     const questionDiff = Number(
       document.getElementById("questionDiff").value
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("answer2").value,
       document.getElementById("answer3").value
     ];
+    //const correctAnswerIndex = correctAnswerNumber - 1;
 
     // Create a Question object
     const question = new Question(
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    if (correctAnswerNumber < 1 || correctAnswerNumber > 4) {
+    if (correctAnswerNumber < 0 || correctAnswerNumber > 3) {
       examUI.showBuilderMessage("Correct answer must be a number from 1 to 4.", "danger");
       return;
     }

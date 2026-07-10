@@ -96,7 +96,6 @@ export class UserService {
     const index = users.findIndex(u => u.id === user.id);
     if (index === -1) users.push(user); else users[index] = user;
 
-
     localStorage.setItem(
       this.storageKey,
       JSON.stringify(users)

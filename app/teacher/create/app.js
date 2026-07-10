@@ -1,15 +1,23 @@
 import { Question } from "../../../js/models/Question.js";
-import { Exam } from "../../../../js/models/exam.js";
+import { Exam } from "../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 import { UserService } from "../../../js/services/UserService.js";
+<<<<<<< HEAD
+=======
+import { User } from "../../../js/models/user.js";
+>>>>>>> main
 
 const examService = new ExamService();
 const examUI = new ExamUI(examService);
 const userService = new UserService();
 const activeUser = JSON.parse(localStorage.getItem('activeUser'));
 const user = userService.findUserById(activeUser.id);
+
+const userService = new UserService();
+const userString = JSON.parse(localStorage.getItem('activeUser'));
+let user = userService.findUserById(userString.id);
 
 let currentExam = null;
 
@@ -142,10 +150,15 @@ saveExamBtn.addEventListener("click", () => {
   }
   currentExam.timeLimit = time;
 
+<<<<<<< HEAD
   // Record this exam under the teacher who created it
   user.addExamCreation(currentExam.id);
   userService.saveUser(user);
   localStorage.setItem("activeUser", JSON.stringify(user));
+=======
+  user.addExamCreation(currentExam.id);
+  userService.saveUser(user);
+>>>>>>> main
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
@@ -153,7 +166,6 @@ saveExamBtn.addEventListener("click", () => {
   currentExam = null;
 
   examTitleInput.value = "";
-
 
 });
 
@@ -218,6 +230,8 @@ function importExam(event) {
       localStorage.setItem("activeUser", JSON.stringify(user));
       // Save the imported exam and refresh the list
       examService.saveExam(exam);
+
+
       alert("Exam was added successfully");
     } catch (err) {
       // The file was not valid exam JSON

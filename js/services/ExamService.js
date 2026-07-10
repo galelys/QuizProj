@@ -37,7 +37,7 @@ export class ExamService {
                     questionData.text,
                     questionData.answers,
                     questionData.correctAnswerIndex,
-                    questionData.difficulty,
+                    questionData.difficulty
                 );
 
                 question.id = questionData.id;

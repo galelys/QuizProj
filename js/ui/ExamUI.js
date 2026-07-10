@@ -162,7 +162,7 @@ export class ExamUI {
       this.renderExamListSearchTeacher(exams);
     }
     else if (user == "student") {
-      //this.renderExamListSearchStudent(exams);
+      this.renderExamListSearchStudent(exams);
       console("future featuer");
     }
     else {
@@ -191,6 +191,7 @@ export class ExamUI {
       `;
       return;
     }
+
 
     // for each Exam object create div and add it to html
     exams.forEach(exam => {
@@ -242,6 +243,61 @@ export class ExamUI {
     });
   }
 
+  /*
+
+  Creates exam cards for student view.
+
+  Each card contains:
+
+  - exam information
+
+  - number of questions
+
+  - time limit
+
+  - start exam button
+  */
+
+    renderExamListSearchStudent(exams) {
+      this.examListElement.innerHTML = "";
+
+      if (exams.length === 0) {
+        this.examListElement.innerHTML = `
+            <p class="text-muted">No exams available.</p>
+        `;
+        return;
+      }
+
+      exams.forEach(exam => {
+        const div = document.createElement("div");
+
+        div.className = "exam-card mainCard main-text";
+
+        div.innerHTML = `
+            <h4>${exam.category} - ${exam.title}</h4>
+
+            <p class="small-muted">
+                Questions: ${exam.getQuestionCount()}
+            </p>
+
+            <p class="small-muted">
+                Time limit:
+                ${exam.timeLimit === 0
+            ? "Unlimited"
+            : `${exam.timeLimit} min`}
+            </p>
+
+            <button
+                class="btn btn-success run-btn base-btn"
+                data-id="${exam.id}">
+                Start Exam
+            </button>
+        `;
+
+        this.examListElement.appendChild(div);
+      });
+    }
+
 
 
   /*
@@ -255,7 +311,7 @@ export class ExamUI {
   renderExamRunner(exam, onFinish) {
     let results = {};
     // Called when the exam is actually finished (submit or time up),
-    // so the caller can record stats/results at the right moment.
+    // so the caller can save stats/results at the right moment.
     this.onFinish = onFinish;
     // Validate that the requested exam exists
     if (!exam) {
@@ -635,7 +691,8 @@ selectedIndex controls which option is selected.
       document.getElementById(`answer${i}`).value = q.answers[i];
     }
 
-    document.getElementById("correctAnswer").value = q.correctAnswerIndex;
+    // Field is 1-based (1-4); stored index is 0-based, so display +1.
+    document.getElementById("correctAnswer").value = q.correctAnswerIndex + 1;
     document.getElementById("questionDiff").value = q.difficulty;
     document.getElementById("diffValue").textContent = q.difficulty;
 
@@ -644,7 +701,7 @@ selectedIndex controls which option is selected.
     sliderQDiff.value = q.difficulty;
 
     const currectAnswer = document.getElementById("correctAnswer");
-    currectAnswer.value = q.correctAnswerIndex;
+    currectAnswer.value = q.correctAnswerIndex + 1;
     // Remember current question
     localStorage.setItem('currentQuestionIndex', index);
   }
