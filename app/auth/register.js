@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let registration_btn = document.getElementById('regiBTN');
 
     btn_back.addEventListener('click', goToLogin);
-    registration_btn.addEventListener('click', registser);
+    registration_btn.addEventListener('click', register);
 
 });
 
@@ -27,7 +27,7 @@ function goToLogin() {
     redirects to the relevent page 
 */
 
-function registser() {
+function register() {
     const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
