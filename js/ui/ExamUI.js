@@ -405,7 +405,7 @@ export class ExamUI {
       else { userAnswers[questionIndex] = Number(selected.value); }
       results.timeLeft = timeLeft;
       clearInterval(timerInterval);
-
+      
       results.userAnswers = userAnswers;
       //results.score = this.checkExam(exam, userAnswers);
       //localStorage.setItem("lastResult", JSON.stringify(results));
