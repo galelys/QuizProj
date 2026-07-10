@@ -1,4 +1,4 @@
-import { Exam } from "./models/Exam.js";
+import { Exam } from "./models/exam.js";
 import { Question } from "./models/Question.js";
 import { ExamService } from "./services/ExamService.js";
 import { ExamUI } from "./ui/ExamUI.js";

@@ -1,4 +1,4 @@
-import { User } from "../../../js/models/User.js";
+import { User } from "../../../js/models/user.js";
 import { UserService } from "../../../js/services/UserService.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 

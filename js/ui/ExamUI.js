@@ -635,7 +635,8 @@ selectedIndex controls which option is selected.
       document.getElementById(`answer${i}`).value = q.answers[i];
     }
 
-    document.getElementById("correctAnswer").value = q.correctAnswerIndex;
+    // Field is 1-based (1-4); stored index is 0-based, so display +1.
+    document.getElementById("correctAnswer").value = q.correctAnswerIndex + 1;
     document.getElementById("questionDiff").value = q.difficulty;
     document.getElementById("diffValue").textContent = q.difficulty;
 
@@ -644,7 +645,7 @@ selectedIndex controls which option is selected.
     sliderQDiff.value = q.difficulty;
 
     const currectAnswer = document.getElementById("correctAnswer");
-    currectAnswer.value = q.correctAnswerIndex;
+    currectAnswer.value = q.correctAnswerIndex + 1;
     // Remember current question
     localStorage.setItem('currentQuestionIndex', index);
   }
