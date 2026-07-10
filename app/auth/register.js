@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let registration_btn = document.getElementById('regiBTN');
 
     btn_back.addEventListener('click', goToLogin);
+<<<<<<< HEAD
     registration_btn.addEventListener('click', registser);
+=======
+    registration_btn.addEventListener('click', register);
+>>>>>>> Y-LOG-IN
 
 });
 
@@ -27,11 +31,23 @@ function goToLogin() {
     redirects to the relevent page 
 */
 
+<<<<<<< HEAD
 function registser() {
+=======
+function register() {
+>>>>>>> Y-LOG-IN
     const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
     let isValid = true;
+    //restarting the error message field
+    const errorMsg = document.getElementById("registerError");
+
+    errorMsg.textContent = "";
+
+    errorMsg.style.visibility = "hidden";
+
+    document.getElementById("id").classList.remove("inpt-err");
 
     // see if inputs are empty if yes then return
     inputs.forEach(e => {
@@ -60,11 +76,22 @@ function registser() {
     );
 
     console.log(newUser);
+    const wasAdded = userService.addUser(newUser);
 
-    // send to be added to local storage
-    userService.addUser(newUser);
+    if (!wasAdded) {
 
-    // go to the next page 
+        const errorMsg = document.getElementById("registerError");
+
+        errorMsg.textContent = "A user with this ID already exists.";
+
+        errorMsg.style.visibility = "visible";
+
+        document.getElementById("id").classList.add("inpt-err");
+
+        return;
+
+    }
+
     goToPage(id);
 
 }
@@ -77,6 +104,10 @@ function goToPage(id) {
     localStorage.setItem("activeUser", JSON.stringify(user));
     if (!user) return;
 
+<<<<<<< HEAD
+=======
+    localStorage.setItem("activeUser", JSON.stringify(user));
+>>>>>>> Y-LOG-IN
 
     const target =
         user.type === "teacher"
