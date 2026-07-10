@@ -12,11 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let registration_btn = document.getElementById('regiBTN');
 
     btn_back.addEventListener('click', goToLogin);
-<<<<<<< HEAD
     registration_btn.addEventListener('click', registser);
-=======
-    registration_btn.addEventListener('click', register);
->>>>>>> Y-LOG-IN
 
 });
 
@@ -31,11 +27,7 @@ function goToLogin() {
     redirects to the relevent page 
 */
 
-<<<<<<< HEAD
 function registser() {
-=======
-function register() {
->>>>>>> Y-LOG-IN
     const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
@@ -104,10 +96,6 @@ function goToPage(id) {
     localStorage.setItem("activeUser", JSON.stringify(user));
     if (!user) return;
 
-<<<<<<< HEAD
-=======
-    localStorage.setItem("activeUser", JSON.stringify(user));
->>>>>>> Y-LOG-IN
 
     const target =
         user.type === "teacher"
