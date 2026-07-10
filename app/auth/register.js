@@ -2,17 +2,17 @@ import { User } from "../../js/models/User.js";
 import { UserService } from "../../js/services/UserService.js";
 import { initThemeToggle } from "../../js/ui/theme.js";
 
-document.addEventListener('DOMContentLoaded' , function(){
+document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
-    
-    
+
+
     // back to log in button 
     let btn_back = document.getElementById('backLogBTN');
     // button for submitting a new user 
-    let registration_btn =  document.getElementById('regiBTN');
-    
-    btn_back.addEventListener('click' , goToLogin);
-    registration_btn.addEventListener('click' , registser);
+    let registration_btn = document.getElementById('regiBTN');
+
+    btn_back.addEventListener('click', goToLogin);
+    registration_btn.addEventListener('click', register);
 
 });
 
@@ -27,30 +27,38 @@ function goToLogin() {
     redirects to the relevent page 
 */
 
-function registser(){
+function register() {
     const userService = new UserService();
 
     let inputs = document.querySelectorAll('.inpt');
     let isValid = true;
+    //restarting the error message field
+    const errorMsg = document.getElementById("registerError");
+
+    errorMsg.textContent = "";
+
+    errorMsg.style.visibility = "hidden";
+
+    document.getElementById("id").classList.remove("inpt-err");
 
     // see if inputs are empty if yes then return
     inputs.forEach(e => {
         let val = e.value.trim();
-        if(val === ""){
+        if (val === "") {
             e.style.border = "1px solid red";
             isValid = false;
         }
-        else{
-            e.style.border = ""; 
+        else {
+            e.style.border = "";
         }
-        
+
     });
     if (!isValid) {
-        return; 
+        return;
     }
     // creation of a new user
-    let userType =  document.getElementById("btnradio1").checked ? "teacher" : "student";
-    let id =document.getElementById("id").value 
+    let userType = document.getElementById("btnradio1").checked ? "teacher" : "student";
+    let id = document.getElementById("id").value
     // make a user
     const newUser = new User(
         document.getElementById("userName").value,
@@ -58,25 +66,38 @@ function registser(){
         userType,
         id
     );
-    
+
     console.log(newUser);
+    const wasAdded = userService.addUser(newUser);
 
-    // send to be added to local storage
-    userService.addUser(newUser);
+    if (!wasAdded) {
 
-    // go to the next page 
+        const errorMsg = document.getElementById("registerError");
+
+        errorMsg.textContent = "A user with this ID already exists.";
+
+        errorMsg.style.visibility = "visible";
+
+        document.getElementById("id").classList.add("inpt-err");
+
+        return;
+
+    }
+
     goToPage(id);
 
 }
 
 /* function to redirect the user to its intended page */
 function goToPage(id) {
-    
+
     const userService = new UserService();
     const user = userService.findUserById(id);
 
     if (!user) return;
-    
+
+    localStorage.setItem("activeUser", JSON.stringify(user));
+
     const target =
         user.type === "teacher"
             ? "../teacher/home.html"
