@@ -163,7 +163,7 @@ export class ExamUI {
     }
     else if (user == "student") {
       this.renderExamListSearchStudent(exams);
-      console("future featuer");
+      //console("future featuer");
     }
     else {
       return;
@@ -218,23 +218,6 @@ export class ExamUI {
           class="btn btn-sm btn-success run-btn base-btn"
           data-id="${exam.id}">
           Run Exam
-        </button>
-
-        <button
-          class="btn btn-sm btn-danger edit-btn base-btn"
-          data-id="${exam.id}">
-          Edit
-        </button>
-
-        <button
-          class="btn btn-sm btn-danger delete-btn base-btn"
-          data-id="${exam.id}">
-          Delete
-        </button>
-        <button
-          class="btn btn-sm btn-danger export-btn base-btn"
-          data-id="${exam.id}">
-          Export
         </button>
 
       `;

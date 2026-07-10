@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     examUI.renderExamRunner(exam, (results) => {
         if (user.type != "") {
             results.userID = user.id;
+            results.examId = examID;
 
             // Record the attempt on the exam (feeds the teacher's average).
             exam.updateStats(results);
