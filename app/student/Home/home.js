@@ -1,23 +1,27 @@
-import { User } from "../../../js/models/user.js";
 import { UserService } from "../../../js/services/UserService.js";
+import { User } from "../../../js/models/user.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
 
-document.addEventListener('DOMContentLoaded' , function(){
-
+document.addEventListener("DOMContentLoaded", function () {
     initThemeToggle();
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    console.log(id);
 
     const userService = new UserService();
-    const user = userService.findUserById(id);
 
-    console.log(user);
-    
-    document.getElementById('title').textContent += user.name;
+    let user = JSON.parse(localStorage.getItem("activeUser"));
 
+    if (!user) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
 
+        if (id) {
+            user = userService.findUserById(id);
+        }
+    }
+
+    if (!user) {
+        window.location.href = "../../auth/login.html";
+        return;
+    }
+
+    document.getElementById("title").textContent = `Hello, ${user.name}`;
 });
-
-
