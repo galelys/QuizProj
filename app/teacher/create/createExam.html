@@ -14,7 +14,11 @@
 <body>
   <div id="menuBTNS"></div>
   <div class="container py-4">
-    <h1 class="main-text text-center mb-4 ">Create an Exam</h1>
+    <h1 class="main-text text-center mb-4 ">Create an Exam
+      <button id="importBTN" class="base-btn">import</button>
+      <!-- hidden file picker; the visible "import" button triggers it -->
+      <input id="importFile" type="file" accept="application/json" style="display:none">
+    </h1>
 
     <div class="row">
 

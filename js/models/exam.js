@@ -7,11 +7,17 @@ export class Exam {
     this.timeLimit = 0;
     this.category = "";
     this.creatorID = creatorID;
+    this.grades = [];
   }
 
   addQuestion(question) {
     this.questions.push(question);
   }
+
+  getExamId(){
+    this.id = crypto.randomUUID();
+  }
+
   removeQuestion(index) {
     if (index >= 0 && index < this.questions.length) {
       this.questions.splice(index, 1);

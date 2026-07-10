@@ -27,6 +27,14 @@ let categories = examService.getCategories();
 
 
 
+// Import button + its hidden file input
+let importBtn = document.getElementById("importBTN");
+let importFileInput = document.getElementById("importFile");
+
+// Clicking the visible button opens the file picker
+importBtn.addEventListener("click", () => importFileInput.click());
+// When a file is chosen, read and import it
+importFileInput.addEventListener("change", importExam);
 
 //const examListElement = document.getElementById("examList");
 initThemeToggle();
@@ -84,7 +92,7 @@ addQuestionBtn.addEventListener("click", () => {
 
   if (!currentExam) {
     const user = JSON.parse(localStorage.getItem('activeUser'));
-    currentExam = new Exam(title , user.id );
+    currentExam = new Exam(title, user.id);
   }
 
   const correctAnswerIndex = correctAnswerNumber - 1;
@@ -154,6 +162,60 @@ function clearQuestionInputs() {
 }
 
 
+/**
+* Imports an exam from a JSON file selected by the user.
+* Reads the file, parses the JSON, rebuilds it as an Exam
+* object (with fresh ids so it never overwrites an existing exam),
+* saves it to localStorage, and refreshes the list.
+*/
+function importExam(event) {
 
+  // The file the user picked
+  const file = event.target.files[0];
+  if (!file) { return; }
+
+  const reader = new FileReader();
+
+  reader.onload = e => {
+    try {
+      // Turn the file text back into an object
+      const data = JSON.parse(e.target.result);
+
+      // Rebuild a clean Exam object from the raw data
+      const user = JSON.parse(localStorage.getItem('activeUser'));
+      const exam = new Exam(data.title, user.id);
+
+      // New id so importing the same file twice does not overwrite
+      exam.id = crypto.randomUUID();
+      exam.createdAt = new Date().toISOString();
+      exam.timeLimit = data.timeLimit || 0;
+      exam.category = data.category || "";
+
+      // Rebuild each question
+      exam.questions = (data.questions || []).map(q => {
+        const question = new Question(
+          q.text,
+          q.answers,
+          q.correctAnswerIndex,
+          q.difficulty
+        );
+        return question;
+      });
+
+      // Save the imported exam and refresh the list
+      examService.saveExam(exam);
+      alert("Exam was added successfully");
+    } catch (err) {
+      // The file was not valid exam JSON
+      alert("Invalid exam file.");
+    }
+
+    // Reset the input so the same file can be imported again
+    event.target.value = "";
+  };
+
+  // Read the file as text (triggers reader.onload above)
+  reader.readAsText(file);
+}
 
 

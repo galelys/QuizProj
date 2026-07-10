@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(node -e \"console.log\\('node ok'\\)\")",
-      "Bash(npx --no-install puppeteer --version)"
+      "Bash(npx --no-install puppeteer --version)",
+      "Bash(sed -i '1d' imp.mjs)",
+      "Bash(node imp.mjs)"
     ]
   }
 }

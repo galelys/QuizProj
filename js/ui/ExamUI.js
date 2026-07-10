@@ -116,7 +116,7 @@ export class ExamUI {
     categories.forEach(category => {
       const button = document.createElement("button");
       button.textContent = category;
-      button.className = "category-btn";
+      button.className = "category-btn base-btn";
 
       if (this.selectedCategory === category) { button.classList.add("active"); }
 
@@ -206,7 +206,9 @@ export class ExamUI {
         <p class="small-muted">
           Questions: ${exam.getQuestionCount()} 
         </p>
-
+        <p class="small-muted">
+          Exam ID: ${exam.id} 
+        </p>
         <p class="small-muted">
           Created: ${new Date(exam.createdAt).toLocaleString()}
         </p>
