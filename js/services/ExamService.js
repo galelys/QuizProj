@@ -100,6 +100,25 @@ export class ExamService {
         return exams.filter(exam => exam.creatorID === creatorId);
     }
 
+    calculateExamResultys(exam, results) {
+        let score = 0;
+        let answersCount = 0;
+        let higestScore = 0;
+        // Check every question
+        exam.questions.forEach((question, questionIndex) => {
+            higestScore += question.difficulty;
+            if (question.isCorrect(results.userAnswers[questionIndex])) {
+                score += question.difficulty;
+            }
+            if (results.userAnswers[questionIndex] != -1) {
+                answersCount++;
+            }
+        });
+
+        return score;
+
+    }
+
     calculateExamAverage(exams) {
         // Average percentage score across every recorded attempt of these exams.
         // Each exam holds its attempts in `stats`; each attempt has a raw `score`
@@ -113,7 +132,7 @@ export class ExamService {
                 return;
             }
             (exam.stats || []).forEach(stat => {
-                total += (stat.score / questionCount) * 100;
+                total += (stat.score / stat.examMaxScore) * 100;
                 attempts++;
             });
         });

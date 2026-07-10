@@ -6,11 +6,7 @@ export class User {
         this.type = type;
         this.examsResults = [];
         this.examsCreated = [];
-<<<<<<< HEAD
   }
-=======
-    }
->>>>>>> main
 
     checkPassword(inputPassword) {
         return this.password === inputPassword;
@@ -28,7 +24,6 @@ export class User {
         this.examsResults.push(results);
     }
 
-<<<<<<< HEAD
     addExamCreation(examID){
         this.examsCreated.push(examID);
     }
@@ -37,10 +32,5 @@ export class User {
         return this.examsCreated.length;
     }
 
-=======
-    addExamCreation(examID) {
-        this.examsCreated.push(examID);
-    }
-
->>>>>>> main
+    
 }

@@ -543,11 +543,13 @@ Displays the final result.
   checkExam(exam, results) {
     let score = 0;
     let answersCount = 0;
+    let higestScore = 0;
 
     // Check every question
     exam.questions.forEach((question, questionIndex) => {
+      higestScore += question.difficulty;
       if (question.isCorrect(results.userAnswers[questionIndex])) {
-        score++;
+        score += question.difficulty ;
       }
       if (results.userAnswers[questionIndex] != -1) {
         answersCount++;
@@ -561,11 +563,12 @@ Displays the final result.
     this.examRunnerElement.innerHTML = ``;
     resultDiv.innerHTML = `
       <h5> Exam Result</h5 >
-      <p>Score: ${score} / ${exam.questions.length}</p>
+      <p>Score: ${score} / ${higestScore}</p>
       <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
-      <p>Score: ${Math.round((score / exam.questions.length) * 100)}%</p>
+      <p>Score: ${Math.round((score / higestScore) * 100)}%</p>
     `;
     results.score = score;
+    results.examMaxScore = higestScore;
     results.answersCount = answersCount;
     this.examRunnerElement.appendChild(resultDiv);
     localStorage.setItem("lastResult", JSON.stringify(results));
