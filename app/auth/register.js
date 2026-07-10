@@ -76,11 +76,12 @@ function goToPage(id) {
     const user = userService.findUserById(id);
 
     if (!user) return;
+    localStorage.setItem("activeUser" , JSON.stringify(user));
     
     const target =
         user.type === "teacher"
-            ? "../teacher/home.html"
-            : "../student/home.html";
+            ? "../teacher/Home/home.html"
+            : "../student/Home/home.html";
 
     window.location.href = target + "?id=" + encodeURIComponent(id);
 }

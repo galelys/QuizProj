@@ -3,10 +3,7 @@ import { UserService } from "../../js/services/UserService.js";
 import { initThemeToggle } from "../../js/ui/theme.js";
 
 
-function settup_route(){
 
-}
-    // dark mode button initialization 
 let menuButton = document.getElementById('menuBTNS');
 
 

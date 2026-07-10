@@ -1,6 +1,6 @@
-import { User } from "../../js/models/User.js";
-import { UserService } from "../../js/services/UserService.js";
-import { initThemeToggle } from "../../js/ui/theme.js";
+import { User } from "../../../js/models/User.js";
+import { UserService } from "../../../js/services/UserService.js";
+import { initThemeToggle } from "../../../js/ui/theme.js";
 
 document.addEventListener('DOMContentLoaded' , function(){
 

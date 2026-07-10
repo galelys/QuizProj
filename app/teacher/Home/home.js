@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     // writing welcome <user name> on the page
     const user = JSON.parse(localStorage.getItem('activeUser'));
+    
     document.getElementById('title').textContent += user.name;
 
     

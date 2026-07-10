@@ -83,11 +83,14 @@ function goToRegister() {
 }
 
 function goToPage(id) {
+    //localStorage.setItem("activeUser" , user);
 
     const userService = new UserService();
     const user = userService.findUserById(id);
+    
 
     if (!user) return;
+    localStorage.setItem("activeUser" , JSON.stringify(user));
 
     const target =
         user.type === "teacher"
