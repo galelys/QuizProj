@@ -7,7 +7,11 @@ export class Exam {
     this.timeLimit = 0;
     this.category = "";
     this.creatorID = creatorID;
-    this.grades = [];
+    this.stats = [];
+  }
+
+  updateStats(stats){
+    this.stats.push(stats);
   }
 
   addQuestion(question) {

@@ -13,5 +13,9 @@ export class User {
     getUserName(){
         return this.name;
     }
+
+    getUserType(){
+        return this.type;
+    }
     
 }

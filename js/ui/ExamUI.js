@@ -253,6 +253,7 @@ export class ExamUI {
     ===========================================================
     */
   renderExamRunner(exam) {
+    let results = {};
     // Validate that the requested exam exists
     if (!exam) {
       this.examRunnerElement.innerHTML = `
@@ -285,6 +286,9 @@ export class ExamUI {
     // Index = question number
     // Value = selected answer index
     const userAnswers = [];
+    for (let i = 0; i < exam.getQuestionCount(); i++) {
+      userAnswers[i] = -1;
+    }
     let questionIndex = 0;
 
 
@@ -296,6 +300,46 @@ export class ExamUI {
     - when moving next
     - when moving previous
     */
+    let timeLeft = exam.timeLimit * 60; // convert minutes to seconds
+    let timerInterval;
+
+    /*
+     arrow function keeps the same "this"
+    */
+    const updateTimer = () => {
+
+      //calculating the timer
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      // updating the thml
+      document.getElementById("timerText").textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+      // if time is up stop the interval function  and automatically call for the check exam
+      if (timeLeft <= 0) {
+
+        clearInterval(timerInterval);
+
+        alert("Time is up!");
+
+        results.timeLeft = timeLeft;
+
+        results.userAnswers = userAnswers;
+        
+        //results.score = this.checkExam(exam, userAnswers);
+       // localStorage.setItem("lastResult", JSON.stringify(results));
+        this.checkExam(exam, results);
+      }
+      // update timer
+      timeLeft--;
+    };
+
+    if (exam.timeLimit > 0) {
+      updateTimer();
+      timerInterval = setInterval(() => { updateTimer(); }, 1000);
+
+    }
+
     function renderQuestionExam() {
       const question = exam.questions[questionIndex];
       questionDiv.innerHTML = `
@@ -312,6 +356,7 @@ export class ExamUI {
             </label>
             </div>
             `).join("")}
+            
             `;
 
 
@@ -327,6 +372,9 @@ export class ExamUI {
       }
     }
 
+    /*      const nextButton = document.getElementById("nextBTN");
+      const prevButton = document.getElementById("prevBTN");
+      const submitButton = document.getElementById("submitBTN");*/
 
     // Create navigation buttons dynamically
     // Create navigation buttons dynamically.
@@ -334,13 +382,9 @@ export class ExamUI {
     const prevButton = document.createElement("button");
     const submitButton = document.createElement("button");
 
-
-
     nextButton.className = "base-btn btn-primary";
     prevButton.className = "base-btn btn-primary";
     submitButton.className = "base-btn btn-primary";
-
-
 
     nextButton.textContent = "Next";
     prevButton.textContent = "Prev";
@@ -352,8 +396,22 @@ export class ExamUI {
     submits it into local storage for later to calculate final score.
     */
     submitButton.addEventListener("click", () => {
-      this.checkExam(exam, userAnswers)
+      const selected = questionDiv.querySelector(
+        `input[name="question-${questionIndex}"]:checked`
+      );
+      // If no answer selected,
+      // save -1 as unanswered.
+      if (!selected) { userAnswers[questionIndex] = -1; }
+      else { userAnswers[questionIndex] = Number(selected.value); }
+      results.timeLeft = timeLeft;
+      clearInterval(timerInterval);
+      
+      results.userAnswers = userAnswers;
+      //results.score = this.checkExam(exam, userAnswers);
+      //localStorage.setItem("lastResult", JSON.stringify(results));
+      this.checkExam(exam, results);
     });
+
     /*
     Next button:
     1. Saves current answer.
@@ -423,12 +481,17 @@ Calculates:
 Displays the final result.
 ===========================================================
 */
-  checkExam(exam, userAnswers) {
+  checkExam(exam, results) {
     let score = 0;
+    let answersCount = 0;
+
     // Check every question
     exam.questions.forEach((question, questionIndex) => {
-      if (question.isCorrect(userAnswers[questionIndex])) {
+      if (question.isCorrect(results.userAnswers[questionIndex])) {
         score++;
+      }
+      if (results.userAnswers[questionIndex] != -1) {
+        answersCount++;
       }
     });
 
@@ -440,10 +503,16 @@ Displays the final result.
     resultDiv.innerHTML = `
       <h5> Exam Result</h5 >
       <p>Score: ${score} / ${exam.questions.length}</p>
-      <p>Percent: ${Math.round((score / exam.questions.length) * 100)}%</p>
+      <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
+      <p>Score: ${Math.round((score / exam.questions.length) * 100)}%</p>
     `;
-
+    results.score = score;
+    results.answersCount = answersCount;
     this.examRunnerElement.appendChild(resultDiv);
+    localStorage.setItem("lastResult", JSON.stringify(results));
+    //return score;
+    //localStorage.setItem("results", JSON.stringify(userAnswers));
+
   }
 
 
@@ -592,5 +661,6 @@ selectedIndex controls which option is selected.
     document.getElementById("questionDiff").value = 0;
     document.getElementById("diffValue").textContent = 0;
   }
+
 
 }

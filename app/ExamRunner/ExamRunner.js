@@ -16,7 +16,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let exam = examService.getExamById(examID);
 
     examUI.renderExamRunner(exam);
-
+    let results = JSON.parse(localStorage.getItem('lastResult'));
     
+    const user = JSON.parse(localStorage.getItem('activeUser'));
+
+
+    if (user.type === "student") {
+        results.userID = user.id;
+        exam.updateStats(results);
+        examService.saveExam(exam);
+    }
+
 
 });
