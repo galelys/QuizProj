@@ -26,6 +26,8 @@ export class ExamService {
             exam.createdAt = examData.createdAt;
             exam.timeLimit = examData.timeLimit;
             exam.category = examData.category;
+            this.creatorID = examData.creatorID;
+            
 
 
             //inner clone for questions
@@ -33,7 +35,8 @@ export class ExamService {
                 const question = new Question(
                     questionData.text,
                     questionData.answers,
-                    questionData.correctAnswerIndex
+                    questionData.correctAnswerIndex,
+                    questionData.difficulty,
                 );
 
                 question.id = questionData.id;
@@ -91,7 +94,17 @@ export class ExamService {
         return exams.filter(exam => exam.category === category);
     }
 
+    getExamByCreatorId(creatorId){
+        const exams = this.getAllExams();
+        return exams.filter(exam => exam.creatorID === creatorId);
+    }
 
+    calculateExamAverage(exams){
+        let result = 0;
+        exams.forEach(e => {
+            result += e.score;
+        });
+       return result;
 
-
+    }
 }

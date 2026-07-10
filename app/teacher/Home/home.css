@@ -1,0 +1,12 @@
+#testsStats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    border-radius: 10px;
+}
+
+.stat {
+    text-align: center;
+    padding: 5px;
+}
+
