@@ -145,7 +145,7 @@ saveExamBtn.addEventListener("click", () => {
   // Record this exam under the teacher who created it
   user.addExamCreation(currentExam.id);
   userService.saveUser(user);
-
+  localStorage.setItem("activeUser", JSON.stringify(user));
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
@@ -215,6 +215,7 @@ function importExam(event) {
       // Record this exam under the teacher who created it
       user.addExamCreation(exam.id);
       userService.saveUser(user);
+      localStorage.setItem("activeUser", JSON.stringify(user));
       // Save the imported exam and refresh the list
       examService.saveExam(exam);
       alert("Exam was added successfully");

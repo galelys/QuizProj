@@ -28,4 +28,8 @@ export class User {
         this.examsCreated.push(examID);
     }
 
+    getExamsCreatedCount(){
+        return this.examsCreated.length;
+    }
+
 }
