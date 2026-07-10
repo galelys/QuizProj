@@ -1,4 +1,4 @@
-import { Exam } from "../models/Exam.js";
+import { Exam } from "../models/exam.js";
 import { Question } from "../models/Question.js";
 
 export class ExamService {
@@ -26,8 +26,9 @@ export class ExamService {
             exam.createdAt = examData.createdAt;
             exam.timeLimit = examData.timeLimit;
             exam.category = examData.category;
-            this.creatorID = examData.creatorID;
-            
+            exam.creatorID = examData.creatorID;
+            exam.stats = examData.stats || [];
+
 
 
             //inner clone for questions
@@ -94,17 +95,33 @@ export class ExamService {
         return exams.filter(exam => exam.category === category);
     }
 
-    getExamByCreatorId(creatorId){
+    getExamByCreatorId(creatorId) {
         const exams = this.getAllExams();
         return exams.filter(exam => exam.creatorID === creatorId);
     }
 
-    calculateExamAverage(exams){
-        let result = 0;
-        exams.forEach(e => {
-            result += e.score;
-        });
-       return result;
+    calculateExamAverage(exams) {
+        // Average percentage score across every recorded attempt of these exams.
+        // Each exam holds its attempts in `stats`; each attempt has a raw `score`
+        // (number of correct answers), converted to a percentage of the exam length.
+        let total = 0;
+        let attempts = 0;
 
+        exams.forEach(exam => {
+            const questionCount = exam.questions.length;
+            if (questionCount === 0) {
+                return;
+            }
+            (exam.stats || []).forEach(stat => {
+                total += (stat.score / questionCount) * 100;
+                attempts++;
+            });
+        });
+
+        if (attempts === 0) {
+            return 0;
+        }
+
+        return Math.round(total / attempts);
     }
 }

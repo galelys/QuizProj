@@ -252,8 +252,11 @@ export class ExamUI {
     It only collects the student's answers.
     ===========================================================
     */
-  renderExamRunner(exam) {
+  renderExamRunner(exam, onFinish) {
     let results = {};
+    // Called when the exam is actually finished (submit or time up),
+    // so the caller can record stats/results at the right moment.
+    this.onFinish = onFinish;
     // Validate that the requested exam exists
     if (!exam) {
       this.examRunnerElement.innerHTML = `
@@ -510,6 +513,11 @@ Displays the final result.
     results.answersCount = answersCount;
     this.examRunnerElement.appendChild(resultDiv);
     localStorage.setItem("lastResult", JSON.stringify(results));
+
+    // The exam is truly done now, notify the caller with the final results.
+    if (this.onFinish) {
+      this.onFinish(results);
+    }
     //return score;
     //localStorage.setItem("results", JSON.stringify(userAnswers));
 

@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let dash = document.getElementById('testsStats');
 
     let creatorExams = examService.getExamByCreatorId(user.id);
+    console.log(creatorExams);
     //calculateExamAverage
     dash.innerHTML = `
             <div class="stat">

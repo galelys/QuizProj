@@ -17,24 +17,24 @@ document.addEventListener('DOMContentLoaded', function () {
     let examID = localStorage.getItem("examID");
     let exam = examService.getExamById(examID);
 
-    examUI.renderExamRunner(exam);
-    let results = JSON.parse(localStorage.getItem('lastResult'));
-    
     const user = JSON.parse(localStorage.getItem('activeUser'));
-    
 
-    if (user.type === "teacher") {
-        console.log("hi");
-        results.userID = user.id;
-        exam.updateStats(results);
-        
-        examService.saveExam(exam);
-        let u = userService.findUserById(user.id);
-        console.log(u);
-        u.addExamResults( results);
-        userService.saveUser(u);
+    // The callback runs only when the student actually finishes the exam
+    // (submit or time up), so `results` is guaranteed to be populated.
+    examUI.renderExamRunner(exam, (results) => {
+        if (user.type != "") {
+            results.userID = user.id;
 
-    }
+            // Record the attempt on the exam (feeds the teacher's average).
+            exam.updateStats(results);
+            examService.saveExam(exam);
+
+            // Record the attempt on the student's own history.
+            const u = userService.findUserById(user.id);
+            u.addExamResults(results);
+            userService.saveUser(u);
+        }
+    });
 
 
 });

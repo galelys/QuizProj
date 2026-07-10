@@ -104,10 +104,7 @@ export class UserService {
 
   }
 
-  calculateExamsAvrage(exams){
-    
 
-  }
 
 
 
