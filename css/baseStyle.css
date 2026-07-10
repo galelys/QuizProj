@@ -261,8 +261,6 @@ body.dark-mode .secondary-card{
     background: rgb(165, 133, 133);
 }
 
-
-
 body.dark-mode .category-btn{
     background: rgb(255, 19, 19);
 }
@@ -285,10 +283,12 @@ body.dark-mode .category-btn:hover {
 .base-btn:hover{
     background-color: rgba(126, 126, 126, 0.425);
 }
+
 body.dark-mode .base-btn{
     background-color: rgba(255, 255, 255, 0.13);
     color: whitesmoke;
 }
+
 body.dark-mode .base-btn:hover{
     background-color: #8a7b7481;
     color: whitesmoke;
@@ -314,4 +314,32 @@ body.dark-mode .base-btn:hover{
 }
 
 
+.red-btn{
+    background-color: #cf2626;
+    color: whitesmoke;
+}
 
+.red-btn:hover{
+    background-color: #e65252;
+}
+
+body.dark-mode .red-btn{
+    background-color: rgba(122, 35, 35, 0.726);
+    color: whitesmoke;
+}
+
+body.dark-mode .red-btn:hover{
+    background-color: rgba(161, 70, 70, 0.726);
+    color: whitesmoke;
+}
+
+#menuBTNS{
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+
+
+}

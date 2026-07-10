@@ -11,7 +11,7 @@ menuButton.innerHTML = `
         <button id="createBTN" class="base-btn">Create</button>
         <button id="ExamsListBTN" class="base-btn">Exams</button>
         <button id="homeBTN" class="base-btn" >Home</button>
-        <button id="logOutBTN" class="base-btn">Log Out</button>
+        <button id="logOutBTN" class="base-btn red-btn">Log Out</button>
         `
     ;
 // create Exam button 
