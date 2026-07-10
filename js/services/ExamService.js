@@ -1,4 +1,4 @@
-import { Exam } from "../models/Exam.js";
+import { Exam } from "../models/exam.js";
 import { Question } from "../models/Question.js";
 
 export class ExamService {
@@ -26,6 +26,9 @@ export class ExamService {
             exam.createdAt = examData.createdAt;
             exam.timeLimit = examData.timeLimit;
             exam.category = examData.category;
+            exam.creatorID = examData.creatorID;
+            exam.stats = examData.stats;
+
 
 
             //inner clone for questions
@@ -33,7 +36,8 @@ export class ExamService {
                 const question = new Question(
                     questionData.text,
                     questionData.answers,
-                    questionData.correctAnswerIndex
+                    questionData.correctAnswerIndex,
+                    questionData.difficulty
                 );
 
                 question.id = questionData.id;

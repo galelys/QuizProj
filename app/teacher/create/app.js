@@ -3,9 +3,15 @@ import { Exam } from "../../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
+import { UserService } from "../../../js/services/UserService.js";
+import { User } from "../../../../js/models/User.js";
 
 const examService = new ExamService();
 const examUI = new ExamUI(examService);
+
+const userService = new UserService();
+const userString = JSON.parse(localStorage.getItem('activeUser'));
+let user = userService.findUserById(userString.id);
 
 let currentExam = null;
 
@@ -138,6 +144,8 @@ saveExamBtn.addEventListener("click", () => {
   }
   currentExam.timeLimit = time;
 
+  user.addExamCreation(currentExam.id);
+  userService.saveUser(user);
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
@@ -145,7 +153,6 @@ saveExamBtn.addEventListener("click", () => {
   currentExam = null;
 
   examTitleInput.value = "";
-
 
 });
 
@@ -204,6 +211,8 @@ function importExam(event) {
 
       // Save the imported exam and refresh the list
       examService.saveExam(exam);
+
+
       alert("Exam was added successfully");
     } catch (err) {
       // The file was not valid exam JSON
