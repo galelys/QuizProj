@@ -83,7 +83,8 @@ addQuestionBtn.addEventListener("click", () => {
   }
 
   if (!currentExam) {
-    currentExam = new Exam(title);
+    const user = JSON.parse(localStorage.getItem('activeUser'));
+    currentExam = new Exam(title , user.id );
   }
 
   const correctAnswerIndex = correctAnswerNumber - 1;

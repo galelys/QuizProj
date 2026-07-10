@@ -1,12 +1,12 @@
 export class Exam {
-  constructor(title) {
+  constructor(title , creatorID , version = 0 ) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.questions = [];
     this.createdAt = new Date().toISOString();
     this.timeLimit = 0;
     this.category = "";
-
+    this.creatorID = creatorID;
   }
 
   addQuestion(question) {
