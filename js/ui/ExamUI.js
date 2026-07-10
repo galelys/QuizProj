@@ -253,6 +253,7 @@ export class ExamUI {
     ===========================================================
     */
   renderExamRunner(exam) {
+    let results = {};
     // Validate that the requested exam exists
     if (!exam) {
       this.examRunnerElement.innerHTML = `
@@ -285,7 +286,7 @@ export class ExamUI {
     // Index = question number
     // Value = selected answer index
     const userAnswers = [];
-    for(let i = 0 ; i< exam.getQuestionCount();i++){
+    for (let i = 0; i < exam.getQuestionCount(); i++) {
       userAnswers[i] = -1;
     }
     let questionIndex = 0;
@@ -321,17 +322,19 @@ export class ExamUI {
 
         alert("Time is up!");
 
-        // Automatically submit the exam
-        this.checkExam(exam, userAnswers);
+        results.timeLeft = timeLeft;
 
-        return;
+        results.userAnswers = userAnswers;
+        
+        //results.score = this.checkExam(exam, userAnswers);
+       // localStorage.setItem("lastResult", JSON.stringify(results));
+        this.checkExam(exam, results);
       }
       // update timer
       timeLeft--;
     };
 
     if (exam.timeLimit > 0) {
-
       updateTimer();
       timerInterval = setInterval(() => { updateTimer(); }, 1000);
 
@@ -393,16 +396,20 @@ export class ExamUI {
     submits it into local storage for later to calculate final score.
     */
     submitButton.addEventListener("click", () => {
-            const selected = questionDiv.querySelector(
+      const selected = questionDiv.querySelector(
         `input[name="question-${questionIndex}"]:checked`
       );
       // If no answer selected,
       // save -1 as unanswered.
       if (!selected) { userAnswers[questionIndex] = -1; }
       else { userAnswers[questionIndex] = Number(selected.value); }
-
+      results.timeLeft = timeLeft;
       clearInterval(timerInterval);
-      this.checkExam(exam, userAnswers);
+
+      results.userAnswers = userAnswers;
+      //results.score = this.checkExam(exam, userAnswers);
+      //localStorage.setItem("lastResult", JSON.stringify(results));
+      this.checkExam(exam, results);
     });
 
     /*
@@ -474,12 +481,17 @@ Calculates:
 Displays the final result.
 ===========================================================
 */
-  checkExam(exam, userAnswers) {
+  checkExam(exam, results) {
     let score = 0;
+    let answersCount = 0;
+
     // Check every question
     exam.questions.forEach((question, questionIndex) => {
-      if (question.isCorrect(userAnswers[questionIndex])) {
+      if (question.isCorrect(results.userAnswers[questionIndex])) {
         score++;
+      }
+      if (results.userAnswers[questionIndex] != -1) {
+        answersCount++;
       }
     });
 
@@ -491,11 +503,15 @@ Displays the final result.
     resultDiv.innerHTML = `
       <h5> Exam Result</h5 >
       <p>Score: ${score} / ${exam.questions.length}</p>
-      <p>Percent: ${Math.round((score / exam.questions.length) * 100)}%</p>
+      <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
+      <p>Score: ${Math.round((score / exam.questions.length) * 100)}%</p>
     `;
-
+    results.score = score;
+    results.answersCount = answersCount;
     this.examRunnerElement.appendChild(resultDiv);
-    localStorage.setItem("results" , JSON.stringify(userAnswers));
+    localStorage.setItem("lastResult", JSON.stringify(results));
+    //return score;
+    //localStorage.setItem("results", JSON.stringify(userAnswers));
 
   }
 
