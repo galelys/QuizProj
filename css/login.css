@@ -10,11 +10,11 @@ body {
 
 .logn{
     width: 380px;
-    height: 400px;
+    min-height: 400px;
 }
 .reg{
     width: 400px;
-    height: 600px;
+    min-height: 600px;
 
 }
 .mainCard{
