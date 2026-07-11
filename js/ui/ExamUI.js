@@ -25,15 +25,22 @@
        Run / Edit / Delete / Export
 
  student:
-    -> future implementation
+    -> shows exams with student actions:
+       Start Exam / View My Answers
 
 
- renderExamListSearchTeacher(exams)
- ----------------------------------
- Receives an array of exams and creates HTML cards.
+ renderExamListSearch(exams, user)
+ ---------------------------------
+ Shared dispatcher. Routes an array of exams to the render
+ function that matches the user role.
 
- sorterListTeacher(value)
- ------------------------
+ renderExamListSearchTeacher(exams) / renderExamListSearchStudent(exams)
+ ----------------------------------------------------------------------
+ Receive an array of exams and create the per-user HTML cards.
+
+ sorterList(value, user)
+ -----------------------
+ Shared search used by both the teacher list and student finder.
  Filters exams by title.
  Supports partial search:
  Example:
@@ -136,13 +143,13 @@ export class ExamUI {
   }
 
   /*
-  Search logic for teacher exam list.
+  Search logic shared by the teacher exam list and the student exam finder.
 
   Gets all exams from service,
-  filters by title,
-  sends results to rendering function.
+  filters by title/id (and category when a filter exists),
+  sends results to the render function that matches the given user role.
   */
-  sorterListTeacher(val) {
+  sorterList(val, user) {
     const categoryFilter = document.getElementById("categoryFilter");
     // Selected category ("All" when the dropdown is missing or unset).
     const category = categoryFilter ? categoryFilter.value : "All";
@@ -162,8 +169,7 @@ export class ExamUI {
         return matchesSearch && matchesCategory;
     });
 
-
-    this.renderExamListSearchTeacher(results);
+    this.renderExamListSearch(results, user);
 
   }
 
@@ -194,20 +200,28 @@ export class ExamUI {
 
 /*
 Entry point for displaying exams.
-Decides which UI to render based on user role.
+Loads every exam and hands them to the shared render dispatcher.
 */
 renderExamList(user) {
   const exams = this.examService.getAllExams();
+  this.renderExamListSearch(exams, user);
+}
+
+/*
+Shared render dispatcher.
+Decides which per-user UI to render based on the user role.
+Used by both renderExamList (full list) and sorterList (search results).
+*/
+renderExamListSearch(exams, user) {
   if (user === "teacher") {
     this.renderExamListSearchTeacher(exams);
   }
-  else if (user == "student") {
+  else if (user === "student") {
     this.renderExamListSearchStudent(exams);
   }
   else {
     return;
   }
-
 }
 
 /*

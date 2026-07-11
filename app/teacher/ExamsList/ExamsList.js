@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Filter and display matching exams. An empty search box still
         // applies the selected category (empty text matches every title).
-        examUI.sorterListTeacher(searchVal);
+        examUI.sorterList(searchVal, "teacher");
 
     }
     /**
