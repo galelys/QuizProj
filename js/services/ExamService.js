@@ -158,7 +158,11 @@ export class ExamService {
                     return;
                 }
 
-                total += (stat.score / stat.examMaxScore) * 100;
+                // Guard against a zero max score (e.g. every question has
+                // difficulty 0) so the attempt counts as 0% instead of NaN.
+                total += stat.examMaxScore > 0
+                    ? (stat.score / stat.examMaxScore) * 100
+                    : 0;
                 attempts++;
             });
         });
@@ -227,7 +231,7 @@ export class ExamService {
         return { exam: bestExam, average: bestAverage };
     }
 
-    /** for calculating currently best preforming exam */
+    /** for calculating currently worst preforming exam */
     getWorstExam(exams) {
 
         if (exams.length === 0) { return null; }
@@ -237,7 +241,7 @@ export class ExamService {
 
         exams.forEach(exam => {
             const average = this.calculateExamAverage([exam]);
-            if (average > worstAverage) {
+            if (average < worstAverage) {
                 worstAverage = average;
                 worstExam = exam;
             }

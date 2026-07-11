@@ -19,7 +19,7 @@ export class Exam {
   }
 
   getExamId(){
-    this.id = crypto.randomUUID();
+    return this.id;
   }
 
   removeQuestion(index) {

@@ -151,7 +151,7 @@ saveExamBtn.addEventListener("click", () => {
   localStorage.removeItem('selected_category');
   let time = Number(timeLimitInput.value);
   if (isNaN(time) || time <= -1) {
-    examUI.showBuilderMessage("Cannot save exam without questions.", "danger");
+    examUI.showBuilderMessage("Time limit must be 0 (unlimited) or a positive number of minutes.", "danger");
     return;
 
   }

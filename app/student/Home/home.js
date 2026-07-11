@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Display previous exam grades
     displayPreviousGrades(results, examService);
     // Calculate and display average grade
-    displayAverageGrade(examService, user.id);
+    displayAverageGrade(examService, user.id, results);
 
     //search exam button
     const searchExamsButton = document.getElementById("searchExamsBTN");
@@ -85,11 +85,9 @@ function displayPreviousGrades(results, examService) {
     results.forEach(result => {
         const exam = examService.getExamById(result.examID);
 
-        const grade = Math.round(
-
-            (result.score / result.examMaxScore) * 100
-
-        );
+        const grade = result.examMaxScore > 0
+            ? Math.round((result.score / result.examMaxScore) * 100)
+            : 0;
 
         const item = document.createElement("li");
 
@@ -101,19 +99,22 @@ function displayPreviousGrades(results, examService) {
 }
 
 /* Calculate student's average grade */
-function displayAverageGrade(examService, userID) {
+function displayAverageGrade(examService, userID, results) {
     const averageElement =
         document.getElementById("averageGrade");
+
+    // No completed attempts means there is no average to show. This also
+    // avoids reporting a misleading "0.00" for a student who hasn't taken
+    // any exam yet (calculateExamAverage returns 0 in that case).
+    if (!results || results.length === 0) {
+        averageElement.textContent = "No grades yet.";
+        return;
+    }
 
     const exams = examService.getAllExams();
 
     const average =
         examService.calculateExamAverage(exams, userID);
-
-    if (average === null) {
-        averageElement.textContent = "No grades yet.";
-        return;
-    }
 
     averageElement.textContent = average.toFixed(2);
 }

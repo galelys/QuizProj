@@ -459,6 +459,13 @@ renderExamRunner(exam, onFinish) {
 
       alert("Time is up!");
 
+      // Capture whatever the student had selected on the current question
+      // before scoring, so a last-second answer isn't lost on timeout.
+      const selected = questionDiv.querySelector(
+        `input[name="question-${questionIndex}"]:checked`
+      );
+      userAnswers[questionIndex] = selected ? Number(selected.value) : -1;
+
       results.timeLeft = timeLeft;
 
       results.userAnswers = userAnswers;
@@ -651,7 +658,7 @@ checkExam(exam, results) {
       <h5> Exam Result</h5 >
       <p>Score: ${score} / ${higestScore}</p>
       <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
-      <p>Score: ${Math.round((score / higestScore) * 100)}%</p>
+      <p>Score: ${higestScore > 0 ? Math.round((score / higestScore) * 100) : 0}%</p>
 
 
     `;

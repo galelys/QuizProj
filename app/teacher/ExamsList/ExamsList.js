@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // allows the user to trigger search by pressing Enter
     document.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
-            console.log("Enter pressed");
             search();
         }
     });

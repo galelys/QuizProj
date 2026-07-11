@@ -29,9 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // dark mode button initialization 
     initThemeToggle();
 
-    // number of students that took the test
-    examService.calculateExamRunCount(exam);
-
     let dash = document.getElementById("testsStats");
     dash.innerHTML = `
             <div class="stat">
@@ -43,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="stat">
                 <h5 class="main-text">exam average overall</h5>
                  <p class="second-text">
-                 ${examService.calculateExamResultys(exam)}
+                 ${examService.calculateExamRunCount(exam) === 0
+        ? "No stats yet"
+        : examService.calculateExamAverage([exam]) + "%"}
                  </p>
             </div>
             <div class="stat">
