@@ -105,6 +105,10 @@ export class ExamService {
     }
 
     calculateExamResultys(exam, results) {
+        // No statistics/results available yet
+        if (!results || !results.userAnswers || results.userAnswers.length === 0) {
+            return "No stats yet";
+        }
         let score = 0;
         let answersCount = 0;
         let higestScore = 0;
@@ -121,6 +125,22 @@ export class ExamService {
 
         return score;
 
+    }
+
+    calculateExamRunCount(exams) {
+        // single exam was passed convert it to an array
+        if (!Array.isArray(exams)) {
+            exams = [exams];
+        }
+        let attempts = 0;
+        exams.forEach(exam => {
+            (exam.stats || []).forEach(stat => {
+                attempts++;
+            });
+
+        });
+
+        return attempts;
     }
 
     calculateExamAverage(exams) {
@@ -148,6 +168,47 @@ export class ExamService {
         return Math.round(total / attempts);
     }
 
+    calculateExamTimeAverage(exams) {
+
+        // Support single exam or array of exams
+        if (!Array.isArray(exams)) {
+            exams = [exams];
+        }
+
+
+        let totalTime = 0;
+        let attempts = 0;
+
+
+        exams.forEach(exam => {
+
+            (exam.stats || []).forEach(stat => {
+
+                totalTime += stat.timeTaken;
+                attempts++;
+
+            });
+
+        });
+
+
+        // No attempts yet
+        if (attempts === 0) {
+            return "No stats yet";
+        }
+
+
+        const averageSeconds = totalTime / attempts;
+
+
+        // Convert seconds to MM:SS
+        const minutes = Math.floor(averageSeconds / 60);
+        const seconds = Math.floor(averageSeconds % 60);
+
+
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+
     /** for calculating currently best preforming exam */
     getBestExam(exams) {
 
@@ -168,7 +229,7 @@ export class ExamService {
         return { exam: bestExam, average: bestAverage };
     }
 
-        /** for calculating currently best preforming exam */
+    /** for calculating currently best preforming exam */
     getWorstExam(exams) {
 
         if (exams.length === 0) { return null; }

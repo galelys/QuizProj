@@ -11,11 +11,11 @@
 }
 
 .stat {
+    padding: 15px;
     border-radius: 10px;
     background-color: #faf9fe;
     box-shadow: 0 8px 22px rgba(90, 40, 120, 0.07);
     border: 1px solid #e1ddf1;
-
     /* animation settings */
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }

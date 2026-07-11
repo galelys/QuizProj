@@ -30,7 +30,30 @@ document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
 
     // number of students that took the test
-    
+    examService.calculateExamRunCount(exam);
+
+    let dash = document.getElementById("testsStats");
+    dash.innerHTML = `
+            <div class="stat">
+                <h5 class="main-text">number of students that have taken the exam:</h5>
+                 <p class="second-text">
+                 ${examService.calculateExamRunCount(exam)}
+                 </p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">exam average overall</h5>
+                 <p class="second-text">
+                 ${examService.calculateExamResultys(exam)}
+                 </p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">avrage test taking</h5>
+                 <p class="second-text">
+                 ${examService.calculateExamTimeAverage(exam)}
+                 </p>
+            </div>
+        
+    `;
 
 
 
