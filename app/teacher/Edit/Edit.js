@@ -1,5 +1,4 @@
 import { Question } from "../../../js/models/Question.js";
-import { Exam } from "../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let saveExamBTN = document.getElementById("saveExamBTN");
 
   // Frequently used input elements
-  const questionTextInput = document.getElementById("questionText");
   const sliderQDiff = document.getElementById("questionDiff");
   const outputQDiff = document.getElementById("diffValue");
   const correctAnswerInput = document.getElementById("correctAnswer");
@@ -140,6 +138,10 @@ document.addEventListener('DOMContentLoaded', function () {
       isNewQuestion = false;
     } else {
       // Update the currently selected question
+      if (index >= exam.getQuestionCount()) {
+        examUI.showBuilderMessage("Invalid question index.", "danger");
+        return;
+      }
       exam.updateQuestion(index, question);
       selectedIndex = index;
     }
@@ -165,6 +167,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const index = Number(
       localStorage.getItem("currentQuestionIndex")
     );
+
+    if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= exam.getQuestionCount()
+    ) {
+      examUI.showBuilderMessage(
+        "Invalid question index.",
+        "danger"
+      );
+      return;
+    }
 
     exam.removeQuestion(index);
     examService.saveExam(exam);
