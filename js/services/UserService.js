@@ -103,7 +103,51 @@ export class UserService {
 
   }
 
+  removeExamResultsFromAllUsers(examID) {
+    const data = localStorage.getItem(this.storageKey);
 
+    if (!data) {
+      return;
+    }
+
+    const users = JSON.parse(data);
+
+    users.forEach(user => {
+      if (!Array.isArray(user.examsResults)) {
+        user.examsResults = [];
+        return;
+      }
+
+      user.examsResults = user.examsResults.filter(result => {
+        const resultExamID = result.examID ?? result.examId;
+
+        return String(resultExamID) !== String(examID);
+      });
+    });
+
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(users)
+    );
+
+    // Keep activeUser synchronized if needed
+    const activeUser = JSON.parse(
+      localStorage.getItem("activeUser")
+    );
+
+    if (activeUser) {
+      const updatedActiveUser = users.find(
+        user => String(user.id) === String(activeUser.id)
+      );
+
+      if (updatedActiveUser) {
+        localStorage.setItem(
+          "activeUser",
+          JSON.stringify(updatedActiveUser)
+        );
+      }
+    }
+  }
 
 
 
