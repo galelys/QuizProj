@@ -27,3 +27,7 @@ document represents the HTML page.
 - change styles
 - create elements
 - remove elements
+
+### setInterval() 
+a JavaScript function that runs a piece of code repeatedly after a fixed amount of time.
+used by ExamUI for the timer 
