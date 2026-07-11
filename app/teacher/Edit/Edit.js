@@ -59,8 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // check used across the UI) keeps working after an edit.
     let timeLimitInput = Number(document.getElementById('examTimeLimit').value);
     let examTitle = document.getElementById('examTitle').value;
+    let examDescription = document.getElementById('examDescription').value.trim();
 
-    exam.updateExam(examTitle, timeLimitInput);
+    exam.updateExam(examTitle, timeLimitInput, examDescription);
     // save changes
     examService.saveExam(exam);
     // Refresh the UI

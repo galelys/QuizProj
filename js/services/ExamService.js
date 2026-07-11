@@ -23,6 +23,7 @@ export class ExamService {
             const exam = new Exam(examData.title);
             //clone the data
             exam.id = examData.id;
+            exam.description = examData.description || "";
             exam.createdAt = examData.createdAt;
             exam.timeLimit = examData.timeLimit;
             exam.category = examData.category;
@@ -99,6 +100,7 @@ export class ExamService {
 
         return {
             title: exam.title,
+            description: exam.description || "",
             timeLimit: exam.timeLimit,
             category: exam.category,
             questions: (exam.questions || []).map(question => ({

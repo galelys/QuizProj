@@ -2,6 +2,7 @@ export class Exam {
   constructor(title , creatorID , version = 0 ) {
     this.id = crypto.randomUUID();
     this.title = title;
+    this.description = "";
     this.questions = [];
     this.createdAt = new Date().toISOString();
     this.timeLimit = 0;
@@ -46,9 +47,10 @@ export class Exam {
     this.category = category;
   }
 
-  updateExam(title, timeLimit) {
+  updateExam(title, timeLimit, description = "") {
     this.timeLimit = timeLimit;
     this.title = title;
+    this.description = description;
   }
 
 

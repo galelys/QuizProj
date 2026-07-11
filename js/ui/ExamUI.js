@@ -257,8 +257,10 @@ renderExamListSearchTeacher(exams) {
         ${exam.timeLimit === 0 ? "Unlimited" : `${exam.timeLimit} min`}
         </h4>
 
+        ${exam.description ? `<p class="second-text">${exam.description}</p>` : ""}
+
         <p class="small-muted">
-          Questions: ${exam.getQuestionCount()} 
+          Questions: ${exam.getQuestionCount()}
         </p>
         <p class="small-muted">
           Exam ID: ${exam.id} 
@@ -405,6 +407,8 @@ createStudentExamCard(exam, completedResult) {
   div.innerHTML = `
     <h4>${exam.category} - ${exam.title}</h4>
 
+    ${exam.description ? `<p class="second-text">${exam.description}</p>` : ""}
+
     <p class="small-muted">
       Questions: ${exam.getQuestionCount()}
     </p>
@@ -507,6 +511,7 @@ renderExamRunner(exam, onFinish) {
   // Display exam header information
   this.examRunnerElement.innerHTML = `
         <h4>${exam.title}</h4>
+        ${exam.description ? `<p class="second-text">${exam.description}</p>` : ""}
         <p class="tsecond-text">
             Answer all questions and submit the exam.
         </p>
@@ -822,9 +827,13 @@ Saving is handled outside by Edit.js.
 renderExamInformationEdit(exam) {
   let title = document.getElementById('examInfoCard');
   title.innerHTML = ``;
-  title.innerHTML = `< h4 class="main-text" > Exam name ${exam.title}</h4 > 
+  title.innerHTML = `
+  <h4 class="main-text" > Exam name ${exam.title}</h4> 
+  <h5 class="main-text" >Exam ID: ${exam.id}</h5> 
     <label>Exam title</label>
     <input id="examTitle" class="form-control mb-2 inpt" value="${exam.title}">
+    <label>Exam description</label>
+    <textarea id="examDescription" class="form-control mb-2 inpt" rows="3">${exam.description || ""}</textarea>
     <label>Exam time limit</label>
     <input id="examTimeLimit" class="form-control mb-2 inpt" value="${exam.timeLimit}">
     `;

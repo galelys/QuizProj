@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // New id so importing the same file twice does not overwrite
                 exam.id = crypto.randomUUID();
                 exam.createdAt = data.createdAt || new Date().toISOString();
+                exam.description = data.description || "";
                 exam.timeLimit = data.timeLimit || 0;
                 exam.category = data.category || "";
 

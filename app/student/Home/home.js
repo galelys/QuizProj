@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const results = Array.isArray(user.examsResults) ? user.examsResults : [];
 
 
-    // Display all completed exams
-    displayCompletedExams(results, examService);
+    // Display all pending exams
+    displayPendingExams( examService);
     // Display previous exam grades
     displayPreviousGrades(results, examService);
     // Calculate and display average grade
@@ -44,24 +44,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// Display completed exams list //
-function displayCompletedExams(results, examService) {
+
+
+// Display pending exams list //
+function displayPendingExams( examService) {
     const list = document.getElementById("completedExamsList");
+    let exams = examService.getAllExams();
 
     list.innerHTML = "";
 
     //if not completed exams the array is empty
-    if (results.length === 0) {
-        list.innerHTML = "<li>No completed exams yet.</li>";
+    if (exams.length === 0) {
+        list.innerHTML = "<li>No pending exams yet.</li>";
         return;
     }
 
     // Create a list item for every completed exam
-    results.forEach(result => {
-        const exam = examService.getExamById(result.examID);
+    exams.forEach(exam => {
         const item = document.createElement("li");
-
-        item.textContent = exam ? exam.title : "Unknown";
+        item.textContent = exam ? exam.title : "gg";
 
         list.appendChild(item);
     });
@@ -71,7 +72,7 @@ function displayCompletedExams(results, examService) {
 /* Display previous exam grades*/
 function displayPreviousGrades(results, examService) {
     const list = document.getElementById("gradesList");
-
+    
     list.innerHTML = "";
     // Handle case where no exams were completed
     if (results.length === 0) {
@@ -80,7 +81,7 @@ function displayPreviousGrades(results, examService) {
     }
     // Add every exam and its grade to the list
     results.forEach(result => {
-        const exam = examService.getExamById(result.examID);
+        //const exam = examService.getExamById(result.examID);
 
         const grade = result.examMaxScore > 0
             ? Math.round((result.score / result.examMaxScore) * 100)
@@ -89,7 +90,7 @@ function displayPreviousGrades(results, examService) {
         const item = document.createElement("li");
 
         item.textContent =
-            `${exam ? exam.title : "Unknown"} - ${grade}`;
+            `${result.examSnapshot.title} - ${grade}`;
 
         list.appendChild(item);
     });

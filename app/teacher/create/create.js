@@ -23,6 +23,7 @@ let user = userService.findUserById(userString.id);*/
 let currentExam = null;
 
 const examTitleInput = document.getElementById("examTitle");
+const examDescriptionInput = document.getElementById("examDescription");
 const questionTextInput = document.getElementById("questionText");
 
 const answer1Input = document.getElementById("answer1");
@@ -156,6 +157,7 @@ saveExamBtn.addEventListener("click", () => {
 
   }
   currentExam.timeLimit = time;
+  currentExam.description = examDescriptionInput.value.trim();
 
   // Record this exam under the teacher who created it
   user.addExamCreation(currentExam.id);
@@ -170,6 +172,7 @@ saveExamBtn.addEventListener("click", () => {
   currentExam = null;
 
   examTitleInput.value = "";
+  examDescriptionInput.value = "";
 
 });
 
@@ -213,6 +216,7 @@ function importExam(event) {
       // New id so importing the same file twice does not overwrite
       exam.id = crypto.randomUUID();
       exam.createdAt = new Date().toISOString();
+      exam.description = data.description || "";
       exam.timeLimit = data.timeLimit || 0;
       exam.category = data.category || "";
 
