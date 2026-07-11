@@ -48,12 +48,21 @@ document.addEventListener('DOMContentLoaded', function () {
             results.examID = examID;
 
             // Record the attempt on the exam (feeds the teacher's average).
+            // This copy carries NO snapshot on purpose, so the exam does not
+            // accumulate nested copies of itself on every attempt.
             exam.updateStats(results);
             examService.saveExam(exam);
 
-            // Record the attempt on the student's own history.
+            // Record the attempt on the student's own history WITH a snapshot
+            // of the exam exactly as it was taken. This keeps the read-only
+            // review correct even if the teacher later edits or deletes it.
+            const resultForHistory = {
+                ...results,
+                examSnapshot: examService.createExamSnapshot(exam)
+            };
+
             const u = userService.findUserById(user.id);
-            u.addExamResults(results);
+            u.addExamResults(resultForHistory);
             userService.saveUser(u);
 
             localStorage.setItem('activeUser' , JSON.stringify(u) );

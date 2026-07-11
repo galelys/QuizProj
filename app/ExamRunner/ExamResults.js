@@ -30,7 +30,15 @@ document.addEventListener('DOMContentLoaded', function () {
         results = JSON.parse(localStorage.getItem("lastResult"));
     }
 
+    // Prefer the snapshot captured when the exam was submitted, so the review
+    // reflects the exam exactly as the student took it — even if the teacher
+    // has since edited or deleted it. Older attempts saved before snapshots
+    // existed fall back to the current live exam.
+    const examForReview = (results && results.examSnapshot)
+        ? results.examSnapshot
+        : exam;
+
     // Render the completed exam in read-only, color-coded review mode.
-    examUI.renderExamResults(exam, results);
+    examUI.renderExamResults(examForReview, results);
 
 });

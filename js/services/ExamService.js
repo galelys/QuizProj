@@ -82,6 +82,34 @@ export class ExamService {
         return exams.find(exam => exam.id === examID);
     }
 
+    /*
+    Builds a self-contained copy of an exam as it exists right now.
+    Stored inside a student's result at submit time so the read-only
+    review always reflects the exam they actually took, even after the
+    teacher edits or deletes it.
+
+    Deliberately excludes `stats`: the snapshot only needs the questions
+    and correct answers, and leaving stats out keeps stored results small
+    and prevents an exam from accumulating nested copies of itself.
+    */
+    createExamSnapshot(exam) {
+        if (!exam) {
+            return null;
+        }
+
+        return {
+            title: exam.title,
+            timeLimit: exam.timeLimit,
+            category: exam.category,
+            questions: (exam.questions || []).map(question => ({
+                text: question.text,
+                answers: [...question.answers],
+                correctAnswerIndex: question.correctAnswerIndex,
+                difficulty: question.difficulty
+            }))
+        };
+    }
+
     getCategories() {
         return this.categories;
     }
