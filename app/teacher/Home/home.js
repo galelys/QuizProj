@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="stat">
                 <h5 class="main-text">Average across all tests</h5>
-                <p class="second-text">${examService.calculateExamAverage(creatorExams)}%</p>
+                <p class="second-text">${examService.calculateExamAverage(creatorExams)}</p>
             </div>
             <div class="stat">
                 <h5 class="main-text">Best Exam</h5>

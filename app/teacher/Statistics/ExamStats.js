@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                  <p class="second-text">
                  ${examService.calculateExamRunCount(exam) === 0
         ? "No stats yet"
-        : examService.calculateExamAverage([exam]) + "%"}
+        : examService.calculateExamAverage([exam]) }
                  </p>
             </div>
             <div class="stat">
@@ -54,7 +54,61 @@ document.addEventListener('DOMContentLoaded', function () {
         
     `;
 
+    // ---- List of students who took the exam, with their score ----
+    const st = document.getElementById('students');
 
+    // Every recorded attempt lives on exam.stats. Each attempt carries the
+    // student's userID and score, so we resolve the name from UserService.
+    const attempts = Array.isArray(exam.stats) ? exam.stats : [];
+
+    if (attempts.length === 0) {
+        st.innerHTML = `
+            <h4 class="main-text">Students</h4>
+            <p class="second-text">No students have taken this exam yet</p>
+        `;
+        return;
+    }
+
+    // Prefer the stored percentage; fall back to recomputing it for older
+    // attempts saved before that field existed.
+    const percentOf = (stat) => {
+        if (typeof stat.percentage === "number") {
+            return stat.percentage;
+        }
+        return stat.examMaxScore > 0
+            ? Math.round((stat.score / stat.examMaxScore) * 100)
+            : 0;
+    };
+
+    const rows = attempts.map(stat => {
+        const student = userService.findUserById(stat.userID);
+        const name = student ? student.getUserName() : "Unknown student";
+
+        return `
+            <tr>
+                <td class="second-text">${name}</td>
+                <td class="second-text">${stat.score} / ${stat.examMaxScore}</td>
+                <td class="second-text">${percentOf(stat)}</td>
+                
+            </tr>
+        `;
+    }).join("");
+
+    st.innerHTML = `
+        <h4 class="main-text">Students (${attempts.length})</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="main-text">Student</th>
+                    <th class="main-text">Score</th>
+                    <th class="main-text">Final score</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+            </tbody>
+        </table>
+    `;
 
 });
 
