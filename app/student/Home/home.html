@@ -5,39 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../../../css/baseStyle.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../../css/baseStyle.css">
+    <link rel="stylesheet" href="./home.css">
+
+    
 
     <title>Student Page</title>
 </head>
 
 <body>
 
-    <main class="container mt-4">
+    <div id="menuBTNS"></div>
 
-        <h1 id="title">Hello,</h1>
 
-        <section>
-            <h2>My Exams</h2>
-            <ul id="completedExamsList"></ul>
-        </section>
+    <main class="container py-4">
 
-        <section>
-            <h2>Previous Grades</h2>
-            <ul id="gradesList"></ul>
-        </section>
+    <div class="mainCard p-4">
 
-        <section>
-            <h2>Average Grade</h2>
-            <p id="averageGrade">Loading...</p>
-        </section>
+        <h1 id="title" class="main-text mb-4">Hello,</h1>
 
-    </main>
+        <div class="row g-4">
 
+            <div class="col-md-6">
+                <div class="secondary-card p-3 h-100">
+                    <h3 class="main-text">My Exams</h3>
+                    <ul id="completedExamsList" class="second-text"></ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="secondary-card p-3 h-100">
+                    <h3 class="main-text">Previous Grades</h3>
+                    <ul id="gradesList" class="second-text"></ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="secondary-card p-3 h-100">
+                    <h3 class="main-text">Average Grade</h3>
+                    <p id="averageGrade" class="second-text">Loading...</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
     <button id="themeToggle">Dark Mode</button>
 
+    <script type="module" src="../nav.js"></script>
+    
     <script type="module" src="home.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
