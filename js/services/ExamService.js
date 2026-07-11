@@ -68,18 +68,18 @@ export class ExamService {
 
 
 
-    deleteExam(examId) {
+    deleteExam(examID) {
         const exams = this.getAllExams();
 
-        const filteredExams = exams.filter(exam => exam.id !== examId);
+        const filteredExams = exams.filter(exam => exam.id !== examID);
 
         localStorage.setItem(this.storageKey, JSON.stringify(filteredExams));
     }
 
-    getExamById(examId) {
+    getExamById(examID) {
         const exams = this.getAllExams();
 
-        return exams.find(exam => exam.id === examId);
+        return exams.find(exam => exam.id === examID);
     }
 
     getCategories() {

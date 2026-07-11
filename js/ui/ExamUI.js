@@ -247,57 +247,57 @@ export class ExamUI {
     });
   }
 
-/*
-Creates exam cards for student view.
+  /*
+  Creates exam cards for student view.
+  
+  If the student has not completed the exam:
+  - displays Start Exam
+  
+  If the student has already completed the exam:
+  - displays View My Answers
+  */
+  renderExamListSearchStudent(exams) {
+    this.examListElement.innerHTML = "";
 
-If the student has not completed the exam:
-- displays Start Exam
-
-If the student has already completed the exam:
-- displays View My Answers
-*/
-renderExamListSearchStudent(exams) {
-  this.examListElement.innerHTML = "";
-
-  const user = JSON.parse(
-    localStorage.getItem("activeUser")
-  );
-
-  if (!user) {
-    this.examListElement.innerHTML = `
-      <p class="text-danger">Active user was not found.</p>
-    `;
-    return;
-  }
-
-  const examResults = Array.isArray(user.examsResults)
-    ? user.examsResults
-    : [];
-
-  if (exams.length === 0) {
-    this.examListElement.innerHTML = `
-      <p class="text-muted">No exams available.</p>
-    `;
-    return;
-  }
-
-  exams.forEach(exam => {
-    const completedResult = examResults.find(
-      result => result.examID === exam.id
+    const user = JSON.parse(
+      localStorage.getItem("activeUser")
     );
 
-    const div = document.createElement("div");
-    div.className = "exam-card mainCard main-text";
+    if (!user) {
+      this.examListElement.innerHTML = `
+      <p class="text-danger">Active user was not found.</p>
+    `;
+      return;
+    }
 
-    const actionButton = completedResult
-      ? `
+    const examResults = Array.isArray(user.examsResults)
+      ? user.examsResults
+      : [];
+
+    if (exams.length === 0) {
+      this.examListElement.innerHTML = `
+      <p class="text-muted">No exams available.</p>
+    `;
+      return;
+    }
+
+    exams.forEach(exam => {
+      const completedResult = examResults.find(
+        result => result.examID === exam.id
+      );
+
+      const div = document.createElement("div");
+      div.className = "exam-card mainCard main-text";
+
+      const actionButton = completedResult
+        ? `
         <button
           class="btn btn-info view-answers-btn base-btn"
           data-id="${exam.id}">
           View My Answers
         </button>
       `
-      : `
+        : `
         <button
           class="btn btn-success run-btn base-btn"
           data-id="${exam.id}">
@@ -305,7 +305,7 @@ renderExamListSearchStudent(exams) {
         </button>
       `;
 
-    div.innerHTML = `
+      div.innerHTML = `
       <h4>${exam.category} - ${exam.title}</h4>
 
       <p class="small-muted">
@@ -314,29 +314,27 @@ renderExamListSearchStudent(exams) {
 
       <p class="small-muted">
         Time limit:
-        ${
-          exam.timeLimit === 0
-            ? "Unlimited"
-            : `${exam.timeLimit} min`
+        ${exam.timeLimit === 0
+          ? "Unlimited"
+          : `${exam.timeLimit} min`
         }
       </p>
 
-      ${
-        completedResult
+      ${completedResult
           ? `
             <p class="small-muted">
               Score: ${completedResult.percentage}%
             </p>
           `
           : ""
-      }
+        }
 
       ${actionButton}
     `;
 
-    this.examListElement.appendChild(div);
-  });
-}
+      this.examListElement.appendChild(div);
+    });
+  }
 
 
 
@@ -424,9 +422,9 @@ renderExamListSearchStudent(exams) {
         results.timeLeft = timeLeft;
 
         results.userAnswers = userAnswers;
-        
+
         //results.score = this.checkExam(exam, userAnswers);
-       // localStorage.setItem("lastResult", JSON.stringify(results));
+        // localStorage.setItem("lastResult", JSON.stringify(results));
         this.checkExam(exam, results);
       }
       // update timer
@@ -443,6 +441,7 @@ renderExamListSearchStudent(exams) {
       const question = exam.questions[questionIndex];
       questionDiv.innerHTML = `
             <h5> ${questionIndex + 1}. ${question.text} </h5>
+            <p class="question-points">${question.difficulty} points</p>
             
             ${question.answers.map((answer, answerIndex) => `
             <div style="padding: 5px;">
@@ -495,6 +494,9 @@ renderExamListSearchStudent(exams) {
     submits it into local storage for later to calculate final score.
     */
     submitButton.addEventListener("click", () => {
+      const confirmed = confirm("Are you sure you want to submit?");
+      if (!confirmed) { return; }
+
       const selected = questionDiv.querySelector(
         `input[name="question-${questionIndex}"]:checked`
       );
@@ -504,7 +506,7 @@ renderExamListSearchStudent(exams) {
       else { userAnswers[questionIndex] = Number(selected.value); }
       results.timeLeft = timeLeft;
       clearInterval(timerInterval);
-      
+
       results.userAnswers = userAnswers;
       //results.score = this.checkExam(exam, userAnswers);
       //localStorage.setItem("lastResult", JSON.stringify(results));
@@ -557,10 +559,11 @@ renderExamListSearchStudent(exams) {
     renderQuestionExam();
 
     // Add generated elements to the page.
+    let examBtns = document.getElementById("examButtons");
     this.examRunnerElement.appendChild(questionDiv);
-    this.examRunnerElement.appendChild(prevButton);
-    this.examRunnerElement.appendChild(nextButton);
-    this.examRunnerElement.appendChild(submitButton);
+    examBtns.appendChild(prevButton);
+    examBtns.appendChild(nextButton);
+    examBtns.appendChild(submitButton);
 
   }
 
@@ -589,7 +592,7 @@ Displays the final result.
     exam.questions.forEach((question, questionIndex) => {
       higestScore += question.difficulty;
       if (question.isCorrect(results.userAnswers[questionIndex])) {
-        score += question.difficulty ;
+        score += question.difficulty;
       }
       if (results.userAnswers[questionIndex] != -1) {
         answersCount++;
@@ -607,9 +610,14 @@ Displays the final result.
       <p>Amount of answered Questions: ${answersCount} / ${exam.questions.length}</p>
       <p>Score: ${Math.round((score / higestScore) * 100)}%</p>
 
-      <button id="resultsBTN" class="base-btn">watch questions</button>
-      <button id="returnBTN" class="base-btn">Return</button>
+
     `;
+    let examBtns = document.getElementById("examButtons");
+    examButtons.innerHTML = `      
+    <button id="resultsBTN" class="base-btn">watch questions</button>
+    <button id="returnBTN" class="base-btn">Return</button>
+      `;
+
 
 
     results.score = score;
@@ -622,9 +630,24 @@ Displays the final result.
     if (this.onFinish) {
       this.onFinish(results);
     }
-    //return score;
-    //localStorage.setItem("results", JSON.stringify(userAnswers));
 
+    let returnBTN = document.getElementById("returnBTN");
+
+    returnBTN.addEventListener('click', () => {
+      // returns to the home page by the user type
+      let user = JSON.parse(localStorage.getItem('activeUser'));
+      window.location.href = `../${user.type}/Home/home.html`;
+    });
+
+    let resultsBTN = document.getElementById("resultsBTN");
+
+    resultsBTN.addEventListener('click', () => {
+      // Switch to the read-only, color-coded review of this attempt.
+      // Clear the current buttons first so renderExamResults doesn't
+      // append its navigation on top of the result screen's buttons.
+      examBtns.innerHTML = "";
+      this.renderExamResults(exam, results);
+    });
 
   }
 
@@ -777,4 +800,153 @@ selectedIndex controls which option is selected.
   }
 
 
+  /*
+  ===========================================================
+  renderExamResults(exam, results)
+
+  Read-only review of a completed exam attempt.
+
+  Mirrors the layout of renderExamRunner (question by question,
+  Prev / Next navigation) but:
+  - inputs are disabled, so nothing can be changed
+  - the correct answer is highlighted in green
+  - the student's answer, when wrong, is highlighted in red
+
+  `results.userAnswers` holds the student's selected answer index
+  per question (-1 means the question was left unanswered).
+  ===========================================================
+  */
+  renderExamResults(exam, results) {
+    // Validate that the requested exam exists
+    if (!exam) {
+      this.examRunnerElement.innerHTML = `
+            <div class="alert alert-danger">
+                Exam not found.
+            </div> `;
+      return;
+    }
+    // Prevent reviewing empty exams
+    if (exam.questions.length === 0) {
+      this.examRunnerElement.innerHTML = `
+            <div class="alert alert-warning">
+                This exam has no questions.
+            </div>  `;
+      return;
+    }
+
+    // The student's answers. Fall back to an empty array so a missing
+    // result set simply shows every question as unanswered instead of crashing.
+    const userAnswers = (results && Array.isArray(results.userAnswers))
+      ? results.userAnswers
+      : [];
+
+    // Display exam header information
+    this.examRunnerElement.innerHTML = `
+        <h4>${exam.title}</h4>
+        <p class="tsecond-text">
+            Reviewing your answers.
+            <span style="color: green;">Green</span> is the correct answer,
+            <span style="color: red;">red</span> is your answer.
+        </p>
+    `;
+
+    // creating the question div where the current question will be displayed
+    const questionDiv = document.createElement("div");
+    questionDiv.className = "question-box";
+
+    let questionIndex = 0;
+
+    /*
+    Creates the HTML of the current question in read-only mode.
+    Colors each answer:
+    - correct answer  -> green
+    - student's wrong answer -> red
+    */
+    function renderQuestionReview() {
+      const question = exam.questions[questionIndex];
+      const userAnswer = userAnswers[questionIndex];
+
+      // -1 (or a missing entry) means the student left this question blank.
+      const notAnswered = userAnswer === undefined || userAnswer === -1;
+
+      questionDiv.innerHTML = `
+            <h5> ${questionIndex + 1}. ${question.text} </h5>
+            <p class="question-points">${question.difficulty} points</p>
+
+            ${question.answers.map((answer, answerIndex) => {
+        const isCorrect = answerIndex === question.correctAnswerIndex;
+        const isUserAnswer = answerIndex === userAnswer;
+
+        // The correct answer is always green. The student's answer is
+        // only marked red when it differs from the correct one.
+        let labelClass = "answer-label";
+        if (isCorrect) { labelClass += " answer-correct"; }
+        else if (isUserAnswer) { labelClass += " answer-wrong"; }
+
+        return `
+            <div style="padding: 5px;">
+            <label class="${labelClass}">
+            <input
+            type="radio"
+            name="question-${questionIndex}"
+            value="${answerIndex}"
+            ${isUserAnswer ? "checked" : ""}
+            disabled>
+            <span>${answer}</span>
+            ${isUserAnswer ? `<span class="answer-tag">(your answer)</span>` : ""}
+            </label>
+            </div>
+            `;
+      }).join("")}
+
+            ${notAnswered ? `<p class="not-answered-note">You didn't pick an answer for this question.</p>` : ""}
+            `;
+    }
+
+    // Create navigation buttons dynamically.
+    const nextButton = document.createElement("button");
+    const prevButton = document.createElement("button");
+    const returnButton = document.createElement("button");
+
+    nextButton.className = "base-btn btn-primary";
+    prevButton.className = "base-btn btn-primary";
+    returnButton.className = "base-btn";
+
+    nextButton.textContent = "Next";
+    prevButton.textContent = "Prev";
+    returnButton.textContent = "Return";
+
+    /* Next button: move forward through the questions. */
+    nextButton.addEventListener("click", () => {
+      if (questionIndex < exam.questions.length - 1) {
+        questionIndex++;
+        renderQuestionReview();
+      }
+    });
+
+    /* Previous button: move back through the questions. */
+    prevButton.addEventListener("click", () => {
+      if (questionIndex != 0) {
+        questionIndex--;
+        renderQuestionReview();
+      }
+    });
+
+    /* Return button: back to the user's home page. */
+    returnButton.addEventListener("click", () => {
+      const user = JSON.parse(localStorage.getItem("activeUser"));
+      window.location.href = `../${user.type}/Home/home.html`;
+    });
+
+    // Display first question.
+    renderQuestionReview();
+
+    // Add generated elements to the page.
+    let examBtns = document.getElementById("examButtons");
+    this.examRunnerElement.appendChild(questionDiv);
+
+    examBtns.appendChild(prevButton);
+    examBtns.appendChild(nextButton);
+    examBtns.appendChild(returnButton);
+  }
 }

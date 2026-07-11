@@ -22,12 +22,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const user = JSON.parse(localStorage.getItem('activeUser'));
 
+    // A student may only take each exam once. If they already have a saved
+    // result for this exam, send them to the read-only review instead of
+    // letting them run it again (covers refresh / back button / direct URL).
+    // Teachers are never blocked, so they can re-run an exam as many times
+    // as they like.
+    if (user.type === "student") {
+        const history = Array.isArray(user.examsResults) ? user.examsResults : [];
+        const alreadyTaken = history.some(
+            r => r.examID === examID
+        );
+        if (alreadyTaken) {
+            window.location.href = "./ExamResults.html";
+            return;
+        }
+    }
+
     // The callback runs only when the student actually finishes the exam
     // (submit or time up), so `results` is guaranteed to be populated.
     examUI.renderExamRunner(exam, (results) => {
-        if (user.type != "") {
+        // Only student attempts are persisted. A teacher can run an exam to
+        // preview it, but nothing is written to the exam data or their account.
+        if (user.type === "student") {
             results.userID = user.id;
-            results.examId = examID;
+            results.examID = examID;
 
             // Record the attempt on the exam (feeds the teacher's average).
             exam.updateStats(results);
@@ -38,12 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
             u.addExamResults(results);
             userService.saveUser(u);
 
-            //const user = JSON.parse(localStorage.getItem('activeUser' ));
             localStorage.setItem('activeUser' , JSON.stringify(u) );
 
         }
     });
 
-    
 
 });

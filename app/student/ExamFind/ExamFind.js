@@ -13,24 +13,24 @@ document.addEventListener("DOMContentLoaded", function () {
     examUI.renderExamList("student");
 
     examListElement.addEventListener("click", event => {
-        const examId = event.target.dataset.id;
+        const examID = event.target.dataset.id;
 
-        if (!examId) {
+        if (!examID) {
             return;
         }
 
         if (event.target.classList.contains("run-btn")) {
-            localStorage.setItem("examID", examId);
+            localStorage.setItem("examID", examID);
 
             window.location.href =
                 "../../ExamRunner/ExamRunner.html";
         }
 
         if (event.target.classList.contains("view-answers-btn")) {
-            localStorage.setItem("examID", examId);
+            localStorage.setItem("examID", examID);
 
             window.location.href =
-                "../ExamReview/ExamReview.html";
+                "../../ExamRunner/ExamResults.html";
         }
     });
 });
