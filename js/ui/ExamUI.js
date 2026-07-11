@@ -441,6 +441,7 @@ export class ExamUI {
       const question = exam.questions[questionIndex];
       questionDiv.innerHTML = `
             <h5> ${questionIndex + 1}. ${question.text} </h5>
+            <p class="question-points">${question.difficulty} points</p>
             
             ${question.answers.map((answer, answerIndex) => `
             <div style="padding: 5px;">
@@ -865,8 +866,12 @@ selectedIndex controls which option is selected.
       const question = exam.questions[questionIndex];
       const userAnswer = userAnswers[questionIndex];
 
+      // -1 (or a missing entry) means the student left this question blank.
+      const notAnswered = userAnswer === undefined || userAnswer === -1;
+
       questionDiv.innerHTML = `
             <h5> ${questionIndex + 1}. ${question.text} </h5>
+            <p class="question-points">${question.difficulty} points</p>
 
             ${question.answers.map((answer, answerIndex) => {
         const isCorrect = answerIndex === question.correctAnswerIndex;
@@ -893,6 +898,8 @@ selectedIndex controls which option is selected.
             </div>
             `;
       }).join("")}
+
+            ${notAnswered ? `<p class="not-answered-note">You didn't pick an answer for this question.</p>` : ""}
             `;
     }
 
