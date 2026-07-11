@@ -328,66 +328,145 @@ renderExamListSearchStudent(exams) {
     ? user.examsResults
     : [];
 
-  if (exams.length === 0) {
-    this.examListElement.innerHTML = `
-      <p class="text-muted">No exams available.</p>
-    `;
-    return;
-  }
-
+  // Live exams the student can take (or review, if already completed).
   exams.forEach(exam => {
     const completedResult = examResults.find(
       result => result.examID === exam.id
     );
 
-    const div = document.createElement("div");
-    div.className = "exam-card mainCard main-text";
+    this.examListElement.appendChild(
+      this.createStudentExamCard(exam, completedResult)
+    );
+  });
 
-    const actionButton = completedResult
-      ? `
-        <button
-          class="btn btn-info view-answers-btn base-btn"
-          data-id="${exam.id}">
-          View My Answers
-        </button>
-      `
-      : `
-        <button
-          class="btn btn-success run-btn base-btn"
-          data-id="${exam.id}">
-          Start Exam
-        </button>
-      `;
+  // Attempts whose exam has since been deleted by the teacher. The live exam
+  // is gone, but the snapshot saved at submit time lets the student still
+  // review the answers they gave. Attempts saved before snapshots existed
+  // have nothing to render against, so they are skipped.
+  const liveExamIds = new Set(exams.map(exam => exam.id));
+  const removedExamResults = examResults.filter(
+    result => !liveExamIds.has(result.examID) && result.examSnapshot
+  );
 
-    div.innerHTML = `
-      <h4>${exam.category} - ${exam.title}</h4>
+  removedExamResults.forEach(result => {
+    this.examListElement.appendChild(
+      this.createRemovedExamCard(result)
+    );
+  });
 
-      <p class="small-muted">
-        Questions: ${exam.getQuestionCount()}
-      </p>
+  // Nothing to show at all (no live exams and no reviewable removed ones).
+  if (exams.length === 0 && removedExamResults.length === 0) {
+    this.examListElement.innerHTML = `
+      <p class="text-muted">No exams available.</p>
+    `;
+  }
+}
 
-      <p class="small-muted">
-        Time limit:
-        ${exam.timeLimit === 0
-        ? "Unlimited"
-        : `${exam.timeLimit} min`
-      }
-      </p>
+/*
+Returns the percentage score for a stored attempt.
+Prefers the saved `percentage`; falls back to recomputing it from
+score/examMaxScore for older attempts that predate that field.
+*/
+getResultPercentage(result) {
+  if (typeof result.percentage === "number") {
+    return result.percentage;
+  }
+  return result.examMaxScore > 0
+    ? Math.round((result.score / result.examMaxScore) * 100)
+    : 0;
+}
 
-      ${completedResult
-        ? `
-            <p class="small-muted">
-              Score: ${completedResult.percentage}%
-            </p>
-          `
-        : ""
-      }
+/*
+Builds a card for a live exam in the student view.
 
-      ${actionButton}
+completedResult present  -> View My Answers (+ score)
+completedResult missing  -> Start Exam
+*/
+createStudentExamCard(exam, completedResult) {
+  const div = document.createElement("div");
+  div.className = "exam-card mainCard main-text";
+
+  const actionButton = completedResult
+    ? `
+      <button
+        class="btn btn-info view-answers-btn base-btn"
+        data-id="${exam.id}">
+        View My Answers
+      </button>
+    `
+    : `
+      <button
+        class="btn btn-success run-btn base-btn"
+        data-id="${exam.id}">
+        Start Exam
+      </button>
     `;
 
-    this.examListElement.appendChild(div);
-  });
+  div.innerHTML = `
+    <h4>${exam.category} - ${exam.title}</h4>
+
+    <p class="small-muted">
+      Questions: ${exam.getQuestionCount()}
+    </p>
+
+    <p class="small-muted">
+      Time limit:
+      ${exam.timeLimit === 0
+      ? "Unlimited"
+      : `${exam.timeLimit} min`
+    }
+    </p>
+
+    ${completedResult
+      ? `
+          <p class="small-muted">
+            Score: ${this.getResultPercentage(completedResult)}%
+          </p>
+        `
+      : ""
+    }
+
+    ${actionButton}
+  `;
+
+  return div;
+}
+
+/*
+Builds a card for a completed attempt whose exam was deleted by the teacher.
+
+Everything is drawn from the snapshot stored on the attempt, so the student
+can still review their answers even though the exam no longer exists.
+*/
+createRemovedExamCard(result) {
+  const snapshot = result.examSnapshot;
+
+  const div = document.createElement("div");
+  div.className = "exam-card mainCard main-text";
+
+  div.innerHTML = `
+    <h4>${snapshot.category} - ${snapshot.title}</h4>
+
+    <p class="small-muted text-warning">
+      This exam was removed by the teacher.
+    </p>
+
+    <p class="small-muted">
+      Questions: ${snapshot.questions.length}
+    </p>
+
+    <p class="small-muted">
+      Score: ${this.getResultPercentage(result)}%
+    </p>
+
+    <button
+      class="btn btn-info view-answers-btn base-btn"
+      data-id="${result.examID}">
+      View My Answers
+    </button>
+  `;
+
+  return div;
 }
 
 
@@ -693,6 +772,9 @@ checkExam(exam, results) {
   results.score = score;
   results.examMaxScore = higestScore;
   results.answersCount = answersCount;
+  // Store the percentage too, so the student's exam-list card and history
+  // don't have to recompute it (and don't show "undefined%").
+  results.percentage = higestScore > 0 ? Math.round((score / higestScore) * 100) : 0;
   this.examRunnerElement.appendChild(resultDiv);
   localStorage.setItem("lastResult", JSON.stringify(results));
 

@@ -121,10 +121,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!confirmed) {
                 return;
             }
-            // Remove exam from storage
+            // Remove exam from storage. Students who already took it keep
+            // their results: each attempt stored a snapshot of the exam, so
+            // they can still review their answers (shown as a "removed by
+            // teacher" card) even though the live exam is gone.
             examService.deleteExam(examID);
-            //remove the exam for all users
-            userService.removeExamResultsFromAllUsers(examID);
             // Refresh displayed list
             examUI.renderExamList("teacher");
 
