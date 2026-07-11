@@ -61,6 +61,11 @@ sliderQDiff.addEventListener("input", () => {
   outputQDiff.textContent = sliderQDiff.value;
 });
 
+window.addEventListener("beforeunload", function () {
+  // removing from local storage the selected category
+  localStorage.removeItem("selected_category");
+});
+
 
 addQuestionBtn.addEventListener("click", () => {
   const title = examTitleInput.value.trim();
@@ -124,6 +129,7 @@ addQuestionBtn.addEventListener("click", () => {
 });
 
 saveExamBtn.addEventListener("click", () => {
+
   if (!currentExam) {
     examUI.showBuilderMessage("Create an exam and add at least one question first.", "danger");
     return;
@@ -154,6 +160,8 @@ saveExamBtn.addEventListener("click", () => {
   examService.saveExam(currentExam);
 
   examUI.showBuilderMessage("Exam saved successfully.", "success");
+  // removing from local storage the selected category
+  localStorage.removeItem("selected_category");
 
   currentExam = null;
 

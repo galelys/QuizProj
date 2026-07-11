@@ -11,17 +11,32 @@
 </head>
 
 <body>
+  <!-- Navigation menu is created dynamically by nav.js -->
   <div id="menuBTNS"></div>
   <div class="container-fluid py-4">
-    <div style="padding: 30px;">
+    <!-- Search and action buttons section -->
+    <div class="toolbar">
+      <!-- Input for searching exams -->
       <input id="searchBAR" type="text" placeholder="search" class=" inpt">
-      <button id="searchBTN" class="base-btn">search</button>
-      <button id="clearBTN" class="base-btn">clear</button>
-      <button id="importBTN" class="base-btn">import</button>
-      <!-- hidden file picker; the visible "import" button triggers it -->
+      <!-- Search button -->
+      <button id="searchBTN" class="base-btn">Search</button>
+      <!-- Clear input button -->
+      <button id="clearBTN" class="base-btn">Clear</button>
+      <!-- Opens the file picker to import exams from a JSON file -->
+      <button id="importBTN" class="base-btn">Import</button>
+      <!-- 
+        Hidden file input.
+        The user does not interact with this directly.
+        JavaScript triggers it when the import button is clicked.
+        Accepts only JSON files.
+      -->
       <input id="importFile" type="file" accept="application/json" style="display:none">
     </div>
     <div class="container">
+      <!-- 
+        Exam cards are added dynamically here by JavaScript.
+        "row" allows Bootstrap columns/cards to be arranged properly.
+      -->
       <div id="examList" class="row">
 
       </div>
@@ -31,8 +46,9 @@
 
 
   <button id="themeToggle">Dark Mode</button>
+  <script type="module" src="./ExamsList.js"></script>
+  <script type="module" src="../nav.js"></script>
 </body>
-<script type="module" src="./ExamsList.js"></script>
-<script type="module" src="../nav.js"></script>
+
 
 </html>

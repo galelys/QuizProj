@@ -1,33 +1,36 @@
 import { User } from "../../../js/models/user.js";
 import { UserService } from "../../../js/services/UserService.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
-import { Question } from "../../../js/models/Question.js";
 import { Exam } from "../../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Create service instances
     const userService = new UserService();
-    const activeUser = JSON.parse(localStorage.getItem('activeUser'));
-    const user = userService.findUserById(activeUser.id);
-
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
 
+    // Retrieve the currently logged-in user from local storage
+    const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+
+    // Find the complete user object
+    const user = userService.findUserById(activeUser.id);
 
     // dark mode button initialization 
     initThemeToggle();
 
     // writing welcome <user name> on the page
-
-
     document.getElementById('title').textContent += user.name;
     let dash = document.getElementById('testsStats');
 
+    // Retrieve all exams created by the current user
     let creatorExams = examService.getExamByCreatorId(user.id);
+
+    // Debug output
     console.log(creatorExams);
-    //calculateExamAverage
+    // Display user statistics on the dashboard
     dash.innerHTML = `
             <div class="stat">
                 <h5 class="main-text">Tests created so far</h5>
@@ -38,8 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="second-text">${examService.calculateExamAverage(creatorExams)}</p>
             </div>
     `;
-
-
 
 });
 
