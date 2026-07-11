@@ -100,7 +100,15 @@ export class ExamService {
         return exams.filter(exam => exam.creatorID === creatorId);
     }
 
+    getExamCountByCreatorId(creatorId) {
+        return this.getExamByCreatorId(creatorId).length;
+    }
+
     calculateExamResultys(exam, results) {
+        // No statistics/results available yet
+        if (!results || !results.userAnswers || results.userAnswers.length === 0) {
+            return "No stats yet";
+        }
         let score = 0;
         let answersCount = 0;
         let higestScore = 0;
@@ -119,13 +127,27 @@ export class ExamService {
 
     }
 
-    calculateExamAverage(exams,userID = null) {
-        // Calculates the average percentage score across all recorded attempts.
-        // Each exam stores its attempts in `stats`.
-        // Every attempt contains the student's earned score (`score`) and the
-        // maximum possible score (`examMaxScore`), which are used to calculate
-        // the percentage grade.
+    calculateExamRunCount(exams) {
+        // single exam was passed convert it to an array
+        if (!Array.isArray(exams)) {
+            exams = [exams];
+        }
+        let attempts = 0;
+        exams.forEach(exam => {
+            (exam.stats || []).forEach(stat => {
+                attempts++;
+            });
 
+        });
+
+        return attempts;
+    }
+
+    calculateExamAverage(exams, userID = null) {
+        // Average percentage score across every recorded attempt of these exams.
+        // Each exam holds its attempts in `stats`; each attempt has a raw `score`
+        // (number of correct answers), converted to a percentage of the exam length.
+        // When `userID` is given, only that student's attempts are counted.
         let total = 0;
         let attempts = 0;
 
@@ -136,12 +158,102 @@ export class ExamService {
                     return;
                 }
 
-                total += (stat.score / stat.examMaxScore) * 100;
+                // Guard against a zero max score (e.g. every question has
+                // difficulty 0) so the attempt counts as 0% instead of NaN.
+                total += stat.examMaxScore > 0
+                    ? (stat.score / stat.examMaxScore) * 100
+                    : 0;
                 attempts++;
             });
         });
 
         return attempts === 0 ? 0 : Math.round(total / attempts);
+    }
+
+    calculateExamTimeAverage(exams) {
+
+        // Support single exam or array of exams
+        if (!Array.isArray(exams)) {
+            exams = [exams];
+        }
+
+
+        let totalTime = 0;
+        let attempts = 0;
+
+
+        exams.forEach(exam => {
+
+            (exam.stats || []).forEach(stat => {
+
+                // Only count attempts that actually recorded a duration.
+                // Older attempts saved before time tracking existed have no
+                // numeric `timeTaken`; including them would give NaN:NaN.
+                if (typeof stat.timeTaken === "number" && !isNaN(stat.timeTaken)) {
+                    totalTime += stat.timeTaken;
+                    attempts++;
+                }
+
+            });
+
+        });
+
+
+        // No attempts with a recorded duration yet
+        if (attempts === 0) {
+            return "No stats yet";
+        }
+
+
+        const averageSeconds = totalTime / attempts;
+
+
+        // Convert seconds to MM:SS
+        const minutes = Math.floor(averageSeconds / 60);
+        const seconds = Math.floor(averageSeconds % 60);
+
+
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    /** for calculating currently best preforming exam */
+    getBestExam(exams) {
+
+        if (exams.length === 0) { return null; }
+
+        let bestExam = exams[0];
+        let bestAverage = this.calculateExamAverage([bestExam]);
+
+        exams.forEach(exam => {
+            const average = this.calculateExamAverage([exam]);
+            if (average > bestAverage) {
+                bestAverage = average;
+                bestExam = exam;
+            }
+
+        });
+
+        return { exam: bestExam, average: bestAverage };
+    }
+
+    /** for calculating currently worst preforming exam */
+    getWorstExam(exams) {
+
+        if (exams.length === 0) { return null; }
+
+        let worstExam = exams[0];
+        let worstAverage = this.calculateExamAverage([worstExam]);
+
+        exams.forEach(exam => {
+            const average = this.calculateExamAverage([exam]);
+            if (average < worstAverage) {
+                worstAverage = average;
+                worstExam = exam;
+            }
+
+        });
+
+        return { exam: worstExam, average: worstAverage };
     }
 }
 

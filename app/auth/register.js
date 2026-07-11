@@ -67,7 +67,6 @@ function register() {
         id
     );
 
-    console.log(newUser);
     const wasAdded = userService.addUser(newUser);
 
     if (!wasAdded) {
@@ -93,8 +92,8 @@ function goToPage(id) {
 
     const userService = new UserService();
     const user = userService.findUserById(id);
-    localStorage.setItem("activeUser", JSON.stringify(user));
     if (!user) return;
+    localStorage.setItem("activeUser", JSON.stringify(user));
 
 
     const target =

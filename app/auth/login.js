@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     after that redirects to the intended page
     */
     function login() {
-        console.log("login clicked");
-
         //hide the error message for another try
         errorMsg.style.visibility = "hidden";
         errorMsg.textContent = "";

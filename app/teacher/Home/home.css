@@ -10,3 +10,30 @@
     padding: 5px;
 }
 
+.stat {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #faf9fe;
+    box-shadow: 0 8px 22px rgba(90, 40, 120, 0.07);
+    border: 1px solid #e1ddf1;
+    /* animation settings */
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+.stat:hover {
+    transform: translateY(-5px); /* moves the card slightly upward */
+    box-shadow: 0 14px 30px rgba(90, 40, 120, 0.15);
+}
+
+
+body.dark-mode .stat {
+    background: #241c23;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
+    border: 1px solid #372d36;
+}
+
+
+body.dark-mode .stat:hover {
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+}

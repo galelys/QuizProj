@@ -55,7 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   function saveExam() {
 
-    let timeLimitInput = document.getElementById('examTimeLimit').value;
+    // Keep the time limit numeric so `exam.timeLimit === 0` (the "Unlimited"
+    // check used across the UI) keeps working after an edit.
+    let timeLimitInput = Number(document.getElementById('examTimeLimit').value);
     let examTitle = document.getElementById('examTitle').value;
 
     exam.updateExam(examTitle, timeLimitInput);

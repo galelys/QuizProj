@@ -32,8 +32,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // Retrieve all exams created by the current user
     let creatorExams = examService.getExamByCreatorId(user.id);
 
-    // Debug output
-    console.log(creatorExams);
+
+    const bestExam = examService.getBestExam(creatorExams);
+    const worstExam = examService.getWorstExam(creatorExams);
+
+    // Both are null when the teacher has no exams yet; fall back to a
+    // placeholder so the dashboard still renders instead of crashing on
+    // `bestExam.exam.title`.
+    const bestExamText = bestExam
+        ? `${bestExam.exam.title}  - ${bestExam.average}`
+        : "No exams yet";
+    const worstExamText = worstExam
+        ? `${worstExam.exam.title}  - ${worstExam.average}`
+        : "No exams yet";
     // Display user statistics on the dashboard
     dash.innerHTML = `
             <div class="stat">
@@ -41,8 +52,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="second-text">${user.getExamsCreatedCount()}</p>
             </div>
             <div class="stat">
+                <h5 class="main-text">currently avalable tests</h5>
+                <p class="second-text">${examService.getExamCountByCreatorId(user.id)}</p>
+            </div>
+            <div class="stat">
                 <h5 class="main-text">Average across all tests</h5>
-                <p class="second-text">${examService.calculateExamAverage(creatorExams)}</p>
+                <p class="second-text">${examService.calculateExamAverage(creatorExams)}%</p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">Best Exam</h5>
+                 <p class="second-text">
+                 ${bestExamText}
+                 </p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">Worst Exam</h5>
+                 <p class="second-text">
+                 ${worstExamText}
+                 </p>
             </div>
     `;
 
