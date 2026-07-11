@@ -1,7 +1,7 @@
 import { User } from "../../../js/models/user.js";
 import { UserService } from "../../../js/services/UserService.js";
 import { initThemeToggle } from "../../../js/ui/theme.js";
-import { Exam } from "../../../../js/models/exam.js";
+import { Exam } from "../../../js/models/exam.js";
 import { ExamService } from "../../../js/services/ExamService.js";
 import { ExamUI } from "../../../js/ui/ExamUI.js";
 
