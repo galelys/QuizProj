@@ -12,9 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const examService = new ExamService();
     const examUI = new ExamUI(examService);
 
-    // Retrieve the currently logged-in user from local storage
-    const activeUser = JSON.parse(localStorage.getItem('activeUser'));
 
+    const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+    // If nobody is signed in, send them to the login page instead of crashing.
+    if (!activeUser) {
+        window.location.href = "../../auth/login.html";
+        return;
+    }
     // Find the complete user object
     const user = userService.findUserById(activeUser.id);
 
