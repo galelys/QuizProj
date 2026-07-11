@@ -276,7 +276,7 @@ renderExamListSearchTeacher(exams) {
           Export
         </button>
         <button
-          class="btn btn-sm btn-danger statistics-btn base-btn"
+          class="btn btn-sm statistics-btn base-btn"
           data-id="${exam.id}">
           Statistics
         </button>

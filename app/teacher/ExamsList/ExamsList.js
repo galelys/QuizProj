@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
             examService.deleteExam(examID);
             // Refresh displayed list
             examUI.renderExamList("teacher");
-            
+
         }
 
         // the export exam button //
@@ -135,6 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Convert exam object into JSON file.
             exportExam(exam)
         }
+        // the export exam button //
+        if (event.target.classList.contains("statistics-btn")) {
+            localStorage.setItem("examID", examID);
+            window.location.href = "../Statistics/ExamStats.html";
+        }
+
 
     });
 
