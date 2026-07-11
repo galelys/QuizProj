@@ -53,21 +53,24 @@ document.addEventListener('DOMContentLoaded', function () {
     searchBtn.addEventListener('click', search);
     clearBTN.addEventListener('click', clear);
 
+    // re-filter whenever the category dropdown changes
+    let categoryFilter = document.getElementById("categoryFilter");
+    categoryFilter.addEventListener('change', search);
+
     // display all exams created by the teacher
     examUI.renderExamList("teacher");
+    examUI.renderCategoryFilter();
 
     /*
      * searches exams according to the value entered in the search bar
      */
     function search() {
         let searchVal = document.getElementById("searchBAR").value;
-        // Do nothing if the search input is empty.
-        if (searchVal === "") {
-            return;
-        }
 
-        // Filter and display matching exams
+        // Filter and display matching exams. An empty search box still
+        // applies the selected category (empty text matches every title).
         examUI.sorterListTeacher(searchVal);
+
     }
     /**
      * clears the search input and reloads the full exam list.
@@ -76,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function clear() {
         examUI.renderExamList("teacher");
         document.getElementById("searchBAR").value = "";
+        // Reset the category dropdown back to "All" so it matches the full list.
+        categoryFilter.value = "All";
 
     }
 
