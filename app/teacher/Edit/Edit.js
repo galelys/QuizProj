@@ -141,13 +141,42 @@ document.addEventListener('DOMContentLoaded', function () {
   /**
    * Deletes the currently selected question.
    */
-  deleteBTN.addEventListener('click', () => {
-    let index = localStorage.getItem('currentQuestionIndex');
-    exam.removeQuestion(index);
-    examService.saveExam(exam);
-    examUI.renderExamEdit(exam);
+  deleteBTN.addEventListener("click", () => {
+  const index = Number(
+    localStorage.getItem("currentQuestionIndex")
+  );
 
-  });
+  exam.removeQuestion(index);
+  examService.saveExam(exam);
+
+  // If no questions remain, clear the editor
+  if (exam.getQuestionCount() === 0) {
+    localStorage.removeItem("currentQuestionIndex");
+    examUI.renderQuestionSelect(exam);
+    examUI.renderEmptyQuestion();
+
+    examUI.showBuilderMessage(
+      "The exam has no questions.",
+      "warning"
+    );
+
+    return;
+  }
+
+  // If the last question was deleted, select the new last question
+  const nextIndex = Math.min(
+    index,
+    exam.getQuestionCount() - 1
+  );
+
+  localStorage.setItem(
+    "currentQuestionIndex",
+    nextIndex
+  );
+
+  examUI.renderQuestionSelect(exam, nextIndex);
+  examUI.renderQuestion(exam, nextIndex);
+});
 
   /**
    * Clears the editor so the user can create a new question.

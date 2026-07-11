@@ -161,7 +161,8 @@ export class ExamUI {
     const results = exams.filter(exam => {
 
       const matchesSearch =
-        exam.title?.includes(searchText) || exam.id?.includes(searchText);
+    (exam.title ?? "").toLowerCase().includes(searchText) ||
+    (exam.id ?? "").toLowerCase().includes(searchText);
 
       const matchesCategory =
         category === "All" || exam.category === category;
@@ -860,20 +861,25 @@ export class ExamUI {
   - display first question
   ===========================================================
   */
-  renderExamEdit(exam) {
-    this.renderExamInformationEdit(exam)
-    const select = document.getElementById("questionSelect");
+renderExamEdit(exam) {
+  this.renderExamInformationEdit(exam);
 
-    this.renderQuestionSelect(exam);
-    // When user selects another question,
-    // load it into the editor.
-    select.onchange = (e) => {
-      this.renderQuestion(exam, Number(e.target.value));
-    };
-    // Load first question initially.
-    this.renderQuestion(exam, 0);
+  const select = document.getElementById("questionSelect");
 
+  this.renderQuestionSelect(exam);
+
+  select.onchange = (e) => {
+    this.renderQuestion(exam, Number(e.target.value));
+  };
+
+  if (exam.questions.length === 0) {
+    this.renderEmptyQuestion();
+    localStorage.removeItem("currentQuestionIndex");
+    return;
   }
+
+  this.renderQuestion(exam, 0);
+}
 
 
 
@@ -921,6 +927,16 @@ export class ExamUI {
   */
   renderQuestion(exam, index) {
     const q = exam.questions[index];
+
+    if (!q) {
+
+    this.renderEmptyQuestion();
+
+    localStorage.removeItem("currentQuestionIndex");
+
+    return;
+
+  }
 
     document.getElementById("questionText").value = q.text;
     // Load all four answers
