@@ -31,3 +31,41 @@
 .answer-label input[type="radio"] {
     transform: scale(1.2);
 }
+
+#examButtons{
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Read-only review highlighting (renderExamResults) */
+.answer-label.answer-correct {
+    border-color: #2e7d32;
+    background-color: rgba(46, 125, 50, 0.15);
+    color: #2e7d32;
+    cursor: default;
+}
+
+.answer-label.answer-wrong {
+    border-color: #c62828;
+    background-color: rgba(198, 40, 40, 0.15);
+    color: #c62828;
+    cursor: default;
+}
+
+.answer-label.answer-correct:hover,
+.answer-label.answer-wrong:hover {
+    background-color: rgba(46, 125, 50, 0.15);
+}
+
+.answer-label.answer-wrong:hover {
+    background-color: rgba(198, 40, 40, 0.15);
+}
+
+.answer-tag {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.8;
+}

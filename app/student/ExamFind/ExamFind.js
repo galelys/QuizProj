@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("examID", examId);
 
             window.location.href =
-                "../ExamReview/ExamReview.html";
+                "../../ExamRunner/ExamResults.html";
         }
     });
 });
