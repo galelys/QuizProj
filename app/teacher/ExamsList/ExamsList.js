@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
             examService.deleteExam(examID);
             // Refresh displayed list
             examUI.renderExamList("teacher");
+            
         }
 
         // the export exam button //

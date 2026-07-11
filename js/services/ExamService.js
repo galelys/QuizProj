@@ -99,6 +99,10 @@ export class ExamService {
         const exams = this.getAllExams();
         return exams.filter(exam => exam.creatorID === creatorId);
     }
+    
+    getExamCountByCreatorId(creatorId) {
+        return this.getExamByCreatorId(creatorId).length;
+    }
 
     calculateExamResultys(exam, results) {
         let score = 0;
