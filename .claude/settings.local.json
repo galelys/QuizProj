@@ -7,7 +7,18 @@
       "Bash(node imp.mjs)",
       "Bash(node --check js/ui/ExamUI.js)",
       "Bash(node --check app/ExamRunner/ExamResults.js)",
-      "Bash(node --check app/ExamRunner/ExamRunner.js)"
+      "Bash(node --check app/ExamRunner/ExamRunner.js)",
+      "Bash(git stash *)",
+      "Bash(git checkout *)",
+      "Bash(git merge EXAM-RUN --no-edit -m 'Merge branch '\\\\''EXAM-RUN'\\\\'' into main *)",
+      "Bash(echo \"--- merge exit: $? ---\")",
+      "Bash(git config *)",
+      "Bash(git merge STUDENT --no-edit -m 'Merge branch '\\\\''STUDENT'\\\\'' into main *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(echo \"--- commit exit: $? ---\")",
+      "Skill(artifact-design)",
+      "Artifact"
     ]
   }
 }

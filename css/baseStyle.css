@@ -1,13 +1,14 @@
-body{
-    background-color: linear-gradient(180deg, #f7f7f7 0%, #f2f2f2 100%);
+body {
+    background: #f1f0fa;
     transition: background 0.3s ease, color 0.3s ease;
     margin: 0;
     padding: 0;
-    color: #4d4344;
-  
+    color: #353340;
+
 }
-.menu{
-    background-color: #E3DDDE;
+
+.menu {
+    background-color: #e4e2f4;
     padding: 5px 1%;
     display: flex;
     gap: 0% 1%;
@@ -15,18 +16,21 @@ body{
     align-items: center;
 }
 
-body.dark-mode .menu{
+body.dark-mode .menu {
     background-color: #1c1820;
 }
-.error-msg{
+
+.error-msg {
     color: salmon;
     font-size: 14px;
     margin-top: 10px;
     text-align: center;
 }
-.inpt-err{
+
+.inpt-err {
     border: 2px solid red
 }
+
 /*
 .menu > button{
     padding: 10px 20px;
@@ -50,10 +54,11 @@ body.dark-mode .menu{
     transition: all 0.2s ease;
 }*/
 
-body.dark-mode .menu > button{
-    background-color: #8d3bdf;
+body.dark-mode .menu>button {
+    background-color: #6f52d9;
 }
-body.dark-mode .menu > button:hover{
+
+body.dark-mode .menu>button:hover {
     background-color: #ffffff;
 }
 
@@ -63,38 +68,39 @@ body.dark-mode {
     color: #f1f1f1;
 }
 
-.body-pad{
-    padding:2% 5%;
-    
+.body-pad {
+    padding: 2% 5%;
+
 }
 
 /**/
-.mainCard{
-    background-color:#F7EDDE;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 0px solid #e7d3b6b4;
-    
+.mainCard {
+    background-color: #faf9fe;
+    box-shadow: 0 8px 22px rgba(90, 40, 120, 0.07);
+    border: 1px solid #e1ddf1;
+
 }
 
 body.dark-mode .mainCard {
     background: #241c23;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
-    border:1px solid #372d36;
+    border: 1px solid #372d36;
 }
+
 /* green button*/
 .grn-btn {
-    
+
     border-radius: 8px;
     background: transparent;
-    color: #8da798;
-    border: 1px solid #8da798;
+    color: #5f8574;
+    border: 1px solid #5f8574;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .grn-btn:hover {
-    background:#b0cabb;
-    color: #ffffff;
+    background: #cfe3d8;
+    color: #3f5d4f;
 }
 
 body.dark-mode .grn-btn {
@@ -109,18 +115,18 @@ body.dark-mode .grn-btn:hover {
 }
 
 /* main text like titels*/
-.main-text{
+.main-text {
 
-    color: #796465;
+    color: #574f70;
 }
 
 body.dark-mode .main-text {
     color: #91787B;
 }
 
-.second-text{
-    color: #91787B;
-    
+.second-text {
+    color: #8b7a90;
+
 }
 
 
@@ -150,22 +156,22 @@ body.dark-mode #themeToggle {
 }
 
 /* input */
-.inpt{
+.inpt {
     background: transparent;
-    border: 1.5px solid #939194a9;
+    border: 1.5px solid #c2bedb;
     border-radius: 10px;
-    
+
 }
 
 
 
 /* for ivalid or empty input */
-.inpt-err{
+.inpt-err {
     border: 1px solid red;
 }
 
-.inpt::placeholder{
-    color: #5f7ea1;
+.inpt::placeholder {
+    color: #807b9a;
 }
 
 /*this oif for hiding the very ugly numbers arrows on the input from the number type**/
@@ -185,159 +191,164 @@ body.dark-mode .inpt {
     background: transparent;
     color: #8a7b74;
     border: 1px solid #9e928c;
-} 
+}
 
 body.dark-mode .inpt-err {
     border: 1px solid rgb(116, 3, 3);
-} 
+}
 
-body.dark-mode .inpt::placeholder{
-    color: #475840;
+body.dark-mode .inpt::placeholder {
+    color: #8b7a90;
 }
 
 .role-btn {
     padding: 10px 20px;
     display: inline-block;
-    border: 1px solid #E9D3AF;
+    border: 1px solid #8072cf;
     border-radius: 10px;
     background: transparent;
-    color: #E9D3AF;
+    color: #5f5891;
     cursor: pointer;
     transition: 0.1s;
 }
 
 /* Hover */
 .role-btn:hover {
-    background: #F6EDDF;
+    background: #e4e0fb;
 }
 
 /* Selected radio */
-.btn-check:checked + .role-btn {
-    border: 3px solid #E9D3AF;
+.btn-check:checked+.role-btn {
+    border: 3px solid #6f52d9;
 }
 
-body.dark-mode .role-btn{
+body.dark-mode .role-btn {
     border: 1px solid #523810;
     color: #523810;
 
 }
 
 /* Hover dark mode*/
-.role-btn:hover {
+body.dark-mode .role-btn:hover {
     background: #c5a87ba4;
     color: white;
 }
 
 /* Selected radio dark mode */
-body.dark-mode .btn-check:checked + .role-btn {
+body.dark-mode .btn-check:checked+.role-btn {
     border: 3px solid #523810;
 }
 
-.secondary-card{
+.secondary-card {
     margin: 15px;
-    background-color:#f7ebea;
-    border: 1px solid #e4b7b3;
+    background-color: #ecebf7;
+    border: 1px solid #dad5ee;
     border-radius: 8px;
 }
 
-body.dark-mode .secondary-card{
+body.dark-mode .secondary-card {
     background: #312730;
-    border:1px solid #443843;
-    
+    border: 1px solid #443843;
+
 }
 
 .category-btn {
     margin: 3px;
     border: 0px solid #ccc;
-    background: white;
+    background: #faf9fe;
     cursor: pointer;
     border-radius: 6px;
 }
 
 .category-btn.active {
-    background: #94bbe7;
+    background: #6f52d9;
     color: white;
-    border-color: #4a90e2;
-}
-.category-btn:hover {
-    background: rgb(165, 133, 133);
+    border-color: #5b3ec4;
 }
 
-body.dark-mode .category-btn{
+.category-btn:hover {
+    background: #e4e0fb;
+}
+
+body.dark-mode .category-btn {
     background: rgb(255, 19, 19);
 }
 
-body.dark-mode .category-btn.active{
+body.dark-mode .category-btn.active {
     background: rgb(73, 41, 41);
 }
 
 body.dark-mode .category-btn:hover {
     background: rgb(165, 133, 133);
 }
+
 /* basic non big or important buttons */
-.base-btn{
+.base-btn {
     padding: 8px 12px;
     border-radius: 7px;
     border: 0px;
     cursor: pointer;
+    background-color: #e4e0fb;
+    color: #453c8f;
 }
 
-.base-btn:hover{
-    background-color: rgba(126, 126, 126, 0.425);
+.base-btn:hover {
+    background-color: #d5cef7;
+    color: #382f78;
 }
 
-body.dark-mode .base-btn{
+body.dark-mode .base-btn {
     background-color: rgba(255, 255, 255, 0.13);
     color: whitesmoke;
 }
 
-body.dark-mode .base-btn:hover{
+body.dark-mode .base-btn:hover {
     background-color: #8a7b7481;
     color: whitesmoke;
 }
 
-#questionDiff{
-  width: 100%;
-  height: 2px;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
+#questionDiff {
+    width: 100%;
+    height: 2px;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
 }
 
 /* Chrome / Edge / Safari */
 #questionDiff::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  transition: 0.2s;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
 }
 
 
-.red-btn{
+.red-btn {
     background-color: #cf2626;
     color: whitesmoke;
 }
 
-.red-btn:hover{
+.red-btn:hover {
     background-color: #e65252;
 }
 
-body.dark-mode .red-btn{
+body.dark-mode .red-btn {
     background-color: rgba(122, 35, 35, 0.726);
     color: whitesmoke;
 }
 
-body.dark-mode .red-btn:hover{
+body.dark-mode .red-btn:hover {
     background-color: rgba(161, 70, 70, 0.726);
     color: whitesmoke;
 }
 
-#menuBTNS{
+#menuBTNS {
     display: flex;
-    flex-direction: row ;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 30px;
