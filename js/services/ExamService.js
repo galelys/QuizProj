@@ -99,7 +99,7 @@ export class ExamService {
         const exams = this.getAllExams();
         return exams.filter(exam => exam.creatorID === creatorId);
     }
-    
+
     getExamCountByCreatorId(creatorId) {
         return this.getExamByCreatorId(creatorId).length;
     }
@@ -146,5 +146,45 @@ export class ExamService {
         }
 
         return Math.round(total / attempts);
+    }
+
+    /** for calculating currently best preforming exam */
+    getBestExam(exams) {
+
+        if (exams.length === 0) { return null; }
+
+        let bestExam = exams[0];
+        let bestAverage = this.calculateExamAverage([bestExam]);
+
+        exams.forEach(exam => {
+            const average = this.calculateExamAverage([exam]);
+            if (average > bestAverage) {
+                bestAverage = average;
+                bestExam = exam;
+            }
+
+        });
+
+        return { exam: bestExam, average: bestAverage };
+    }
+
+        /** for calculating currently best preforming exam */
+    getWorstExam(exams) {
+
+        if (exams.length === 0) { return null; }
+
+        let worstExam = exams[0];
+        let worstAverage = this.calculateExamAverage([worstExam]);
+
+        exams.forEach(exam => {
+            const average = this.calculateExamAverage([exam]);
+            if (average > worstAverage) {
+                worstAverage = average;
+                worstExam = exam;
+            }
+
+        });
+
+        return { exam: worstExam, average: worstAverage };
     }
 }

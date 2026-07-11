@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Retrieve all exams created by the current user
     let creatorExams = examService.getExamByCreatorId(user.id);
 
+
+    const bestExam = examService.getBestExam(creatorExams);
+    const worstExam = examService.getBestExam(creatorExams);
+
     // Debug output
     console.log(creatorExams);
     // Display user statistics on the dashboard
@@ -47,6 +51,18 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="stat">
                 <h5 class="main-text">Average across all tests</h5>
                 <p class="second-text">${examService.calculateExamAverage(creatorExams)}</p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">Best Exam</h5>
+                 <p class="second-text">
+                 ${bestExam.exam.title}  - ${bestExam.average}
+                 </p>
+            </div>
+            <div class="stat">
+                <h5 class="main-text">Best Exam</h5>
+                 <p class="second-text">
+                 ${worstExam.exam.title}  - ${worstExam.average}
+                 </p>
             </div>
     `;
 
