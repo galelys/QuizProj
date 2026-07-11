@@ -9,7 +9,11 @@ import { User } from "../../../js/models/user.js";
 const examService = new ExamService();
 const examUI = new ExamUI(examService);
 const userService = new UserService();
-const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+// If nobody is signed in, send them to the login page instead of crashing.
+if (!activeUser) {
+  window.location.href = "../../auth/login.html";
+}
 const user = userService.findUserById(activeUser.id);
 /*
 const userService = new UserService();
