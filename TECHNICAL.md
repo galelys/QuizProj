@@ -1,7 +1,7 @@
 # QuizProj — Technical Document
 
 Client-side **Exam Builder, Runner & Statistics** system for a Web Development course.
-Authors: **Gal Elisha (324052133)** and **Yasmin Shapochkin**.
+Authors: **Gal Elisha** and **Yasmin Shapochkin**.
 
 The whole application runs **in the browser only** — there is no server and no database.
 All data is persisted in the browser's **`localStorage`** as JSON. The project is built on the
@@ -16,14 +16,7 @@ three required foundations: **ES Modules**, **OOP classes**, and **JSON + localS
 | **Repository** | https://github.com/galelys/QuizProj |
 | **Main branch** | `main` |
 | **Feature branches** | Each module was developed on its own branch and merged into `main`, so every commit is a development step: `Y-LOG-IN`, `CREATE-EXAM`, `EDIT-EXAM`, `EXAMS-LIST`, `EXAM-RUN`, `STUDENT`, `TEACHER-HOME`, `LOG-OUT`, `menu-buttons`, `ui-upgrades`. |
-| **Deploy (GitHub Pages)** | `https://galelys.github.io/QuizProj/app/index.html` |
-
-**Entry point:** the real app lives under **`app/`**, starting at **`app/index.html`**.
-
-> **Serving note:** because the app uses ES Modules (`<script type="module">`), it must be served
-> over **http(s)** — opening files directly with `file://` blocks the imports. Deploy via
-> *GitHub Pages → Deploy from branch → `main` / root*; run locally with `python -m http.server`
-> or VS Code *Live Server*.
+| **Deploy (GitHub Pages)** | `https://galelys.github.io/QuizProj` |
 
 ---
 
@@ -36,7 +29,7 @@ via `nav.js` (`#menuBTNS`).
 
 | Page | File | Role |
 |------|------|------|
-| Landing | `app/index.html` | "Start" button → login. |
+| Landing | `index.html` | "Start" button → login. |
 | Login | `app/auth/login.html` | Sign in with ID + password (`UserService.login`). |
 | Register | `app/auth/register.html` | Create a user: name, id, password, role radio (`UserService.addUser`). |
 | **Teacher** Home | `app/teacher/Home/home.html` | Dashboard: exams created, average, best/worst exam. |
@@ -54,21 +47,21 @@ via `nav.js` (`#menuBTNS`).
 ```
  index.html ──"start"──► auth/login.html ◄──"register"──► auth/register.html
                               │  successful login / register (redirect ?id=)
-             ┌────────────────┴────────────────┐
-     type == "teacher"                   type == "student"
-             ▼                                   ▼
- teacher/Home/home.html                 student/Home/home.html
-   nav: Home | Exams | Create             nav: Home | Exams
-             │                                   │
-   ┌─────────┼───────────┐              ExamFind/ExamFind.html
-   ▼         ▼           ▼                       │
- create/  ExamsList/  Statistics/     ┌──────────┴───────────┐
-createExam ExamsList   ExamStats      ▼ "Start"     ▼ "View My Answers"
-             │                   ExamRunner/       ExamRunner/
-   ┌─────────┼─────────┐         ExamRunner.html   ExamResults.html
-   ▼ Edit    ▼ Run     ▼ Export        │ finish
- Edit/    ExamRunner  (.json          ├─"watch questions"─► ExamResults.html
- Edit.html            download)       └─"Return"──────────► Home
+             ┌────────────────┴────────────────────────┐
+     type == "teacher"                                   type == "student"
+             ▼                                                  ▼
+ teacher/Home/home.html                                 student/Home/home.html
+   nav: Home | Exams | Create                             nav: Home | Exams
+             │                                                   │
+   ┌─────────┼───────────┐                              ExamFind/ExamFind.html
+   ▼         ▼           ▼                                       │
+ create/  ExamsList/  Statistics/                     ┌──────────┴───────────┐
+createExam ExamsList   ExamStats                      ▼ "Start"     ▼ "View My Answers"
+             │                                   ExamRunner/       ExamRunner/
+   ┌─────────┼─────────┐──────────────┐                         ExamRunner.html   ExamResults.html
+   ▼ Edit    ▼ Run     ▼ Export       ▼                │ finish
+ Edit/    ExamRunner  (.json                           ├─"watch questions"─► ExamResults.html
+ Edit.html            download)                        └─"Return"──────────► Home
 ```
 
 **Rules enforced by the flow:** a student may take each exam **once** — if a saved result exists,
