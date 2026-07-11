@@ -109,7 +109,7 @@ function displayAverageGrade(results) {
     const average = sum / results.length;
 
     // Display average rounded to 2 decimal places
-    averageElement.textContent = average.toFixed(2) + "%";
+    averageElement.textContent = average.toFixed(2);
 }
 
 function goToSearchExams() {
