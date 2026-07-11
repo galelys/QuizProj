@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveQuestion() {
     // Read current question values
     const questionText = document.getElementById("questionText").value.trim();
-    const correctAnswerNumber = Number(correctAnswerInput.value) -1;
+    const correctAnswerNumber = Number(correctAnswerInput.value) - 1;
 
     const questionDiff = Number(
       document.getElementById("questionDiff").value
@@ -99,7 +99,17 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
     // Current question being edited.
-    let index = localStorage.getItem('currentQuestionIndex');
+    const index = Number(
+      localStorage.getItem("currentQuestionIndex")
+    );
+
+    if (!Number.isInteger(index) || index < 0) {
+      examUI.showBuilderMessage(
+        "Invalid question index.",
+        "danger"
+      );
+      return;
+    }
     // ----- Validation -----
     if (!questionText) {
       examUI.showBuilderMessage("Please enter question text.", "danger");
@@ -117,14 +127,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ----- Save -----
+    let selectedIndex;
+
     if (isNewQuestion) {
       // Add a brand-new question to the exam
       exam.addQuestion(question);
+
+      // The new question is now the last question in the array
+      selectedIndex = exam.getQuestionCount() - 1;
+
       // Switch back to edit mode
       isNewQuestion = false;
     } else {
       // Update the currently selected question
       exam.updateQuestion(index, question);
+      selectedIndex = index;
     }
     examUI.showBuilderMessage(
       `Question added. Current exam has ${exam.getQuestionCount()} question(s).`,
@@ -134,49 +151,52 @@ document.addEventListener('DOMContentLoaded', function () {
     examService.saveExam(exam);
 
     // Refresh the question selector and editor
-    examUI.renderQuestionSelect(exam, index);
-    examUI.renderQuestion(exam, index);
+    localStorage.setItem("currentQuestionIndex", selectedIndex);
+
+    examUI.renderQuestionSelect(exam, selectedIndex);
+
+    examUI.renderQuestion(exam, selectedIndex);
   }
 
   /**
    * Deletes the currently selected question.
    */
   deleteBTN.addEventListener("click", () => {
-  const index = Number(
-    localStorage.getItem("currentQuestionIndex")
-  );
-
-  exam.removeQuestion(index);
-  examService.saveExam(exam);
-
-  // If no questions remain, clear the editor
-  if (exam.getQuestionCount() === 0) {
-    localStorage.removeItem("currentQuestionIndex");
-    examUI.renderQuestionSelect(exam);
-    examUI.renderEmptyQuestion();
-
-    examUI.showBuilderMessage(
-      "The exam has no questions.",
-      "warning"
+    const index = Number(
+      localStorage.getItem("currentQuestionIndex")
     );
 
-    return;
-  }
+    exam.removeQuestion(index);
+    examService.saveExam(exam);
 
-  // If the last question was deleted, select the new last question
-  const nextIndex = Math.min(
-    index,
-    exam.getQuestionCount() - 1
-  );
+    // If no questions remain, clear the editor
+    if (exam.getQuestionCount() === 0) {
+      localStorage.removeItem("currentQuestionIndex");
+      examUI.renderQuestionSelect(exam);
+      examUI.renderEmptyQuestion();
 
-  localStorage.setItem(
-    "currentQuestionIndex",
-    nextIndex
-  );
+      examUI.showBuilderMessage(
+        "The exam has no questions.",
+        "warning"
+      );
 
-  examUI.renderQuestionSelect(exam, nextIndex);
-  examUI.renderQuestion(exam, nextIndex);
-});
+      return;
+    }
+
+    // If the last question was deleted, select the new last question
+    const nextIndex = Math.min(
+      index,
+      exam.getQuestionCount() - 1
+    );
+
+    localStorage.setItem(
+      "currentQuestionIndex",
+      nextIndex
+    );
+
+    examUI.renderQuestionSelect(exam, nextIndex);
+    examUI.renderQuestion(exam, nextIndex);
+  });
 
   /**
    * Clears the editor so the user can create a new question.
