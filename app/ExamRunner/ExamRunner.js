@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // The callback runs only when the student actually finishes the exam
     // (submit or time up), so `results` is guaranteed to be populated.
     examUI.renderExamRunner(exam, (results) => {
-        if (user.type != "") {
+        if (user.type == "student") {
             results.userID = user.id;
-            results.examId = examID;
+            results.examID = examID;
 
             // Record the attempt on the exam (feeds the teacher's average).
             exam.updateStats(results);
