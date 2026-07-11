@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Search and clear buttons
     let searchBtn = document.getElementById("searchBTN");
     let clearBTN = document.getElementById("clearBTN");
-    let backHomeBTN = document.getElementById("backHomeBTN");
 
     // allows the user to trigger search by pressing Enter
     document.addEventListener("keydown", (event) => {
@@ -36,9 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // attach button actions
     searchBtn.addEventListener("click", search);
     clearBTN.addEventListener("click", clear);
-    backHomeBTN.addEventListener("click", () => {
-        window.location.href = "../Home/home.html";
-    });
+
 
     // re-filter whenever the category dropdown changes
     let categoryFilter = document.getElementById("categoryFilter");
