@@ -476,6 +476,9 @@ renderExamRunner(exam, onFinish) {
     timerInterval = setInterval(() => { updateTimer(); }, 1000);
 
   }
+  else{
+    document.getElementById("timerText").textContent =`UNLIMITED`;
+  }
 
   function renderQuestionExam() {
     const question = exam.questions[questionIndex];
