@@ -101,10 +101,10 @@ saveExamBtn.addEventListener("click", () => {
 });
 
 examListElement.addEventListener("click", event => {
-  const examId = event.target.dataset.id;
+  const examID = event.target.dataset.id;
 
   if (event.target.classList.contains("run-btn")) {
-    const exam = examService.getExamById(examId);
+    const exam = examService.getExamById(examID);
 
     examUI.renderExamRunner(exam);
   }
@@ -116,7 +116,7 @@ examListElement.addEventListener("click", event => {
       return;
     }
 
-    examService.deleteExam(examId);
+    examService.deleteExam(examID);
 
     examUI.renderExamList();
   }

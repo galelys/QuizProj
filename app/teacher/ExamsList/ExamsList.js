@@ -87,13 +87,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     examListElement.addEventListener("click", event => {
         // Retrieve the exam ID stored in the clicked button.
-        const examId = event.target.dataset.id;
+        const examID = event.target.dataset.id;
 
         //  run the exam button //
         if (event.target.classList.contains("run-btn")) {
-            const exam = examService.getExamById(examId);
+            const exam = examService.getExamById(examID);
             // Save selected exam ID into local storage so the next page can load it
-            localStorage.setItem("examID", examId);
+            localStorage.setItem("examID", examID);
             window.location.href = "../../ExamRunner/ExamRunner.html";
 
 
@@ -101,10 +101,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // the edit button //
         if (event.target.classList.contains("edit-btn")) {
-            const exam = examService.getExamById(examId);
+            const exam = examService.getExamById(examID);
 
             // Save selected exam ID into local storage so the next page can load it
-            localStorage.setItem("examID", examId);
+            localStorage.setItem("examID", examID);
             window.location.href = "../Edit/Edit.html";
 
             //examUI.renderExamRunner(exam);
@@ -118,14 +118,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             // Remove exam from storage
-            examService.deleteExam(examId);
+            examService.deleteExam(examID);
             // Refresh displayed list
             examUI.renderExamList("teacher");
         }
 
         // the export exam button //
         if (event.target.classList.contains("export-btn")) {
-            const exam = examService.getExamById(examId);
+            const exam = examService.getExamById(examID);
             // Convert exam object into JSON file.
             exportExam(exam)
         }

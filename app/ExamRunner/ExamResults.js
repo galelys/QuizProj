@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // most recent attempt saved right after finishing the exam.
     const history = Array.isArray(user?.examsResults) ? user.examsResults : [];
     let results = history.find(
-        r => r.examId === examID || r.examID === examID
+        r => r.examID === examID
     );
 
     if (!results) {

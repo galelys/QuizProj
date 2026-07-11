@@ -283,7 +283,7 @@ export class ExamUI {
 
     exams.forEach(exam => {
       const completedResult = examResults.find(
-        result => result.examId === exam.id || result.examID === exam.id
+        result => result.examID === exam.id
       );
 
       const div = document.createElement("div");

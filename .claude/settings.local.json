@@ -6,7 +6,8 @@
       "Bash(sed -i '1d' imp.mjs)",
       "Bash(node imp.mjs)",
       "Bash(node --check js/ui/ExamUI.js)",
-      "Bash(node --check app/ExamRunner/ExamResults.js)"
+      "Bash(node --check app/ExamRunner/ExamResults.js)",
+      "Bash(node --check app/ExamRunner/ExamRunner.js)"
     ]
   }
 }
