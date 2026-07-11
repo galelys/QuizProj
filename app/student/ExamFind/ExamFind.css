@@ -1,0 +1,67 @@
+.container{
+    padding: 50px ;
+}
+
+.mainCard{
+    padding: 20px;
+
+}
+.exam-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+
+.run-btn{
+    background-color: rgb(172, 240, 192);
+}
+
+.edit-btn{
+    background-color: rgb(240, 228, 172);
+
+}
+
+.delete-btn{
+    background-color: rgb(255, 127, 127);
+
+}
+
+body.dark-mode .run-btn{
+    background-color: #305848;
+    color: #6d9786;
+}
+
+body.dark-mode .edit-btn{
+    background-color: #808053;
+    color: #bcc48e;
+
+}
+
+body.dark-mode .delete-btn{
+    background-color: rgb(100, 26, 26);
+    color: #c48e8e;
+
+}
+
+input{
+    height: 28px;
+}
+
+#examList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.container-fluid{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;
+}
+
+.toolbar {
+    padding: 30px;
+}

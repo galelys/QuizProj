@@ -41,10 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calculate and display average grade
     displayAverageGrade(examService, user.id);
 
-    //search exam button
-    const searchExamsButton = document.getElementById("searchExamsBTN");
-    // Add click event that opens the exam search page
-    searchExamsButton.addEventListener("click", goToSearchExams);
+
 });
 
 // Display completed exams list //
