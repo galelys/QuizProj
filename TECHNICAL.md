@@ -190,15 +190,15 @@ reads such a file and rebuilds it as a fresh exam (new ids, so it never overwrit
 │ + getQuestionCount(): number │        ├──────────────────────────────┤
 │ + addCategory / addTimeLimit │        │ + id, name, password         │
 └──────────────────────────────┘        │ + type: "teacher"|"student"  │
-                                         │ + examsResults: Result[]     │
-                                         │ + examsCreated: string[]     │
-                                         ├──────────────────────────────┤
-                                         │ + checkPassword(pw): bool    │
-                                         │ + getUserName / getUserType  │
-                                         │ + addExamResults(result)     │
-                                         │ + addExamCreation(examID)    │
-                                         │ + getExamsCreatedCount()     │
-                                         └──────────────────────────────┘
+                                        │ + examsResults: Result[]     │
+                                        │ + examsCreated: string[]     │
+                                        ├──────────────────────────────┤
+                                        │ + checkPassword(pw): bool    │
+                                        │ + getUserName / getUserType  │
+                                        │ + addExamResults(result)     │
+                                        │ + addExamCreation(examID)    │
+                                        │ + getExamsCreatedCount()     │
+                                        └──────────────────────────────┘
 ```
 
 ### 4.2 Services & UI
@@ -207,27 +207,27 @@ reads such a file and rebuilds it as a fresh exam (new ids, so it never overwrit
 ┌───────────────────────────────────────────┐   ┌──────────────────────────────────┐
 │ ExamService   → localStorage["exams"]     │   │ UserService → …["users"]         │
 ├───────────────────────────────────────────┤   ├──────────────────────────────────┤
-│ + getAllExams(): Exam[]      (re-hydrate)  │   │ + addUser(user): bool            │
-│ + saveExam(exam) / deleteExam(id)          │   │ + findUserById(id): User|null    │
-│ + getExamById(id): Exam                    │   │ + findUserByName(name): User|null│
-│ + getExamsByCategory / getExamByCreatorId  │   │ + login(id, pw): User|null       │
-│ + createExamSnapshot(exam)                 │   │ + saveUser(user)                 │
-│ + calculateExamAverage / …RunCount /       │   │ + removeExamResultsFromAll…(id)  │
-│   …TimeAverage / getBest/WorstExam         │   └──────────────────────────────────┘
-│ + getCategories() / clearAllExams()        │
+│ + getAllExams(): Exam[]      (re-hydrate) │   │ + addUser(user): bool            │
+│ + saveExam(exam) / deleteExam(id)         │   │ + findUserById(id): User|null    │
+│ + getExamById(id): Exam                   │   │ + findUserByName(name): User|null│
+│ + getExamsByCategory / getExamByCreatorId │   │ + login(id, pw): User|null       │
+│ + createExamSnapshot(exam)                │   │ + saveUser(user)                 │
+│ + calculateExamAverage / …RunCount /      │   │ + removeExamResultsFromAll…(id)  │
+│   …TimeAverage / getBest/WorstExam        │   └──────────────────────────────────┘
+│ + getCategories() / clearAllExams()       │
 └───────────────────────────────────────────┘   ┌──────────────────────────────────┐
-                                                 │ ExamUI  (owns DOM; uses          │
-                                                 │          ExamService)            │
-                                                 ├──────────────────────────────────┤
- theme.js (module)                               │ + renderExamList(userType)       │
- ─────────────────                               │ + renderExamListSearch…(exams)   │
- + initThemeToggle()   ← reads/writes "theme"    │ + sorterList(val, userType)      │
-                                                 │ + renderExamRunner(exam, onFinish│
-                                                 │ + checkExam(exam, results)       │
-                                                 │ + renderExamResults(exam,results)│
-                                                 │ + renderExamEdit / renderQuestion│
-                                                 │ + showExamCategories / messages  │
-                                                 └──────────────────────────────────┘
+                                                │ ExamUI  (owns DOM; uses          │
+                                                │          ExamService)            │
+                                                ├──────────────────────────────────┤
+ theme.js (module)                              │ + renderExamList(userType)       │
+ ─────────────────                              │ + renderExamListSearch…(exams)   │
+ + initThemeToggle()   ← reads/writes "theme"   │ + sorterList(val, userType)      │
+                                                │ + renderExamRunner(exam,onFinish)│
+                                                │ + checkExam(exam, results)       │
+                                                │ + renderExamResults(exam,results)│
+                                                │ + renderExamEdit / renderQuestion│
+                                                │ + showExamCategories / messages  │
+                                                └──────────────────────────────────┘
 ```
 
 **Design principle:** models hold data + behaviour; **services** own persistence (localStorage);
