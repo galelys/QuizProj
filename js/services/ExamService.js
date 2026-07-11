@@ -119,28 +119,29 @@ export class ExamService {
 
     }
 
-    calculateExamAverage(exams) {
-        // Average percentage score across every recorded attempt of these exams.
-        // Each exam holds its attempts in `stats`; each attempt has a raw `score`
-        // (number of correct answers), converted to a percentage of the exam length.
+    calculateExamAverage(exams,userID = null) {
+        // Calculates the average percentage score across all recorded attempts.
+        // Each exam stores its attempts in `stats`.
+        // Every attempt contains the student's earned score (`score`) and the
+        // maximum possible score (`examMaxScore`), which are used to calculate
+        // the percentage grade.
+
         let total = 0;
         let attempts = 0;
 
         exams.forEach(exam => {
-            const questionCount = exam.questions.length;
-            if (questionCount === 0) {
-                return;
-            }
             (exam.stats || []).forEach(stat => {
+
+                if (userID && stat.userID !== userID) {
+                    return;
+                }
+
                 total += (stat.score / stat.examMaxScore) * 100;
                 attempts++;
             });
         });
 
-        if (attempts === 0) {
-            return 0;
-        }
-
-        return Math.round(total / attempts);
+        return attempts === 0 ? 0 : Math.round(total / attempts);
     }
 }
+

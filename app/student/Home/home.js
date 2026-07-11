@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Display all completed exams
-    displayCompletedExams(results,examService);
+    displayCompletedExams(results, examService);
     // Display previous exam grades
-    displayPreviousGrades(results,examService);
+    displayPreviousGrades(results, examService);
     // Calculate and display average grade
-    displayAverageGrade(results);
+    displayAverageGrade(examService, user.id);
 
     //search exam button
     const searchExamsButton = document.getElementById("searchExamsBTN");
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Display completed exams list //
-function displayCompletedExams(results,examService) {
+function displayCompletedExams(results, examService) {
     const list = document.getElementById("completedExamsList");
 
     list.innerHTML = "";
@@ -72,7 +72,7 @@ function displayCompletedExams(results,examService) {
 }
 
 /* Display previous exam grades*/
-function displayPreviousGrades(results,examService) {
+function displayPreviousGrades(results, examService) {
     const list = document.getElementById("gradesList");
 
     list.innerHTML = "";
@@ -84,7 +84,7 @@ function displayPreviousGrades(results,examService) {
     // Add every exam and its grade to the list
     results.forEach(result => {
         const exam = examService.getExamById(result.examID);
-        
+
         const grade = Math.round(
 
             (result.score / result.examMaxScore) * 100
@@ -101,26 +101,20 @@ function displayPreviousGrades(results,examService) {
 }
 
 /* Calculate student's average grade */
-function displayAverageGrade(results) {
-    // Element where the average will be displayed
-    const averageElement = document.getElementById("averageGrade");
+function displayAverageGrade(examService, userID) {
+    const averageElement =
+        document.getElementById("averageGrade");
 
-    if (results.length === 0) {
+    const exams = examService.getAllExams();
+
+    const average =
+        examService.calculateExamAverage(exams, userID);
+
+    if (average === null) {
         averageElement.textContent = "No grades yet.";
         return;
     }
-    // Calculate total percentage
 
-    let sum = 0;
-
-    results.forEach(result => {
-        const grade = (result.score / result.examMaxScore) * 100;
-        sum += grade;
-    });
-
-    const average = sum / results.length;
-
-    // Display average rounded to 2 decimal places
     averageElement.textContent = average.toFixed(2);
 }
 
