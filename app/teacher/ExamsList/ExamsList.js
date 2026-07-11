@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Remove exam from storage
             examService.deleteExam(examID);
             //remove the exam for all users
-            userService.removeExamResultsFromAllUsers(examId);
+            userService.removeExamResultsFromAllUsers(examID);
             // Refresh displayed list
             examUI.renderExamList("teacher");
         }
