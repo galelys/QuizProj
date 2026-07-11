@@ -146,7 +146,7 @@ export class ExamUI {
     const exams = this.examService.getAllExams();
     // find by TITLE
     let results = exams.filter(exam =>
-      exam.title.includes(val)
+      exam.title.includes(val) ||  exam.id.includes(val)
     );
 
     this.renderExamListSearchTeacher(results);
