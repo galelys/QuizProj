@@ -8,10 +8,10 @@ let menuButton = document.getElementById('menuBTNS');
 
 // Create the navigation menu dynamically
 menuButton.innerHTML = ` 
-        <button id="createBTN" class="base-btn">Create</button>
-        <button id="ExamsListBTN" class="base-btn">Exams</button>
-        <button id="homeBTN" class="base-btn" >Home</button>
-        <button id="logOutBTN" class="base-btn red-btn">Log Out</button>
+                <button id="homeBTN" class="base-btn" >Home</button>
+                <button id="ExamsListBTN" class="base-btn">Exams</button> 
+                <button id="createBTN" class="base-btn">Create</button>
+                <button id="logOutBTN" class="base-btn red-btn">Log Out</button>
         `
     ;
 

@@ -143,29 +143,27 @@ export class ExamService {
         return attempts;
     }
 
-    calculateExamAverage(exams) {
+    calculateExamAverage(exams, userID = null) {
         // Average percentage score across every recorded attempt of these exams.
         // Each exam holds its attempts in `stats`; each attempt has a raw `score`
         // (number of correct answers), converted to a percentage of the exam length.
+        // When `userID` is given, only that student's attempts are counted.
         let total = 0;
         let attempts = 0;
 
         exams.forEach(exam => {
-            const questionCount = exam.questions.length;
-            if (questionCount === 0) {
-                return;
-            }
             (exam.stats || []).forEach(stat => {
+
+                if (userID && stat.userID !== userID) {
+                    return;
+                }
+
                 total += (stat.score / stat.examMaxScore) * 100;
                 attempts++;
             });
         });
 
-        if (attempts === 0) {
-            return 0;
-        }
-
-        return Math.round(total / attempts);
+        return attempts === 0 ? 0 : Math.round(total / attempts);
     }
 
     calculateExamTimeAverage(exams) {
@@ -249,3 +247,4 @@ export class ExamService {
         return { exam: worstExam, average: worstAverage };
     }
 }
+
