@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Display all pending exams
-    displayPendingExams( examService);
+    displayPendingExams( examService,results);
     // Display previous exam grades
     displayPreviousGrades(results, examService);
     // Calculate and display average grade
@@ -47,22 +47,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Display pending exams list //
-function displayPendingExams( examService) {
+function displayPendingExams( examService,results) {
     const list = document.getElementById("completedExamsList");
     let exams = examService.getAllExams();
 
     list.innerHTML = "";
 
+    const completedExamIDs = new Set(
+
+        results.map(result => result.examID)
+
+    );
+
+    const pendingExams = exams.filter(
+
+        exam => !completedExamIDs.has(exam.id)
+
+    );
+
     //if not completed exams the array is empty
-    if (exams.length === 0) {
+    if (pendingExams.length === 0) {
         list.innerHTML = "<li>No pending exams yet.</li>";
         return;
     }
 
     // Create a list item for every completed exam
-    exams.forEach(exam => {
+    pendingExams.forEach(exam => {
         const item = document.createElement("li");
-        item.textContent = exam ? exam.title : "gg";
+        item.textContent = exam ? exam.title : "Unknown";
 
         list.appendChild(item);
     });
