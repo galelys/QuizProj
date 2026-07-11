@@ -388,6 +388,10 @@ renderExamListSearchStudent(exams) {
   */
 renderExamRunner(exam, onFinish) {
   let results = {};
+  // Wall-clock start of the attempt. Used to record how long the student
+  // actually spent (`timeTaken`, in seconds) — works for both timed and
+  // unlimited exams, and feeds the teacher's "average test taking" stat.
+  const startTime = Date.now();
   // Called when the exam is actually finished (submit or time up),
   // so the caller can save stats/results at the right moment.
   this.onFinish = onFinish;
@@ -467,6 +471,7 @@ renderExamRunner(exam, onFinish) {
       userAnswers[questionIndex] = selected ? Number(selected.value) : -1;
 
       results.timeLeft = timeLeft;
+      results.timeTaken = Math.round((Date.now() - startTime) / 1000);
 
       results.userAnswers = userAnswers;
 
@@ -555,6 +560,7 @@ renderExamRunner(exam, onFinish) {
     if (!selected) { userAnswers[questionIndex] = -1; }
     else { userAnswers[questionIndex] = Number(selected.value); }
     results.timeLeft = timeLeft;
+    results.timeTaken = Math.round((Date.now() - startTime) / 1000);
     clearInterval(timerInterval);
 
     results.userAnswers = userAnswers;

@@ -19,7 +19,9 @@
       "Bash(echo \"--- commit exit: $? ---\")",
       "Skill(artifact-design)",
       "Artifact",
-      "Bash(node --check app/teacher/ExamsList/ExamsList.js)"
+      "Bash(node --check app/teacher/ExamsList/ExamsList.js)",
+      "Bash(node --check /mnt/c/Users/yasmi/OneDrive/Desktop/QuizProj/QuizProj/js/ui/ExamUI.js)",
+      "Bash(node --check /mnt/c/Users/yasmi/OneDrive/Desktop/QuizProj/QuizProj/js/services/ExamService.js)"
     ]
   }
 }

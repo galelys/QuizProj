@@ -186,15 +186,20 @@ export class ExamService {
 
             (exam.stats || []).forEach(stat => {
 
-                totalTime += stat.timeTaken;
-                attempts++;
+                // Only count attempts that actually recorded a duration.
+                // Older attempts saved before time tracking existed have no
+                // numeric `timeTaken`; including them would give NaN:NaN.
+                if (typeof stat.timeTaken === "number" && !isNaN(stat.timeTaken)) {
+                    totalTime += stat.timeTaken;
+                    attempts++;
+                }
 
             });
 
         });
 
 
-        // No attempts yet
+        // No attempts with a recorded duration yet
         if (attempts === 0) {
             return "No stats yet";
         }
