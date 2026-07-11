@@ -44,24 +44,43 @@ via `nav.js` (`#menuBTNS`).
 
 ### Navigation map
 
+**Auth**
 ```
  index.html ──"start"──► auth/login.html ◄──"register"──► auth/register.html
-                              │  successful login / register (redirect ?id=)
-             ┌────────────────┴────────────────────────┐
-     type == "teacher"                                   type == "student"
-             ▼                                                  ▼
- teacher/Home/home.html                                 student/Home/home.html
-   nav: Home | Exams | Create                             nav: Home | Exams
-             │                                                   │
-   ┌─────────┼───────────┐                              ExamFind/ExamFind.html
-   ▼         ▼           ▼                                       │
- create/  ExamsList/  Statistics/                     ┌──────────┴───────────┐
-createExam ExamsList   ExamStats                      ▼ "Start"     ▼ "View My Answers"
-             │                                   ExamRunner/       ExamRunner/
-   ┌─────────┼─────────┐──────────────┐                         ExamRunner.html   ExamResults.html
-   ▼ Edit    ▼ Run     ▼ Export       ▼                │ finish
- Edit/    ExamRunner  (.json                           ├─"watch questions"─► ExamResults.html
- Edit.html            download)                        └─"Return"──────────► Home
+                              │
+                              │  successful login / register  (redirect ?id=)
+                 ┌────────────┴────────────┐
+        type == "teacher"          type == "student"
+                 ▼                         ▼
+       teacher/Home/home.html     student/Home/home.html
+```
+
+**Teacher**  ── nav: `Home | Exams | Create | Log Out`
+```
+ teacher/Home/home.html
+        │
+        ├─ "Create" ─► teacher/create/createExam.html        (build / import an exam)
+        │
+        └─ "Exams"  ─► teacher/ExamsList/ExamsList.html
+                          one card per exam, buttons:
+                            ├─ "Run"        ─► ExamRunner/ExamRunner.html
+                            ├─ "Edit"       ─► teacher/Edit/Edit.html
+                            ├─ "Delete"     ─► removes the exam, re-renders the list
+                            ├─ "Export"     ─► downloads <title>.json
+                            └─ "Statistics" ─► teacher/Statistics/ExamStats.html
+```
+
+**Student**  ── nav: `Home | Exams | Log Out`
+```
+ student/Home/home.html
+        │
+        └─ "Exams" ─► student/ExamFind/ExamFind.html
+                         one card per exam, buttons:
+                           ├─ "Start Exam"      ─► ExamRunner/ExamRunner.html
+                           │                         │ on finish:
+                           │                         ├─ "watch questions" ─► ExamRunner/ExamResults.html
+                           │                         └─ "Return"          ─► student/Home/home.html
+                           └─ "View My Answers" ─► ExamRunner/ExamResults.html   (already taken)
 ```
 
 **Rules enforced by the flow:** a student may take each exam **once** — if a saved result exists,
@@ -333,5 +352,3 @@ class to `<body>`, and toggles + persists the choice on the Dark/Light button.
 - **JSON + `localStorage`** for all persistence (no backend).
 - **`crypto.randomUUID()`** for ids; **Blob + object URL** for JSON export/import.
 - Custom CSS with a **dark-mode** theme (`css/baseStyle.css`).
-</content>
-</invoke>
