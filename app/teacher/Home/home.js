@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="second-text">${user.getExamsCreatedCount()}</p>
             </div>
             <div class="stat">
-                <h5 class="main-text">currently avalable tests</h5>
+                <h5 class="main-text">currently available tests</h5>
                 <p class="second-text">${examService.getExamCountByCreatorId(user.id)}</p>
             </div>
             <div class="stat">
